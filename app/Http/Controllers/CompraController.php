@@ -38,6 +38,8 @@ class CompraController extends Controller
             $arrpc = json_decode($request->arrpc);
             $compr = New Compra();
             $compr->idPv = $request->proveed;
+            $compr->cNFactura = $request->nfactura;
+            $compr->cIgv = $request->igv;
             $compr->cFecCrea = UtilController::fecha();
             $compr->cUsuReg = Auth::user()->id;
             $compr->cEst = 1;

@@ -88,10 +88,7 @@
                                         <req>*</req>
                                     </label>
                                     <select class="form-control form-control-sm" id="tipdoccl">
-                                        <option selected value="0">SELECCIONE</option>
-                                        <option value="1">DNI</option>
-                                        <option value="2">CARNET EXTRANJERIA</option>
-                                        <option value="3">OTROS</option>
+
                                     </select>
                                     <div id="validtipodoccl"></div>
                                 </div>
@@ -152,7 +149,7 @@
                                 <hr>
 
                             </div>
-                            <legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse py-3">DATOS UBICACION DNI
+                            <legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse py-3">DATOS UBICACION
 
                             </legend>
                             <hr>
@@ -191,7 +188,7 @@
                                     <input id="centocl" class="form-control form-control-sm" type="text" disabled>
                                     <div class="hide " id="valcentocl"></div>
                                 </div>
-                                <div class="col-xl-6 ">
+                                <div class="col-xl-6 col-sm-6 col-xs-6">
                                     <label for="dircl">DIRECCION
                                     </label>
                                     <input id="dircl" type="text" class="form-control form-control-sm"
@@ -396,7 +393,7 @@
                                     <input id="centocledit" class="form-control form-control-sm" type="text" disabled>
                                     <div class="hide " id="valcentocledit"></div>
                                 </div>
-                                <div class="col-xl-6 ">
+                                <div class="col-xl-6 col-sm-6 col-xs-6">
                                     <label for="dircledit">DIRECCION
                                     </label>
                                     <input id="dircledit" type="text" class="form-control form-control-sm"

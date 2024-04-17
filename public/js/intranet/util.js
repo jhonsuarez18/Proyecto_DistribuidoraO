@@ -583,21 +583,33 @@ function validarDniExpres(buton, dnii, tipdocc, val) {
         }
     } else {
         if (tipdoc === '2') {
-            expres = /^[0-9]{12}$/;
+            expres = /^[0-9]{11}$/;
             if (expres.test(dni)) {
                 validarCaja(dnii, val, 'correcto', 1);
                 $('#' + buton).prop('disabled', false);
             } else {
                 cont++;
-                text = 'Carnet de estranjeria incorrecto, vuelva a ingresar el carnet';
+                text = 'Ruc incorrecto, vuelva a ingresar el Ruc';
                 validarCaja(dnii, val, text, 0);
                 $('#' + buton).prop('disabled', true);
+            }
+        }else{
+            if (tipdoc === '3') {
+                expres = /^[0-9]{12}$/;
+                if (expres.test(dni)) {
+                    validarCaja(dnii, val, 'correcto', 1);
+                    $('#' + buton).prop('disabled', false);
+                } else {
+                    cont++;
+                    text = 'Carnet de estranjeria incorrecto, vuelva a ingresar el carnet';
+                    validarCaja(dnii, val, text, 0);
+                    $('#' + buton).prop('disabled', true);
+                }
             }
         }
     }
     return cont;
 }
-
 
 function getFechaUt(fec) {
     $('#' + fec).datepicker({

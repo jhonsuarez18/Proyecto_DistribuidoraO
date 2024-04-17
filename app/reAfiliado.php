@@ -20,4 +20,14 @@ class reAfiliado extends Model
             ->where('af.afi_estado', '=',0)
             ->first();
     }
+    public static function getAfiliadoDniNomb($dni,$nomb)
+    {
+        return DB::table('re_afiliados as af')->select('af.afi_DNI as dni','dt.descripcion as distrito',
+            DB::raw('concat(af.afi_appaterno," ",af.afi_apmaterno," , ",af.afi_nombres ) as beneficiario'))
+            ->join('distrito as dt', 'dt.codigo', '=', 'af.afi_idubigeo')
+            ->where('af.afi_dni', 'LIKE',"%$dni")
+            ->where('af.afi_nombres', 'LIKE',"%$nomb%")
+            //->where('af.afi_estado', '=',0)
+            ->get();
+    }
 }

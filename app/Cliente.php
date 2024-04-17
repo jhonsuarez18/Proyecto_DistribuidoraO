@@ -14,12 +14,12 @@ class Cliente extends Model
     public static function getClientes()
     {
         return $query=DB::table('cliente as cl')
-            ->select('cl.clId','pe.numeroDoc',
-                'cl.clEst','pe.telefono','ds.codigo as coddist','dis.codigo',
+            ->select('cl.clId','pe.peNumeroDoc',
+                'cl.clEst','pe.peTelefono','ds.codigo as coddist','dis.codigo',
                 DB::raw('LPAD(cl.clId,"5",0) as codcli'),
                 DB::raw("DATE_FORMAT(cl.clFecCrea,'%d-%m-%Y') as clFecCrea"),
-                DB::raw('concat(pe.apPaterno," ",pe.apMaterno,", ",pe.pNombre," ",ifnull(pe.sNombre,"")) as person'))
-            ->join('persona as pe','pe.idPersona','=','cl.idPersona')
+                DB::raw('concat(pe.peAPPaterno," ",pe.peAPMaterno,", ",pe.pePNombre," ",ifnull(pe.peSNombre,"")) as person'))
+            ->join('persona as pe','pe.peId','=','cl.idPersona')
             ->leftjoin('centropoblado_distrito as cpd', 'cpd.cPDId', '=', 'pe.cPDId')
             ->leftjoin('distrito as ds', 'ds.idDistrito', '=', 'cpd.idDistrito')
             ->leftjoin('distrito as dis', 'dis.idDistrito', '=', 'pe.idDistrito')

@@ -13,7 +13,7 @@ class CreateClientesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cliente', function (Blueprint $table) {
+        /*Schema::create('cliente', function (Blueprint $table) {
             $table->collate = 'latin1_spanish_ci';
             $table->bigIncrements('clId');
             $table->unsignedBigInteger('idPersona');
@@ -24,7 +24,7 @@ class CreateClientesTable extends Migration
         });
         Schema::table('cliente', function ($table) {
             $table->foreign('idPersona')->references('idPersona')->on('persona');
-        });
+        });*/
     }
 
     /**

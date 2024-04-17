@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\reAfiliado;
 use App\rePacTipSeg;
+use Yajra\DataTables\DataTables;
 
 class ReAfiliadoController extends Controller
 {
@@ -98,5 +99,8 @@ class ReAfiliadoController extends Controller
             return response()->json(array('error' => $e->getMessage()));
         }
 
+    }
+    public function getbenefi($dni,$nomb){
+        return datatables::of(reAfiliado::getAfiliadoDniNomb($dni,$nomb))->make(true);
     }
 }

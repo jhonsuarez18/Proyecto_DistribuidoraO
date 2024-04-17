@@ -28,9 +28,10 @@ class Producto extends Model
     {
         return DB::table('producto as p')
             ->select('p.pId as pCod', 'tp.tpDesc','m.mDesc','ps.psDesc',
-                DB::raw("concat(tp.tpDesc,'  ',m.mDesc,'  ',ps.psDesc) AS product"),
+                DB::raw("concat(tp.tpDesc,'  ',m.mDesc,'  ',ps.psDesc,' ',p.pContenido,' ',um.umDesc) AS product"),
                 'p.pPrecioC','p.pPrecioV','p.pStock', 'p.pEst')
             ->leftjoin('tip_producto as tp', 'tp.tpId', '=', 'p.idTp')
+            ->leftjoin('unidad_medida as um', 'um.umId', '=', 'tp.idUm')
             ->leftjoin('marca as m', 'm.mId', '=', 'p.idM')
             ->leftjoin('presentacion as ps', 'ps.psId', '=', 'p.idPs')
             ->orderBy('p.pId', 'asc')

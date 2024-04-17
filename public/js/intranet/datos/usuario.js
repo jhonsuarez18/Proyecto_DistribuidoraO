@@ -1154,7 +1154,6 @@ function abrilModalEdUser(idus) {
 }
 function getEditUser(idus) {
     var url = "/getEditUs/" + idus;
-    console.log(idus);
     $.ajax(
         {
             type: "GET",
@@ -1241,7 +1240,6 @@ function validDniUser() {
         var dni = $('#dni').val();
         var url = "/referencia/getPacDni/" + dni;
         var text;
-        console.log(dni);
         $.ajax(
             {
                 type: "GET",
@@ -1253,8 +1251,6 @@ function validDniUser() {
                     if (data['error'] === 0) {
                         var usuario = data['usuario'];
                         var person = data['person'];
-                        console.log(usuario);
-                        console.log(person);
                         if (usuario!==null || person!==null  ) {
                             if(usuario!==null){
                                 $('#tipdoc').prop("disabled", true);
@@ -1375,7 +1371,6 @@ function enviarUser() {
                 var nombrecu = $('#nombrecu').val();
                 var correo = $('#emailcu').val();
                 var rol = $('#rocu').val();
-                console.log(idper,tipdoc,dni,appaterno,apmaterno,pnombre,snombre,fecnac,telefo,iddis,dir,idcenpo,nombrecu,correo,rol, sit);
                 $.ajax({
                     url: '/insertarusuario',
                     type: 'GET',

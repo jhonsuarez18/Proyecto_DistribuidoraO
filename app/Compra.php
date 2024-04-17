@@ -15,7 +15,7 @@ class Compra extends Model
     public static function obtenerCompra()
     {
         return DB::table('compra_producto as cp')
-            ->select('cp.cpId as cpCod', 'pv.pvRazonS','cp.cpCant','cp.cpPrecioC',
+            ->select('cp.cpId as cpCod','c.cNFactura','c.cIgv','pv.pvRazonS','cp.cpCant','cp.cpPrecioC',
                 DB::raw('LPAD(c.cId,"5",0) as codcomp'),
                 DB::raw("concat(m.mDesc,'  ',tp.tpDesc,'  ',ps.psDesc) AS product"),
                 DB::raw("cp.cpCant*cp.cpPrecioC AS total"),

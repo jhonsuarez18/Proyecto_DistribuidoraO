@@ -74,9 +74,13 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
                         <div class="modal-body">
+                            <legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse py-3">DATOS COMPRA
+
+                            </legend>
+                            <hr>
                             <div class="col-xl-12 col-sm-12 col-xs-12 row ">
 
-                                <div class="col-xl-4 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="proveedor"> PROVEEDOR
                                             <req>*</req>
@@ -84,10 +88,38 @@
                                         <select class="form-control form-control-sm" id="proveedor">
 
                                         </select>
-                                        <div class="hide " id="validproveedor"></div>
+                                        <div class="hide " id="valproveedor"></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
+                                    <div class="form-group-lg">
+                                        <label for="nfactura">Nº FACTURA
+                                            <req>*</req>
+                                        </label>
+                                        <input id="nfactura" type="text" class="form-control form-control-sm" autocomplete="off"
+                                               onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                        />
+                                        <div class="hide " id="valnfactura"></div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
+                                    <div class="form-group-lg">
+                                        <label for="igv">
+                                            <req>*</req>
+                                        </label>
+                                        <div class="form-check" title="Activar para incluir IGV">
+                                            <input class="form-check-input is-valid" type="checkbox" value="" id="igv">
+                                            <label class="form-check-label" for="igv">IGV</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse py-3">DATOS DETALLE COMPRA
+
+                            </legend>
+                            <hr>
+                            <div class="col-xl-12 col-sm-12 col-xs-12 row ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="producto">PRODUCTO
                                             <req>*</req>
@@ -95,21 +127,22 @@
                                         <select class="form-control form-control-sm" id="producto">
 
                                         </select>
-                                        <div class="hide " id="validproducto"></div>
+                                        <div class="hide " id="valproducto"></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 ">
+
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="precioc">PRECIO C
                                             <req>*</req>
                                         </label>
-                                        <input id="precioc" type="number" class="form-control form-control-sm" autocomplete="off"
+                                        <input id="precioc" type="text" class="form-control form-control-sm" autocomplete="off"
                                                onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
                                         />
                                         <div class="hide " id="validprecioc"></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="cant"> CANTIDAD
                                             <req>*</req>
@@ -129,6 +162,7 @@
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
+                            </div>
                                 <div class="col-xl-12 center-block">
                                     <div id="data-table-fixed-header_wrapper"
                                          class="dataTables_wrapper form-inline dt-bootstrap no-footer">
@@ -174,7 +208,6 @@
 
                                     </div>
                                 </div>
-                            </div>
 
                             <div class="col-xl-12 text-center">
                                 <hr>
@@ -221,6 +254,12 @@
                                 </th>
                                 <th>
                                     PROVEEDOR
+                                </th>
+                                <th>
+                                    N. FACTURA
+                                </th>
+                                <th>
+                                    IGV
                                 </th>
                                 <th>
                                     PRODUCTO
@@ -304,7 +343,7 @@
                                             <req>*</req>
                                         </label>
                                         <input id="ediconteni" type="number" class="form-control form-control-sm" autocomplete="off"
-                                               onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                               onkeyup="javascript:this.value=this.value.toUpperCase();"
                                         />
                                         <div class="hide " id="validediconteni"></div>
                                     </div>
@@ -315,7 +354,7 @@
                                             <req>*</req>
                                         </label>
                                         <input id="ediprecioc" type="number" class="form-control form-control-sm" autocomplete="off"
-                                               onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                               onkeyup="javascript:this.value=this.value.toUpperCase();"
                                         />
                                         <div class="hide " id="validediprecioc"></div>
                                     </div>
@@ -326,7 +365,7 @@
                                             <req>*</req>
                                         </label>
                                         <input id="edipreciov" type="number" class="form-control form-control-sm" autocomplete="off"
-                                               onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                               onkeyup="javascript:this.value=this.value.toUpperCase();"
                                         />
                                         <div class="hide " id="validedipreciov"></div>
                                     </div>
@@ -337,7 +376,7 @@
                                             <req>*</req>
                                         </label>
                                         <input id="edistock" type="number" class="form-control form-control-sm" autocomplete="off"
-                                               onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                               onkeyup="javascript:this.value=this.value.toUpperCase();"
                                         />
                                         <div class="hide " id="validedistock"></div>
                                     </div>

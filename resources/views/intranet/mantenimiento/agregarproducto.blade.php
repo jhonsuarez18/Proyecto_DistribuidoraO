@@ -153,7 +153,7 @@
                                         <label for="stock">STOCK
                                             <req>*</req>
                                         </label>
-                                        <input id="stock" type="number" class="form-control form-control-sm" autocomplete="off"
+                                        <input id="stock" value="0" type="number" class="form-control form-control-sm" autocomplete="off"
                                                onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
                                         />
                                         <div class="hide " id="validstock"></div>
@@ -240,6 +240,22 @@
                 </div>
 
             </div>
+        </div>
+        <div class="  col-sm-12 col-xs-12 col-md-12">
+            <dl class=" row dl-horizontal">
+                <div class="  col-sm-2 col-xs-2 col-md-2">
+                    <dt class="text-inverse">Leyenda para Stock:</dt>
+                </div>
+                <div class="  col-sm-10 col-xs-10 col-md-10 ">
+                    <dd><i style="color: red;" class="fas fa-lg fa-fw m-r-10 fa-circle text-danger"></i>Poco
+                    </dd>
+                    <dd><i style="color: yellow;" class="fas fa-lg fa-fw m-r-10 fa-circle"> </i>
+                        Medianamente Suficiente
+                    </dd>
+                    <dd><i style="color: orange;" class="fas fa-lg fa-fw m-r-10 fa-circle text-success"> </i>Suficiente
+                    </dd>
+                </div>
+            </dl>
         </div>
         <div class="col-xl-12 ">
             <div class="modal fade" id="modal-dialog-edit_producto">

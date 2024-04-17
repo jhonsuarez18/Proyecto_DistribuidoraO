@@ -13,10 +13,10 @@ class AddIdcPDToPersona extends Migration
      */
     public function up()
     {
-        Schema::table('persona', function (Blueprint $table) {
+        /*Schema::table('persona', function (Blueprint $table) {
             $table->unsignedBigInteger('cPDId')->after('idDistrito')->nullable();
             $table->foreign('cPDId')->references('cPDId')->on('centropoblado_distrito');
-        });
+        });*/
     }
 
     /**
@@ -26,8 +26,8 @@ class AddIdcPDToPersona extends Migration
      */
     public function down()
     {
-        Schema::table('persona', function (Blueprint $table) {
+        /*Schema::table('persona', function (Blueprint $table) {
             $table->dropForeign('persona_centropobladodistrito_id_foreign');
-        });
+        });*/
     }
 }

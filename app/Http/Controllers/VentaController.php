@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
+use GuzzleHttp\Client;
 
 class VentaController extends Controller
 {
@@ -132,5 +133,37 @@ class VentaController extends Controller
     }
     public function obtenerVenta(){
         return datatables::of(Venta::obtenerVenta())->make(true);
+    }
+    public function consulta(){
+        // Datos
+        $token = 'apis-token-8102.T8eOCgVKnAqbnBGu7--AaatEblvmWHVG';
+        $dni = '60166338';
+
+// Iniciar llamada a API
+        $curl = curl_init();
+
+// Buscar dni
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.apis.net.pe/v2/reniec/dni?numero=' . $dni,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 2,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Referer: https://apis.net.pe/consulta-dni-api',
+                'Authorization: Bearer ' . $token
+            ),
+        ));
+
+        $response = curl_exec($curl);
+         echo $response;
+        curl_close($curl);
+// Datos listos para usar
+        $persona = json_decode($response);
+        //var_dump($persona);
+
     }
 }

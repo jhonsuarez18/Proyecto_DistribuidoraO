@@ -294,7 +294,6 @@ class ClienteController extends Controller
     }
     public function getClientes(){
         try{
-            //dd(Cliente::getClientes());
             Return datatables(Cliente::getClientes())->make(true);
         } catch (\Exception $e) {
             return response()->json(array('error' => $e->getMessage()));

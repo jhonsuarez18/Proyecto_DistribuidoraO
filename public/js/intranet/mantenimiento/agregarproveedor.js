@@ -2,12 +2,121 @@ var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 $(document).ready(function () {
     tablaProveedor();
 });
+function valRuc() {
+    event.preventDefault();
+    if(validarDniExpres('enviar','ruc','tipdoc','valruc')===0){
 
+    }
+}
 $("#addproveedor").on('click', function () {
     window.event.preventDefault();
     $('#modal-dialog_add_proveedor').modal({show: true, backdrop:'static', keyboard: false});
+    departamento('deparpro',0);
 });
+$('#deparpro').on('change', function () {
+    provincia('provpro',this.value);
+    var prov = $('#deparpro');
+    var provvalid = $('#valdeparpro');
 
+    if (this.value === '0') {
+        $('#provpro').prop('disabled', true);
+        validarCaja('deparpro', 'valdeparpro', 'Escoja departamento', 0)
+    }
+    else {
+        $('#provpro').prop('disabled', false);
+        provvalid.removeClass('valid-feedback');
+        prov.removeClass('is-valid');
+        prov.removeClass('is-invalid');
+        provvalid.addClass('invalid-feedback');
+        $('#provpro').focus();
+    }
+});
+$('#deparproedit').on('change', function () {
+    provincia('provproedit', this.value,0);
+    var prov = $('#deparproedit');
+    var provvalid = $('#valdeparproedit');
+
+    if (this.value === '0') {
+        $('#provproedit').prop('disabled', true);
+        validarCaja('deparproedit', 'valdeparproedit', 'Escoja departamento', 0)
+    } else {
+        $('#provproedit').prop('disabled', false);
+        provvalid.removeClass('valid-feedback');
+        prov.removeClass('is-valid');
+        prov.removeClass('is-invalid');
+        provvalid.addClass('invalid-feedback');
+        $('#provproedit').focus();
+    }
+});
+$('#provpro').on('change', function () {
+    distrito('dispro',this.value, 0);
+    var prov = $('#provpro');
+    var provvalid = $('#valprovpro');
+
+    if (this.value === '0') {
+        $('#dispro').prop('disabled', true);
+        validarCaja('provpro', 'valprovrpo', 'Escoja provincia', 0)
+    }
+    else {
+        $('#dispro').prop('disabled', false);
+        provvalid.removeClass('valid-feedback');
+        prov.removeClass('is-valid');
+        prov.removeClass('is-invalid');
+        provvalid.addClass('invalid-feedback');
+        $('#dispro').focus();
+    }
+});
+$('#provproedit').on('change', function () {
+    distrito('disproedit',this.value, 0);
+    var provacte = $('#provproedit');
+    var valprovacte = $('#valprovproedit');
+
+    if (this.value === '0') {
+        $('#disproedit').prop('disabled', true);
+        validarCaja('provproedit', 'valprovproedit', 'Escoja provincia', 0)
+    }
+    else {
+        $('#disproedit').prop('disabled', false);
+        valprovacte.removeClass('valid-feedback');
+        provacte.removeClass('is-valid');
+        provacte.removeClass('is-invalid');
+        valprovacte.addClass('invalid-feedback');
+        $('#disproedit').focus();
+    }
+});
+$('#dispro').on('change', function () {
+
+    var dis = $('#dispro');
+    var disval = $('#valdispro');
+
+    if (this.value === '0') {
+        validarCaja('dispro', 'valdispro', 'Escoja distrito', 0)
+    }
+    else {
+        disval.removeClass('valid-feedback');
+        dis.removeClass('is-valid');
+        dis.removeClass('is-invalid');
+        disval.addClass('invalid-feedback');
+        $('#direccion').focus();
+    }
+});
+$('#disproedit').on('change', function () {
+    var disacte = $('#disproedit');
+    var valdisacte = $('#valdisproedit');
+
+    if (this.value === '0') {
+        $('#estate').prop('disabled', true);
+        validarCaja('disproedit', 'valdisproedit', 'Escoja distrito', 0)
+    }
+    else {
+        $('#estate').prop('disabled', false);
+        valdisacte.removeClass('valid-feedback');
+        disacte.removeClass('is-valid');
+        disacte.removeClass('is-invalid');
+        valdisacte.addClass('invalid-feedback');
+        $('#estate').focus();
+    }
+});
 function abrirModal(e,idprov) {
     e.preventDefault();
     $('#modal-dialog-edit_proveedor').modal({show: true, backdrop:'static', keyboard: false});
@@ -26,10 +135,13 @@ function llenarEditar(idprov) {
             data: '_token = <?php echo csrf_token() ?>',
             success: function (data) {
                 $('#idproveedor').val(data['result']['pvCod']);
-                $('#edruc').val(data['result']['pvRuc']);
-                $('#edrazons').val(data['result']['pvRazonS']);
-                $('#edtelefono').val(data['result']['pvTelefono']);
-                $('#eddireccion').val(data['result']['pvDireccion']);
+                $('#rucedit').val(data['result']['pvRuc']);
+                $('#razonsedit').val(data['result']['pvRazonS']);
+                $('#telefonoedit').val(data['result']['pvTelefono']);
+                $('#direccionedit').val(data['result']['pvDireccion']);
+                departamento('deparproedit',data['result']['idDepartamento']);
+                provincia('provproedit',data['result']['idDepartamento'],data['result']['idProvincia']);
+                distrito('disproedit',data['result']['idProvincia'],data['result']['idDistrito']);
             }, beforeSend: function () {
 
             },
@@ -53,6 +165,7 @@ function enviar() {
                 var razons = $('#razons').val();
                 var ruc = $('#ruc').val();
                 var telefono = $('#telefono').val();
+                var distrito = $('#dispro').val();
                 var direccion = $('#direccion').val();
                 $.ajax({
                     url: '/mantenimiento/storeproveedor',
@@ -62,6 +175,7 @@ function enviar() {
                         razons: razons,
                         ruc: ruc,
                         telefono: telefono,
+                        distrito: distrito,
                         direccion: direccion,
                     },
                     dataType: 'JSON',
@@ -117,10 +231,11 @@ function enviarEditProv() {
     }).then((result) => {
         if (result.value) {
             var idprov = $('#idproveedor').val();
-            var razons = $('#edrazons').val();
-            var ruc = $('#edruc').val();
-            var telefono = $('#edtelefono').val();
-            var direccion = $('#eddireccion').val();
+            var razons = $('#razonsedit').val();
+            var ruc = $('#rucedit').val();
+            var telefono = $('#telefonoedit').val();
+            var distrito = $('#disproedit').val();
+            var direccion = $('#direccionedit').val();
             $.ajax({
                 url: '/mantenimiento/editproveedor',
                 type: 'GET',
@@ -130,6 +245,7 @@ function enviarEditProv() {
                     razons: razons,
                     ruc: ruc,
                     telefono: telefono,
+                    distrito: distrito,
                     direccion: direccion,
                 },
                 dataType: 'JSON',
@@ -241,42 +357,42 @@ function validarFormulario() {
     var text;
     var cont = 0;
     if ($('#ruc').val() !== '0') {
-        validarCaja('ruc', 'validrazons', 'Correcto', 1);
+        validarCaja('ruc', 'valrazons', 'Correcto', 1);
     } else {
         cont++;
         text = inicio + ' Ingresa Razon Social';
-        validarCaja('razons', 'validproveedor', text, 0);
+        validarCaja('razons', 'valrazons', text, 0);
         $('#razons').focus();
     }
     if ($('#ruc').val() !== '0') {
-        validarCaja('ruc', 'validruc', 'Correcto', 1);
+        validarCaja('ruc', 'valruc', 'Correcto', 1);
     } else {
         cont++;
         text = inicio + ' Ingresa Ruc';
-        validarCaja('ruc', 'validruc', text, 0);
+        validarCaja('ruc', 'valruc', text, 0);
         $('#ruc').focus();
     }
     if ($('#telefono').val() !== '0') {
-        validarCaja('telefono', 'validtelefono', 'Correcto', 1);
+        validarCaja('telefono', 'valtelefono', 'Correcto', 1);
     } else {
         cont++;
         text = inicio + ' Ingresa Telefono';
-        validarCaja('telefono', 'validtelefono', text, 0);
+        validarCaja('telefono', 'valtelefono', text, 0);
         $('#telefono').focus();
     }
     if ($('#direccion').val() !== '0') {
-        validarCaja('direccion', 'validdireccion', 'Correcto', 1);
+        validarCaja('direccion', 'valdireccion', 'Correcto', 1);
     } else {
         cont++;
         text = inicio + ' Ingresa Direccion';
-        validarCaja('direccion', 'validdireccion', text, 0);
+        validarCaja('direccion', 'valdireccion', text, 0);
         $('#direccion').focus();
     }
     return cont;
 }
 
 
-function valNumMeta() {
+/*function valNumMeta() {
     var val = $('#nummeta').val();
     val = zeroFill(val, 4);
     var url = "/presupuesto/validarmeta/" + val;
@@ -314,7 +430,7 @@ function valNumMeta() {
             }
 
         });
-}
+}*/
 function eliminarProveedor(idprov){
     var url = "/mantenimiento/deleteproveedor/" + idprov;
     Swal.fire({

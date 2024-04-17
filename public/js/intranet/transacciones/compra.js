@@ -58,7 +58,6 @@ function getProducto() {
 }
 $('#producto').on('change', function () {
     var prod=$('#producto').val();
-    console.log(prod);
     var url = "/mantenimiento/obtenerproductoeditar/" + prod;
     var text;
     $.ajax(
@@ -141,7 +140,12 @@ function tabdetcomp() {
                 for (var i = 0; i < data.length; i++) {
                     totalAmount += parseFloat(data[i]['subt']);
                 }
+                if ($('#igv').is(':checked')) {
+                    totalAmount=totalAmount+(totalAmount*0.18);
+                }
                 totalAmount = formatter.format(totalAmount);
+                $(this.api().column(3).footer()).html(totalAmount);
+                $(this.api().column(3).footer()).html('<br>');
                 $(this.api().column(3).footer()).html(totalAmount);
             },
             columnDefs: [
@@ -209,6 +213,13 @@ function enviar() {
         }).then((result) => {
             if (result.value) {
                 var proveed = $('#proveedor').val();
+                var nfactura = $('#nfactura').val();
+                var igv=0;
+                if ($('#igv').is(':checked')) {
+                     igv=1;
+                } else {
+                    igv=0;
+                }
                 var arrpc = [], arrp = [], arrct = [];
                 for (var i = 0; i < tab.length; i++) {
                     arrpc[i] = tab[i]['precioc'];
@@ -225,6 +236,8 @@ function enviar() {
                     data: {
                         _token: CSRF_TOKEN,
                         proveed: proveed,
+                        nfactura: nfactura,
+                        igv: igv,
                         arrp:arrp,
                         arrpc:arrpc,
                         arrct:arrct,
@@ -268,6 +281,13 @@ function enviar() {
         operacionSubsanar();
     }
 }
+$("#igv").on('change', function () {
+    if ($(this).is(':checked')) {
+        tabdetcomp();
+    } else {
+        tabdetcomp();
+    }
+});
 function tablaCompra(){
     $('#tabla_compra').DataTable({
             ajax: '/transacciones/obtenercompra',
@@ -288,19 +308,28 @@ function tablaCompra(){
             ],
             columnDefs: [
                 {"targets": 0, "width": "10%", "className": "text-center"},
-                {"targets": 1, "width": "15%", "className": "text-center"},
+                {"targets": 1, "width": "15%", "className": "text-left"},
                 {"targets": 2, "width": "15%", "className": "text-center"},
                 {"targets": 3, "width": "5%", "className": "text-center"},
-                {"targets": 4, "width": "15%", "className": "text-center"},
-                {"targets": 5, "width": "15%", "className": "text-center"},
-                {"targets": 6, "width": "10%", "className": "text-center"},
-                {"targets": 7, "width": "10%", "className": "text-center"},
+                {"targets": 4, "width": "15%", "className": "text-left"},
+                {"targets": 5, "width": "15%", "className": "text-right"},
+                {"targets": 6, "width": "10%", "className": "text-right"},
+                {"targets": 7, "width": "10%", "className": "text-right"},
                 {"targets": 8, "width": "10%", "className": "text-center"},
+                {"targets": 9, "width": "10%", "className": "text-center"},
+                {"targets": 10, "width": "10%", "className": "text-center"},
             ],
 
             columns: [
                 {data: 'codcomp', name: 'codcomp'},
                 {data: 'pvRazonS', name: 'pvRazonS'},
+                {data: 'cNFactura', name: 'cNFactura'},
+                {
+                    data: function (row) {
+                        return parseInt(row.cIgv) === 0 ? '<span class="text-danger">NO</span>' : '<span class="text-success">SI</span>'
+
+                    }
+                },
                 {data: 'product', name: 'product'},
                 {data: 'cpCant', name: 'cpCant'},
                 {data: 'cpPrecioC', name: 'cpPrecioC'},
@@ -339,12 +368,28 @@ function validarFormulario() {
     var text;
     var cont = 0;
     if ($('#producto').val() !== '0') {
-        validarCaja('producto', 'validproducto', 'Correcto', 1);
+        validarCaja('producto', 'valproducto', 'Correcto', 1);
     } else {
         cont++;
         text = inicio + ' Ingresa Producto';
-        validarCaja('producto', 'validproducto', text, 0);
+        validarCaja('producto', 'valproducto', text, 0);
         $('#producto').focus();
+    }
+    if ($('#nfactura').val() !== '') {
+        validarCaja('nfactura', 'valnfactura', 'Correcto', 1);
+    } else {
+        cont++;
+        text = inicio + ' Ingresa Numero de Factura';
+        validarCaja('nfactura', 'valnfactura', text, 0);
+        $('#nfactura').focus();
+    }
+    if ($('#proveedor').val() !== '') {
+        validarCaja('proveedor', 'valproveedor', 'Correcto', 1);
+    } else {
+        cont++;
+        text = inicio + ' Ingresa Numero de Factura';
+        validarCaja('proveedor', 'valproveedor', text, 0);
+        $('#proveedor').focus();
     }
 
     return cont;

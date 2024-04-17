@@ -29,7 +29,11 @@ class Proveedor extends Model
     public static function obtenerProveedorEditar($idprod)
     {
         return DB::table('proveedor as  pv')
-            ->select('pv.pvId as pvCod', 'pv.pvRazonS','pv.pvRuc','pv.pvTelefono' ,'pv.pvDireccion'  ,'pv.pvEst')
+            ->select('pv.pvId as pvCod', 'pv.pvRazonS','pv.pvRuc',
+                'dis.idDistrito','prov.idProvincia','dep.idDepartamento','pv.pvTelefono' ,'pv.pvDireccion'  ,'pv.pvEst')
+            ->leftjoin('distrito as dis', 'dis.idDistrito', '=', 'pv.dtId')
+            ->leftjoin('provincia as prov', 'prov.idProvincia', '=', 'dis.idProvincia')
+            ->leftjoin('departamento as dep', 'dep.idDepartamento', '=', 'prov.idDepartamento')
             ->where('pv.pvId', $idprod)
             ->orderBy('pv.pvId', 'asc')->first();
     }

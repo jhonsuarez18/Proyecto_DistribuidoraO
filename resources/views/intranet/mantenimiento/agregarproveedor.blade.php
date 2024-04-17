@@ -74,20 +74,25 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
                         <div class="modal-body">
+                            <legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse py-3">DATOS PROVEEDOR
+
+                            </legend>
+                            <hr>
                             <div class="col-xl-12 col-sm-12 col-xs-12 row ">
-                                <div class="col-xl-4 ">
+                                <input type="text" value="3" id="tipdoc"hidden/>
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="ruc">RUC
                                             <req>*</req>
 
                                         </label>
-                                        <input id="ruc" type="text" class="form-control form-control-sm" autocomplete="off"
-                                               onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                        <input id="ruc" type="number" class="form-control form-control-sm" autocomplete="off"
+                                               onchange="valRuc()" onkeyup="javascript:this.value=this.value.toUpperCase();"
                                         />
-                                        <div class="hide " id="validruc"></div>
+                                        <div class="hide " id="valruc"></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-8 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="razons">RAZON SOCIAL
                                             <req>*</req>
@@ -95,34 +100,63 @@
                                         <input id="razons" type="text" class="form-control form-control-sm" autocomplete="off"
                                                onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
                                         />
-                                        <div class="hide " id="validrazons"></div>
+                                        <div class="hide " id="valrazons"></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="telefono">TELEFONO
                                             <req>*</req>
 
                                         </label>
-                                        <input id="telefono" type="text" class="form-control form-control-sm" autocomplete="off"
-                                               onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                        <input id="telefono" type="number" class="form-control form-control-sm" autocomplete="off"
+                                               onchange="validCelular('telefono','validtelefono','enviar')"
+                                               onkeyup="javascript:this.value=this.value.toUpperCase();"
                                         />
-                                        <div class="hide " id="validtelefono"></div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-8 ">
-                                    <div class="form-group-lg">
-                                        <label for="direccion">DIRECCION
-                                            <req>*</req>
-
-                                        </label>
-                                        <input id="direccion" type="text" class="form-control form-control-sm" autocomplete="off"
-                                               onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
-                                        />
-                                        <div class="hide " id="validdireccion"></div>
+                                        <div class="hide " id="valtelefono"></div>
                                     </div>
                                 </div>
                             </div>
+                                <legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse py-3">DATOS UBICACION
+
+                                </legend>
+                                <hr>
+                                <div class="col-xl-12 col-sm-12 col-xs-12 row ">
+                                    <div class="col-xl-4 col-sm-4 col-xs-4">
+                                        <label for="deparpro">DEPARTAMENTO
+                                            <req>*</req>
+                                        </label>
+                                        <select class="form-control form-control-sm" id="deparpro">
+                                            <option selected>AMAZONAS</option>
+                                        </select>
+                                        <div class="hide " id="valdeparpro"></div>
+                                    </div>
+                                    <div class="col-xl-4 col-sm-4 col-xs-4">
+                                        <label for="provpro">PROVINCIA
+                                            <req>*</req>
+                                        </label>
+                                        <select class="form-control form-control-sm" id="provpro" disabled>
+                                            <option selected value="0">SELECCIONE</option>
+                                        </select>
+                                        <div class="hide " id="valprovpro"></div>
+                                    </div>
+                                    <div class="col-xl-4 col-sm-4 col-xs-4">
+                                        <label for="dispro">DISTRITO
+                                            <req>*</req>
+                                        </label>
+                                        <select class="form-control form-control-sm" id="dispro" disabled>
+                                            <option selected value="0">SELECCIONE</option>
+                                        </select>
+                                        <div class="hide " id="valdispro"></div>
+                                    </div>
+                                    <div class="col-xl-8 col-sm-8 col-xs-8">
+                                        <label for="direccion">DIRECCION
+                                        </label>
+                                        <input id="direccion" type="text" class="form-control form-control-sm"
+                                               onkeyup="javascript:this.value=this.value.toUpperCase();"/>
+                                        <div id="valdireccion"></div>
+                                    </div>
+                                </div>
 
                             <div class="col-xl-12 text-center">
                                 <hr>
@@ -198,56 +232,88 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
                         <div class="modal-body">
+                            <legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse py-3">DATOS PROVEEDOR
+
+                            </legend>
+                            <hr>
                             <input id="idproveedor" hidden>
-                            <div class="row ">
-                                <div class="col-xl-4 ">
+                            <div class="col-xl-12 col-sm-12 col-xs-12 row ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
-                                        <label for="ruc">RUC
+                                        <label for="rucedit">RUC
                                             <req>*</req>
 
                                         </label>
-                                        <input id="edruc" type="text" class="form-control form-control-sm" autocomplete="off"
+                                        <input id="rucedit" type="text" class="form-control form-control-sm" autocomplete="off"
                                                onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
                                         />
-                                        <div class="hide " id="validedruc"></div>
+                                        <div class="hide " id="valrucedit"></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-8 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
-                                        <label for="edrazons">RAZON SOCIAL
+                                        <label for="razonsedit">RAZON SOCIAL
                                             <req>*</req>
                                         </label>
-                                        <input id="edrazons" type="text" class="form-control form-control-sm" autocomplete="off"
+                                        <input id="razonsedit" type="text" class="form-control form-control-sm" autocomplete="off"
                                                onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
                                         />
-                                        <div class="hide " id="validedrazons"></div>
+                                        <div class="hide " id="valrazonsedit"></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
-                                        <label for="edtelefono">TELEFONO
-                                            <req>*</req>
-
-                                        </label>
-                                        <input id="edtelefono" type="text" class="form-control form-control-sm" autocomplete="off"
-                                               onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
-                                        />
-                                        <div class="hide " id="validedtelefono"></div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-8 ">
-                                    <div class="form-group-lg">
-                                        <label for="eddireccion">DIRECCION
+                                        <label for="telefonoedit">TELEFONO
                                             <req>*</req>
 
                                         </label>
-                                        <input id="eddireccion" type="text" class="form-control form-control-sm" autocomplete="off"
+                                        <input id="telefonoedit" type="text" class="form-control form-control-sm" autocomplete="off"
                                                onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
                                         />
-                                        <div class="hide " id="valideddireccion"></div>
+                                        <div class="hide " id="valtelefonoedit"></div>
                                     </div>
                                 </div>
+                            </div>
+                                <legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse py-3">DATOS UBICACION
 
+                                </legend>
+                                <hr>
+                                <div class="col-xl-12 col-sm-12 col-xs-12 row ">
+                                    <div class="col-xl-4 col-sm-4 col-xs-4">
+                                        <label for="deparproedit">DEPARTAMENTO
+                                            <req>*</req>
+                                        </label>
+                                        <select class="form-control form-control-sm" id="deparproedit">
+                                            <option selected>AMAZONAS</option>
+                                        </select>
+                                        <div class="hide " id="valdeparproedit"></div>
+                                    </div>
+                                    <div class="col-xl-4 col-sm-4 col-xs-4">
+                                        <label for="provproedit">PROVINCIA
+                                            <req>*</req>
+                                        </label>
+                                        <select class="form-control form-control-sm" id="provproedit" disabled>
+                                            <option selected value="0">SELECCIONE</option>
+                                        </select>
+                                        <div class="hide " id="valprovproedit"></div>
+                                    </div>
+                                    <div class="col-xl-4 col-sm-4 col-xs-4">
+                                        <label for="disproedit">DISTRITO
+                                            <req>*</req>
+                                        </label>
+                                        <select class="form-control form-control-sm" id="disproedit" disabled>
+                                            <option selected value="0">SELECCIONE</option>
+                                        </select>
+                                        <div class="hide " id="valdisproedit"></div>
+                                    </div>
+                                    <div class="col-xl-8 col-sm-8 col-xs-8">
+                                        <label for="direccionedit">DIRECCION
+                                        </label>
+                                        <input id="direccionedit" type="text" class="form-control form-control-sm"
+                                               onkeyup="javascript:this.value=this.value.toUpperCase();"/>
+                                        <div id="valdireccionedit"></div>
+                                    </div>
+                                </div>
                                 <div class="col-xl-12 text-center">
                                     <hr>
                                     <a href="javascript:;" class="btn btn-danger" data-dismiss="modal"><i
@@ -256,7 +322,6 @@
                                 " onclick="enviarEditProv()"><i class="fas fa-lg fa-fw m-r-10 fa-save"></i>Editar
                                     </button>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>

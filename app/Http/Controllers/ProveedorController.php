@@ -31,6 +31,7 @@ class ProveedorController extends Controller
         try {
             DB::transaction(function () use ($request) {
                 $prov= New Proveedor();
+                $prov->dtId = $request->distrito;
                 $prov->pvRuc = $request->ruc;
                 $prov->pvRazonS = $request->razons;
                 $prov->pvTelefono = $request->telefono;
@@ -69,6 +70,7 @@ class ProveedorController extends Controller
         try {
             DB::transaction(function () use ($request) {
                 $prov = Proveedor::findOrFail($request->idprov);
+                $prov->dtId = $request->distrito;
                 $prov->pvRuc = $request->ruc;
                 $prov->pvRazonS = $request->razons;
                 $prov->pvTelefono = $request->telefono;

@@ -32,7 +32,7 @@ class CreateProductoTable extends Migration
             $table->foreign('idTp')->references('tpId')->on('tip_producto');
             $table->foreign('idM')->references('mId')->on('marca');
             $table->foreign('idPs')->references('psId')->on('presentacion');
-        });*/
+        });Ç*/
     }
 
     /**

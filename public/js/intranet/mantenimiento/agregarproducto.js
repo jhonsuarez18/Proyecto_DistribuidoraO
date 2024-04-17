@@ -454,7 +454,32 @@ function tablaProducto(){
                 {data: 'pContenido', name: 'pContenido'},
                 {data: 'pPrecioC', name: 'pPrecioC'},
                 {data: 'pPrecioV', name: 'pPrecioV'},
-                {data: 'pStock', name: 'pStock'},
+                //{data: 'pStock', name: 'pStock'},
+                {
+                    data: function (row) {
+                        //let stock = parseFloat(row.cStock);
+                        //let gas = parseFloat(row.cons);
+                        //let sal = parseFloat(stock - gas);
+                        if (row.tpDesc==='GAS')
+                            if (parseInt(row.pStock) >= 80)
+                                return '<span class="text-green-transparent-6">' + row.pStock + '</span>' ;
+                            else {
+                                    if((parseInt(row.pStock) >= '50') && (parseInt(row.pStock)<= '80'))
+                                        return '<span class="text-yellow-50">' + row.pStock + '</span>';
+                                    else{
+
+                                        return '<span class="text-danger">' + row.pStock + '</span>';
+                                }
+
+                            }
+
+                        else {
+                            return '<span class="text-black-50">' + row.pStock+ '</span>';
+                        }
+
+                    }
+
+                },
                 {
                     data: function (row) {
                         return parseInt(row.pEst) === 0 ? '<span class="text-danger">ELIMINADO</span>' : '<span class="text-success">ACTIVO</span>'

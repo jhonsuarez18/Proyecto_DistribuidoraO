@@ -1,11 +1,9 @@
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 $(document).ready(function () {
     tablaVenta();
-    console.log('hola desde venta',$('#idvi').val());
     if(parseInt($('#idvi').val())===1){
-        console.log('hola desde cliente');
         $('#modal-dialog_add_venta').modal({show: true, backdrop:'static', keyboard: false});
-        getProveedor();
+        //getProveedor();
         getProducto();
     }
 });
@@ -13,7 +11,7 @@ var tab = [];
 $("#addventa").on('click', function () {
     window.event.preventDefault();
     $('#modal-dialog_add_venta').modal({show: true, backdrop:'static', keyboard: false});
-    getProveedor();
+    //getProveedor();
     getProducto();
 });
 $('#producto').on('change', function () {
@@ -101,7 +99,6 @@ function getProveedor() {
 }
 $("#movil").on('change', function () {
     if ($(this).is(':checked')) {
-        //console.log()
         $('#grval').prop("hidden", false);
         $('#cantval').val(1);
         $('#preciov').val(1);
@@ -112,9 +109,20 @@ $("#movil").on('change', function () {
         $('#preciov').val(0);
     }
 });
+$("#benefise").on('change', function () {
+    if ($(this).is(':checked')) {
+        $('#grbenval').prop("hidden", false);
+        //$('#nomben').val(1);
+        //$('#dniben').val(1);
+        $('#nomben').focus();
+    } else {
+        $('#grbenval').prop("hidden", true);
+        //$('#nomben').val(0);
+        //$('#dniben').val(0);
+    }
+});
 function valCliDni() {
     var dni = $('#idcl').val();
-    console.log(dni);
      if(dni==0){
          Swal.fire({
              title: 'Cliente no Registrado',
@@ -162,7 +170,6 @@ function calprectotal(){
     var precval=$('#precioval').val()
     $('#preciotval').val(cantval*precval)
     var total=0;
-    console.log(tab);
     for (var i = 0; i < tab.length; i++) {
         total=tab[i]['preciov']*tab[i]['cant']+total;
     }
@@ -220,6 +227,11 @@ if (parseInt(cant) < parseInt(stock)){
     }
 
 
+});
+$('#buscarbene').on('click', function () {
+     var dni = $('#dniben').val();
+     var nomb = $('#nomben').val();
+    cargartablabenef(dni,nomb);
 });
 function tabdetvent() {
     ordenarTabla();
@@ -301,7 +313,6 @@ function quitar( idp) {
     tabdetvent();
 }
 function enviar() {
-    console.log($('#idcl').val());
     if (validarFormulario() === 0) {
         Swal.fire({
             title: 'Esta seguro(a)?',
@@ -443,7 +454,39 @@ function tablaVenta(){
     );
 
 }
+function cargartablabenef($dni,$nomb){
+    $('#tab_beneficiario').DataTable({
+            ajax: '/mantenimiento/getbenef/'+$dni+'/'+$nomb,
+            language: {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            },
+            orderCellsTop: true,
+            processing: false,
+            serverSide: false,
+            ordering: false,
+            select: true,
+            destroy: true,
+            responsive: true,
+            bAutoWidth: true,
+            dom: 'lBfrtip',
+            buttons: [
+                'excel', 'pdf'
+            ],
+            columnDefs: [
+                {"targets": 0, "width": "40%", "className": "text-left"},
+                {"targets": 1, "width": "20%", "className": "text-center"},
+                {"targets": 1, "width": "30%", "className": "text-left"},
+            ],
 
+            columns: [
+                {data: 'beneficiario', name: 'beneficiario'},
+                {data: 'dni', name: 'dni'},
+                {data: 'distrito', name: 'distrito'},
+            ]
+        }
+    );
+
+}
 function validarFormulario() {
     var inicio = 'Por favor';
     var text;

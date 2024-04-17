@@ -6,7 +6,6 @@ $(document).ready(function () {
     if(parseInt($('#idvi').val())===1){
         $('#modal_dialog_add_cliente').modal('show');
         camposadd=[];
-        console.log('hello de venta');
         camposUserAdd();
         limpiarCaja(camposadd);
         datePickers();
@@ -14,9 +13,30 @@ $(document).ready(function () {
         provincia('provacte',1,0);
         $('#tipdoccl').focus();
     }
-    console.log('hola de cliente');
     tablaClientes();
 });
+function getTipoDoc() {
+    var url = "/mantenimiento/gettipodoc";
+    var select = $('#tipdoccl').html('');
+    var html = '<option value="0" selected="">SELECCIONE</option>';
+    $.ajax(
+        {
+            type: "GET",
+            url: url,
+            cache: false,
+            dataType: 'json',
+            data: '_token = <?php echo csrf_token() ?>',
+            success: function (data) {
+                var htmla = '';
+                for (var i = 0; i < data.length; i++) {
+                    htmla = '<option value="' + data[i]['tdId'] + '">' + data[i]['tdDesc'] + '</option>';
+                    html = html + htmla;
+                }
+                select.append(html);
+            }
+
+        });
+}
 var datePickers = function () {
 
     $('#fecnaccl').datepicker({
@@ -154,9 +174,9 @@ $('#deparcledit').on('change', function () {
         $('#provcledit').focus();
     }
 });
-$('#enviar').on('click', function () {
+/*$('#enviar').on('click', function () {
     enviar();
-});
+});*/
 
 $('#provcl').on('change', function () {
     distrito('discl',this.value, 0);
@@ -292,20 +312,20 @@ $('#discledit').on('change', function () {
         $('#estate').focus();
     }
 });
-function generarUsuario() {
+/*function generarUsuario() {
 
     var pnombre = $('#pnombre').val();
     var appaterno = $('#appaterno').val();
     var apmaterno = $('#apmaterno').val();
     $('#nombrecu').val(pnombre.substr(0, 1) + appaterno + apmaterno.substr(0, 1));
-}
-function generarUsuarioEdit() {
+}*/
+/*function generarUsuarioEdit() {
 
     var pnombre = $('#pnombreedit').val();
     var appaterno = $('#appaternoedit').val();
     var apmaterno = $('#apmaternoedit').val();
     $('#nombrecuedit').val(pnombre.substr(0, 1) + appaterno + apmaterno.substr(0, 1));
-}
+}*/
 
 
 function eliminar(id) {
@@ -385,8 +405,8 @@ function validarDni() {
                         Swal.fire({
                             position: 'top-end',
                             icon: 'error',
-                            title: 'El usuario ya fue creado',
-                            text: 'el usuario ya fue creado, redireccionando a la lista de usuario...!',
+                            title: 'El cliente ya fue creado',
+                            text: 'el cliente ya fue creado, redireccionando a la lista de usuario...!',
                             showConfirmButton: false,
                             timer: 4000
                         });
@@ -628,6 +648,7 @@ $('#addcliente').on('click',function(){
     window.event.preventDefault();
     $('#modal_dialog_add_cliente').modal('show');
     datePickers();
+    getTipoDoc();
     departamento('deparcl',0);
     provincia('provacte',1,0);
     camposUserAdd();
@@ -636,15 +657,15 @@ $('#addcliente').on('click',function(){
 $('#tipdoc').on('click',function(){
     $('#dni').focus();
 });
-function abrilModal(id, nombre) {
+/*function abrilModal(id, nombre) {
     window.event.preventDefault();
     $('#modal-dialog').modal('show');
     $('#nombcom').val(nombre);
     llenarPermisos(id);
-}
+}*/
 
 
-function llenarPermisos(id) {
+/*function llenarPermisos(id) {
     var datatable = $('#tabla_permisos');
     datatable.DataTable().destroy();
     datatable.DataTable({
@@ -704,9 +725,9 @@ function llenarPermisos(id) {
             ]
         }
     );
-}
+}*/
 
-function activarDesactivarPermiso(idpermiso, idusu, idsubmenu, estado) {
+/*function activarDesactivarPermiso(idpermiso, idusu, idsubmenu, estado) {
     window.event.preventDefault();
     var datosperm = {
         idpermiso: idpermiso,
@@ -755,7 +776,7 @@ function activarDesactivarPermiso(idpermiso, idusu, idsubmenu, estado) {
         }
     })
 
-}
+}*/
 function tablaClientes(){
     $('#tabla_cliente').DataTable({
         ajax: '/mantenimiento/obtenercliente',
@@ -849,7 +870,6 @@ function obtenerEditarCliente(dni) {
             success: function (data) {
                 if (data['error'] === 0) {
                     var client = data['cliente'];
-                    console.log(client);
                     var person = data['person'];
                     if (client!==null || person!==null  ) {
                         $('#tipdoccledit').prop("disabled", true);
@@ -866,7 +886,6 @@ function obtenerEditarCliente(dni) {
                         $('#dircledit').val(person['direccion']);
                         $('#cenpoedit').val(person['centrop']);
                         //$('#idpersonedit').val(pacient['idPersona']);
-                        console.log(person['dist']);
                         if(person['dist']==null){
                             $('#siti').val(2);
                             $('#idcentpedit').val(person['idCentroPoblado']);
@@ -945,14 +964,13 @@ function eliminarCliente(idcli){
         }
     })
 }
-function abrilModalEdUser(idus) {
+/*function abrilModalEdUser(idus) {
     window.event.preventDefault();
     $('#modal_dialog_edit_Usuario').modal('show');
     getEditUser(idus);
-}
+}*/
 function getEditUser(idus) {
     var url = "/getEditUs/" + idus;
-    console.log(idus);
     $.ajax(
         {
             type: "GET",
@@ -1039,7 +1057,6 @@ function validDniClient() {
         var dni = $('#dnicl').val();
         var url = "/referencia/getPacDni/" + dni;
         var text;
-        console.log(dni);
         $.ajax(
             {
                 type: "GET",
@@ -1051,8 +1068,6 @@ function validDniClient() {
                     if (data['error'] === 0) {
                         var usuario = data['usuario'];
                         var person = data['person'];
-                        console.log(usuario);
-                        console.log(person);
                         if (usuario!==null || person!==null  ) {
                             if(usuario!==null){
                                 $('#tipdoccl').prop("disabled", true);
@@ -1081,7 +1096,7 @@ function validDniClient() {
                                     position: 'top-end',
                                     icon: 'warning',
                                     type: 'warning',
-                                    title: 'El Usuario ya esta registrado',
+                                    title: 'El cliente ya esta registrado',
                                     showConfirmButton: false,
                                     timer: 3000
                                 });
@@ -1194,7 +1209,7 @@ function enviarCliente() {
                                     timer: 4000
                                 });
                                 if(parseInt($('#idvi').val())===1){
-                                    redirect('/transacciones/venta');
+                                    redirect('/transacciones/ventas');
                                 }else{
                                     limpiarCaja(camposadd);
                                     closeModal('modal_dialog_add_cliente')
@@ -1237,7 +1252,6 @@ function enviarCliente() {
 }
 function enviarClienteEdit() {
     if(validarFormularioEdit()===0){
-        console.log('hola');
         Swal.fire({
             title: 'Esta seguro(a)?',
             text: 'Se Editará el registro',

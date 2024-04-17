@@ -410,7 +410,7 @@ Route::group(array('prefix' => 'presupuesto', 'middleware' => 'auth'), function 
 });
 
 
-/*Route::group(array('prefix' => 'almacen', 'middleware' => 'auth'), function () {
+Route::group(array('prefix' => 'almacen', 'middleware' => 'auth'), function () {
     Route::get('/ingresomaterial', function () {
         return view('intranet.almacen.material');
     });
@@ -488,9 +488,9 @@ Route::group(array('prefix' => 'presupuesto', 'middleware' => 'auth'), function 
     Route::post('/editmatstock', 'ALEntregaStockController@edit');//Agregado 18-01-2021
 
 
-});*/
+});
 
-/*Route::group(array('prefix' => 'referencia', 'middleware' => 'auth'), function () {
+Route::group(array('prefix' => 'referencia', 'middleware' => 'auth'), function () {
     Route::get('/verreferenciasess', function () {
         return view('intranet.rendicion.verreferenciaess');
     });
@@ -731,7 +731,7 @@ Route::group(array('prefix' => 'presupuesto', 'middleware' => 'auth'), function 
     Route::get('/pdfformtReemb/{id}', 'ReReferenciaController@pdfFormatoReembolso');// 09-06-2021
     Route::get('/getnumDocs/{idref}', 'ReReferenciaController@getnumDocs');// 09-06-2021
 
-});*/
+});
 Route::group(array('prefix' => 'mantenimiento', 'middleware' => 'auth'), function () {
     Route::get('/agregarmarca', function () {
         return view('intranet.mantenimiento.agregarmarca');
@@ -800,6 +800,11 @@ Route::group(array('prefix' => 'mantenimiento', 'middleware' => 'auth'), functio
     //UNIDAD DE MEDIDA
     Route::get('/getunidm', 'UnidadMedidaController@getUnidM');//Agregado 14-09-2023
 
+    //BENEFICIARIO
+    Route::get('/getbenef/{dni}/{nomb}', 'ReAfiliadoController@getbenefi');//Agregado 11-04-2024
+
+    //TIPO DOC
+    Route::get('/gettipodoc', 'TipoDocController@getTipoDoc');
 
 });
 Route::group(array('prefix' => 'transacciones', 'middleware' => 'auth'), function () {
@@ -831,11 +836,12 @@ Route::group(array('prefix' => 'transacciones', 'middleware' => 'auth'), functio
     Route::get('/storeventa', 'VentaController@store');//Agregado 14-09-2023
     Route::get('/obtenerventa', 'VentaController@obtenerVenta');//Agregado 14-09-2023
     Route::get('/deleteventa/{est}/{id}', 'VentaController@destroy');//Agregado 14-09-2023
-    Route::get('/venta', 'VentaController@index');
+    Route::get('/ventas', 'VentaController@index');
+    Route::get('/consultadni', 'VentaController@consulta');
 
 });
 //rutas para nodulo combustible
-/*Route::group(array('prefix' => 'combustible', 'middleware' => 'auth'), function () {
+Route::group(array('prefix' => 'combustible', 'middleware' => 'auth'), function () {
     Route::get('/vervehiculos', function () {
         return view('intranet.combustible.vehiculo');
     });
@@ -984,6 +990,6 @@ Route::group(array('prefix' => 'transacciones', 'middleware' => 'auth'), functio
     //Reportes
     Route::get('/reportegenval', 'VConsumoController@reportegeneralval');
 
-});*/
+});
 
 

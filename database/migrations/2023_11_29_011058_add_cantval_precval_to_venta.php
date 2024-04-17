@@ -13,10 +13,10 @@ class AddCantvalPrecvalToVenta extends Migration
      */
     public function up()
     {
-        Schema::table('venta', function (Blueprint $table) {
+        /*Schema::table('venta', function (Blueprint $table) {
             $table->integer('vCantVal')->default(0)->after('idCl');
             $table->double('vPrecioVal')->default(0)->after('vCantVal');
-        });
+        });*/
     }
 
     /**
