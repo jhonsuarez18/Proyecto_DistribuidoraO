@@ -806,6 +806,9 @@ Route::group(array('prefix' => 'mantenimiento', 'middleware' => 'auth'), functio
     //TIPO DOC
     Route::get('/gettipodoc', 'TipoDocController@getTipoDoc');
 
+    //API CLIENTE
+    Route::get('/getapiclient/{tipd}/{dni}', 'ClienteController@getApiDni');
+
 });
 Route::group(array('prefix' => 'transacciones', 'middleware' => 'auth'), function () {
     Route::get('/compra', function () {
@@ -837,7 +840,6 @@ Route::group(array('prefix' => 'transacciones', 'middleware' => 'auth'), functio
     Route::get('/obtenerventa', 'VentaController@obtenerVenta');//Agregado 14-09-2023
     Route::get('/deleteventa/{est}/{id}', 'VentaController@destroy');//Agregado 14-09-2023
     Route::get('/ventas', 'VentaController@index');
-    Route::get('/consultadni', 'VentaController@consulta');
 
 });
 //rutas para nodulo combustible

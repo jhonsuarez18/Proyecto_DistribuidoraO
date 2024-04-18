@@ -15,7 +15,7 @@ class Distrito extends Migration
     {
         Schema::create('distrito', function (Blueprint $table) {
             $table->collate = 'latin1_spanish_ci';
-            $table->bigIncrements('idDistrito')->unique();
+            $table->bigIncrements('dtId')->unique();
             $table->unsignedBigInteger('idProvincia');
             $table->string('codigo')->nullable();
             $table->string('descripcion')->nullable();

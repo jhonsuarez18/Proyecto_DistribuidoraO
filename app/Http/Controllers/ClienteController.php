@@ -37,85 +37,110 @@ class ClienteController extends Controller
     {
         try {
             DB::transaction(function () use ($request) {
-                //dd($request);
-                if($request->sit==1){
-                    if($request->idcp!=='0'){
-                        $centropd=CentroPobladoDistritoController::getExistcPD($request->iddist,$request->idcp);
+                if($request->tipdoc==1){
+                    if($request->sit==1){
+                        if($request->idcp!=='0'){
+                            $centropd=CentroPobladoDistritoController::getExistcPD($request->iddist,$request->idcp);
 
-                        if(count($centropd)==0){
-                            $centpd = new CentropobladoDistrito();
-                            $centpd->idCentroPoblado = $request->idcp;
-                            $centpd->idDistrito =$request->iddist;
-                            $centpd->cPDUsuReg = Auth::user()->id;
-                            $centpd->cPDFecCrea = UtilController::fecha();
-                            $centpd->save();
-                            $idcpd= $centpd->cPDId;
-                        }else{
-                            foreach ($centropd as $cpd) {
-                                $idcpd=$cpd->cPDId;
+                            if(count($centropd)==0){
+                                $centpd = new CentropobladoDistrito();
+                                $centpd->idCentroPoblado = $request->idcp;
+                                $centpd->idDistrito =$request->iddist;
+                                $centpd->cPDUsuReg = Auth::user()->id;
+                                $centpd->cPDFecCrea = UtilController::fecha();
+                                $centpd->save();
+                                $idcpd= $centpd->cPDId;
+                            }else{
+                                foreach ($centropd as $cpd) {
+                                    $idcpd=$cpd->cPDId;
+                                }
                             }
+                            $person = New Persona();
+
+                            $person->idUser = null;
+                            $person->cPDId = $idcpd;
+                            $person->pNombre = $request->pnombre;
+                            $person->sNombre = $request->snombre;
+                            $person->apPaterno = $request->appaterno;
+                            $person->apMaterno = $request->apmaterno;
+                            $person->numeroDoc = $request->dni;
+                            $person->tipoDoc = $request->tipdoc;
+                            $person->direccion = $request->direccion;
+                            $person->referencia = $request->referencia;
+                            $person->fecNac = date('Y-m-d', strtotime($request->fecNac));
+                            $person->fecActualiza = UtilController::fecha();;
+                            $person->usuActuali = Auth::user()->id;
+                            $person->usuReg = Auth::user()->id;
+                            $person->fecCreacion = UtilController::fecha();
+                            $person->telefono = $request->telefo;
+                            $person->save();
+                            $idpersona= $person->idPersona;
+
+                            $clien = new Cliente();
+                            $clien->idPe =$idpersona;
+                            $clien->clUsuReg = Auth::user()->id;
+                            $clien->clFecCrea = UtilController::fecha();
+                            $clien->save();
+                        }else{
+                            $person = New Persona();
+
+                            $person->idUser = null;
+                            $person->idDistrito = $request->iddist;
+                            $person->pNombre = $request->pnombre;
+                            $person->sNombre = $request->snombre;
+                            $person->apPaterno = $request->appaterno;
+                            $person->apMaterno = $request->apmaterno;
+                            $person->numeroDoc = $request->dni;
+                            $person->tipoDoc = $request->tipdoc;
+                            $person->direccion = $request->dir;
+                            $person->referencia = $request->referencia;
+                            $person->fecNac =date('Y-m-d', strtotime($request->fecNac));
+                            $person->fecActualiza = UtilController::fecha();
+                            $person->usuActuali = Auth::user()->id;
+                            $person->usuReg = Auth::user()->id;
+                            $person->fecCreacion = UtilController::fecha();
+                            $person->telefono = $request->telefo;
+                            $person->save();
+                            $idpersona= $person->idPersona;
+
+                            $clien = new Cliente();
+                            $clien->idPe =$idpersona;
+                            $clien->clUsuReg = Auth::user()->id;
+                            $clien->clFecCrea = UtilController::fecha();
+                            $clien->save();
                         }
-                        $person = New Persona();
-
-                        $person->idUser = null;
-                        $person->cPDId = $idcpd;
-                        $person->pNombre = $request->pnombre;
-                        $person->sNombre = $request->snombre;
-                        $person->apPaterno = $request->appaterno;
-                        $person->apMaterno = $request->apmaterno;
-                        $person->numeroDoc = $request->dni;
-                        $person->tipoDoc = $request->tipdoc;
-                        $person->direccion = $request->direccion;
-                        $person->referencia = $request->referencia;
-                        $person->fecNac = date('Y-m-d', strtotime($request->fecNac));
-                        $person->fecActualiza = UtilController::fecha();;
-                        $person->usuActuali = Auth::user()->id;
-                        $person->usuReg = Auth::user()->id;
-                        $person->fecCreacion = UtilController::fecha();
-                        $person->telefono = $request->telefo;
-                        $person->save();
-                        $idpersona= $person->idPersona;
-
-                        $clien = new Cliente();
-                        $clien->idPersona =$idpersona;
-                        $clien->clUsuReg = Auth::user()->id;
-                        $clien->clFecCrea = UtilController::fecha();
-                        $clien->save();
                     }else{
-                        $person = New Persona();
-
-                        $person->idUser = null;
-                        $person->idDistrito = $request->iddist;
-                        $person->pNombre = $request->pnombre;
-                        $person->sNombre = $request->snombre;
-                        $person->apPaterno = $request->appaterno;
-                        $person->apMaterno = $request->apmaterno;
-                        $person->numeroDoc = $request->dni;
-                        $person->tipoDoc = $request->tipdoc;
-                        $person->direccion = $request->dir;
-                        $person->referencia = $request->referencia;
-                        $person->fecNac =date('Y-m-d', strtotime($request->fecNac));
-                        $person->fecActualiza = UtilController::fecha();
-                        $person->usuActuali = Auth::user()->id;
-                        $person->usuReg = Auth::user()->id;
-                        $person->fecCreacion = UtilController::fecha();
-                        $person->telefono = $request->telefo;
-                        $person->save();
-                        $idpersona= $person->idPersona;
-
                         $clien = new Cliente();
-                        $clien->idPersona =$idpersona;
+                        $clien->idPe =$request->idperson;
                         $clien->clUsuReg = Auth::user()->id;
                         $clien->clFecCrea = UtilController::fecha();
                         $clien->save();
+
                     }
                 }else{
+                    $person = New Persona();
+
+                    $person->idUser = null;
+                    $person->dtId = $request->iddist;
+                    $person->peNombres = $request->nombres;
+                    $person->peNumeroDoc = $request->dni;
+                    $person->peTipoDoc = $request->tipdoc;
+                    $person->peDireccion = $request->dir;
+                    $person->peReferencia = $request->referencia;
+                    $person->peFecNac =date('Y-m-d', strtotime($request->fecNac));
+                    $person->peFecActualiza = UtilController::fecha();
+                    $person->peFsuActuali = Auth::user()->id;
+                    $person->peUsuReg = Auth::user()->id;
+                    $person->peFecCreacion = UtilController::fecha();
+                    $person->peTelefono = $request->telefo;
+                    $person->save();
+                    $idpersona= $person->peId;
+
                     $clien = new Cliente();
-                    $clien->idPersona =$request->idperson;
+                    $clien->idPe =$idpersona;
                     $clien->clUsuReg = Auth::user()->id;
                     $clien->clFecCrea = UtilController::fecha();
                     $clien->save();
-
                 }
 
             });
@@ -303,5 +328,59 @@ class ClienteController extends Controller
     {
         $term = $request->input('term');
         return Cliente::obtenerCliente($term);
+    }
+    public function getApiDni($tipdoc,$ndoc){
+         //dd($tipdoc);
+        // Datos
+        $token = 'apis-token-8102.T8eOCgVKnAqbnBGu7--AaatEblvmWHVG';
+
+        // Iniciar llamada a API
+        $curl = curl_init();
+
+        if($tipdoc==="1"){
+            // Buscar dni
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://api.apis.net.pe/v2/reniec/dni?numero=' . $ndoc,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_SSL_VERIFYPEER => 0,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 2,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                CURLOPT_HTTPHEADER => array(
+                    'Referer: https://apis.net.pe/consulta-dni-api',
+                    'Authorization: Bearer ' . $token
+                ),
+            ));
+        }else{
+            if($tipdoc==="2"){
+                // Buscar ruc sunat
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => 'https://api.apis.net.pe/v2/sunat/ruc?numero=' . $ndoc,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_SSL_VERIFYPEER => 0,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_CUSTOMREQUEST => 'GET',
+                    CURLOPT_HTTPHEADER => array(
+                        'Referer: http://apis.net.pe/api-ruc',
+                        'Authorization: Bearer ' . $token
+                    ),
+                ));
+            }
+
+        }
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        // Datos listos para usar
+        $persona = json_decode($response);
+        //var_dump($persona);
+        return response()->json(array('error' => 0,'apicliente'=>$persona));
+
     }
 }

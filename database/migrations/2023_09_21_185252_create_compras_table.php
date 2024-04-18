@@ -17,6 +17,8 @@ class CreateComprasTable extends Migration
             $table->collate = 'latin1_spanish_ci';
             $table->bigIncrements('cId');
             $table->unsignedBigInteger('idPv');
+            $table->string('cNFactura');
+            $table->integer('cIgv');
             $table->integer('cUsuReg');
             $table->timestamp('cFecCrea')->default(DB::raw('now()'));
             $table->dateTime('cFecActualiza')->nullable();

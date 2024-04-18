@@ -17,6 +17,8 @@ class CreateVentasTable extends Migration
             $table->collate = 'latin1_spanish_ci';
             $table->bigIncrements('vId');
             $table->unsignedBigInteger('idCl');
+            $table->integer('vCantVal')->default(0);
+            $table->double('vPrecioVal')->default(0);
             $table->integer('vUsuReg');
             $table->timestamp('vFecCrea')->default(DB::raw('now()'));
             $table->dateTime('vFecActualiza')->nullable();

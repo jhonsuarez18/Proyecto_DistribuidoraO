@@ -13,18 +13,18 @@ class CreateClientesTable extends Migration
      */
     public function up()
     {
-        /*Schema::create('cliente', function (Blueprint $table) {
+        Schema::create('cliente', function (Blueprint $table) {
             $table->collate = 'latin1_spanish_ci';
             $table->bigIncrements('clId');
-            $table->unsignedBigInteger('idPersona');
+            $table->unsignedBigInteger('idPe');
             $table->integer('clUsuReg');
             $table->dateTime('clFecActualiza')->nullable();
             $table->timestamp('clFecCrea')->default(DB::raw('now()'));
             $table->integer('clEst')->default(1);
         });
         Schema::table('cliente', function ($table) {
-            $table->foreign('idPersona')->references('idPersona')->on('persona');
-        });*/
+            $table->foreign('idPe')->references('peId')->on('persona');
+        });
     }
 
     /**

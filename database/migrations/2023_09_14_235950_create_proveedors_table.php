@@ -16,6 +16,7 @@ class CreateProveedorsTable extends Migration
         Schema::create('proveedor', function (Blueprint $table) {
             $table->collate = 'latin1_spanish_ci';
             $table->bigIncrements('pvId');
+            $table->unsignedBigInteger('idDt');
             $table->string('pvRazonS');
             $table->string('pvRuc');
             $table->integer('pvTelefono');
@@ -24,6 +25,9 @@ class CreateProveedorsTable extends Migration
             $table->dateTime('pvFecActualiza')->nullable();
             $table->timestamp('pvFecCrea')->default(DB::raw('now()'));
             $table->integer('pvEst')->default(1);
+        });
+        Schema::table('proveedor', function ($table) {
+            $table->foreign('idDt')->references('dtId')->on('distrito');
         });
     }
 

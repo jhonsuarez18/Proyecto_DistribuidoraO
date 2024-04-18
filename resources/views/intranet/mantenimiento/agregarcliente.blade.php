@@ -101,39 +101,41 @@
                                            onchange="validDniClient()" disabled/>
                                     <div class="hide " id="validDnicl"></div>
                                 </div>
-                                <div class="col-xl-4 col-sm-4 col-xs-4">
+                                <div class="col-xl-4 col-sm-4 col-xs-4" id="hidappaterno">
                                     <label for="appaternocl">APPATERNO
                                         <req>*</req>
                                     </label>
                                     <input id="appaternocl" type="text" class="form-control form-control-sm" autocomplete="off"
-                                            onkeyup="javascript:this.value=this.value.toUpperCase();"/>
+                                             disabled onkeyup="javascript:this.value=this.value.toUpperCase();"/>
                                     <div class="hide " id="valappaternocl"></div>
                                 </div>
-                                <div class="col-xl-4 col-sm-4 col-xs-4">
+                                <div class="col-xl-4 col-sm-4 col-xs-4"  id="hidapmaterno">
                                     <label for="apmaternocl">APMATERNO
                                         <req>*</req>
                                     </label>
                                     <input id="apmaternocl" type="text" class="form-control form-control-sm" autocomplete="off"
-                                            onkeyup="javascript:this.value=this.value.toUpperCase();"/>
+                                            disabled onkeyup="javascript:this.value=this.value.toUpperCase();"/>
                                     <div class="hide " id="valapmaternocl"></div>
                                 </div>
-                                <div class="col-xl-4 col-sm-4 col-xs-4">
-                                    <label for="pnombrecl">PNOMBRE
+                                <div class="col-xl-4 col-sm-4 col-xs-4"  id="hidnombres">
+                                    <label for="nombrescl">NOMBRES
                                         <req>*</req>
                                     </label>
-                                    <input id="pnombrecl" type="text" class="form-control form-control-sm" autocomplete="off"
-                                            onkeyup="javascript:this.value=this.value.toUpperCase();"/>
-                                    <div class="hide " id="valpnombrecl"></div>
+                                    <input id="nombrescl" type="text" class="form-control form-control-sm" autocomplete="off"
+                                          disabled  onkeyup="javascript:this.value=this.value.toUpperCase();"/>
+                                    <div class="hide " id="valnombrescl"></div>
                                 </div>
-                                <div class="col-xl-4 col-sm-4 col-xs-4">
-                                    <label for="snombrecl">SNOMBRE</label>
-                                    <input id="snombrecl" type="text" class="form-control form-control-sm" autocomplete="off"
-                                            onkeyup="javascript:this.value=this.value.toUpperCase();"/>
-                                    <div class="hide " id="valsnombrecl"></div>
-                                </div>
-                                <div class="col-xl-4 col-sm-4 col-xs-4">
-                                    <label for="fecnaccl">FECNAC
+                                <div class="col-xl-4 col-sm-4 col-xs-4" hidden="true" id="hidrazons">
+                                    <label for="razonscl">RAZON SOCIAL
                                         <req>*</req>
+                                    </label>
+                                    <input id="razonscl" type="text" class="form-control form-control-sm" autocomplete="off"
+                                           disabled onkeyup="javascript:this.value=this.value.toUpperCase();"/>
+                                    <div class="hide " id="valrazonscl"></div>
+                                </div>
+                                <div class="col-xl-4 col-sm-4 col-xs-4" id="hidfecnac">
+                                    <label for="fecnaccl">FECNAC
+                                        <req></req>
                                     </label>
                                     <input type="text" class="form-control form-control-sm" id="fecnaccl" autocomplete="off">
                                     <div class="hide " id="valfecnaccl"></div>

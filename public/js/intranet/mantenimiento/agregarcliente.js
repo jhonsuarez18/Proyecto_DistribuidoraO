@@ -367,8 +367,16 @@ function eliminar(id) {
         }
     })
 }
-
+function limpiar_campos(){
+    $('#appaternocl').val("");
+    $('#apmaternocl').val("");
+    $('#nombrescl').val("");
+    $('#telefocl').val("");
+    $('#razonscl').val("");
+    $('#fecnaccl').val("");
+}
 $('#tipdoccl').on('change', function () {
+    limpiar_campos();
     var dni = $('#dnicl');
     var tipdoc = $('#validDnicl');
     var tipodocval = $('#validtipodoccl');
@@ -472,25 +480,14 @@ function validarFormulario() {
         text = 'Apellido materno correcto';
         validarCaja('apmaternocl', 'valapmaternocl', text, 1);
     }
-    if ($('#pnombrecl').val() === '') {
+    if ($('#nombrescl').val() === '') {
         cont++;
-        text = inicio + ' ingrese primer nombre';
-        validarCaja('pnombrecl', 'valpnombrecl', text, 0);
+        text = inicio + 'Ingrese nombre';
+        validarCaja('nombrescl', 'valnombrescl', text, 0);
     }
     else {
-        text = 'Primer nombre correcto';
+        text = 'Nombre correcto';
         validarCaja('pnombrecl', 'valpnombrecl', text, 1);
-    }
-
-    if ($('#fecnaccl').val() === '') {
-        cont++;
-        text = inicio + ' ingrese fecha de nacimiento';
-        validarCaja('fecnaccl', 'valfecnaccl', text, 0);
-    }
-    else {
-
-        text = 'Fecha de nacimiento correcta';
-        validarCaja('fecnaccl', 'valfecnaccl', text, 1);
     }
 
     if ($('#deparcl').val() !== '0') {
@@ -525,18 +522,6 @@ function validarFormulario() {
         validarCaja('discl', 'valdiscl', text, 0);
 
     }
-
-    if ($('#dircl').val() === '') {
-        cont++;
-        text = inicio + ' ingrese direccion';
-        validarCaja('dircl', 'valdircl', text, 0);
-    }
-    else {
-
-        text = 'Direccion correcta';
-        validarCaja('dircl', 'valdircl', text, 1);
-    }
-
 
     return cont;
 }
@@ -1030,6 +1015,27 @@ $('#deparu').on('change', function () {
         $('#provu').focus();
     }
 });
+$('#tipdoccl').on('change', function () {
+    console.log(this.value);
+    if(parseInt(this.value)===1 || parseInt(this.value)===3 ){
+        blo_desblo_campos(false,true)
+        console.log(false);
+    }else{
+        if(parseInt(this.value)===2){
+            blo_desblo_campos(true,false)
+            console.log(true);
+        }
+    }
+    $('#dnicl').focus();
+    //$('#hidnombres').prop("hidden",true);
+});
+ function blo_desblo_campos($bool1,$bool){
+     $('#hidnombres').prop("hidden",$bool1);
+     $('#hidappaterno').prop("hidden",$bool1);
+     $('#hidapmaterno').prop("hidden",$bool1);
+     $('#hidfecnac').prop("hidden",$bool1);
+     $('#hidrazons').prop("hidden",$bool);
+}
 $('#provu').on('change', function () {
     distrito('disu',this.value, 0);
     var prov = $('#provu');
@@ -1054,7 +1060,7 @@ $('#disu').on('change', function () {
 function validDniClient() {
     event.preventDefault();
     if(validarDniExpres('enviarclient','dnicl','tipdoccl','validDnicl')===0){
-        var dni = $('#dnicl').val();
+        /*var dni = $('#dnicl').val();
         var url = "/referencia/getPacDni/" + dni;
         var text;
         $.ajax(
@@ -1086,10 +1092,6 @@ function validDniClient() {
                                 provincia('provcl',usuario['departamentoid'],usuario['provinciaid']);
                                 distrito('discl',usuario['provinciaid'],usuario['distritoid']);
 
-                                /*departamento('deparacte',usuario['dep']);
-                                provincia('provacte',usuario['dep'],usuario['provate']);
-                                distrito('disacte',usuario['provate'],usuario['disate']);
-                                eess('estate',usuario['disate'],usuario['estab']);*/
 
                                 desbloquear();
                                 Swal.fire({
@@ -1121,12 +1123,7 @@ function validDniClient() {
                                 var pnombre = $('#pnombrecl').val();
                                 var appaterno = $('#appaternocl').val();
                                 var apmaterno = $('#apmaternocl').val();
-                                /*$('#nombrecu').val(pnombre.substr(0, 1) + appaterno + apmaterno.substr(0, 1));
-                                $('#emailcu').prop('disabled',false).val('');
-                                $('#provacte').val(0).focus();
-                                $('#disacte').val(0);
-                                $('#estate').val(0);
-                                $('#rocu').val(0);*/
+
                                 sit=2;
                             }
 
@@ -1143,8 +1140,45 @@ function validDniClient() {
                     //bloquear();
                 },
 
-            });
-    }
+            });*/
+        var tipdoc = $('#tipdoccl').val();
+        var dni = $('#dnicl').val();
+         var url = "/mantenimiento/getapiclient/"+ tipdoc+"/" + dni;
+         var text;
+         $.ajax(
+             {
+                 type: "GET",
+                 url: url,
+                 cache: false,
+                 dataType: 'json',
+                 data: '_token = <?php echo csrf_token() ?>',
+                 success: function (data) {
+                     if (data['error'] === 0) {
+                         var client = data['apicliente'];
+                         //var person = data['person'];
+                         console.log(client);
+                         if(tipdoc==='1'){
+                            $('#nombrescl').val(client['nombres']);
+                            $('#appaternocl').val(client['apellidoPaterno']);
+                            $('#apmaternocl').val(client['apellidoMaterno']);
+                         }else{
+                             if(tipdoc==='2'){
+                                 $('#razonscl').val(client['razonSocial']);
+                             }
+                         }
+                        //console.log(client['nombres']);
+
+
+                         //desbloquear();
+                     } else {
+
+                     }
+                 },beforeSend: function(){
+                     //bloquear();
+                 },
+
+             });
+            }
 }
 function enviarCliente() {
     if(validarFormulario()===0){
@@ -1165,10 +1199,10 @@ function enviarCliente() {
 
                 var appaterno = $('#appaternocl').val();
                 var apmaterno = $('#apmaternocl').val();
-                var pnombre = $('#pnombrecl').val();
-                var snombre = $('#snombrecl').val();
+                var nombres = $('#nombrescl').val();
                 var fecnac = $('#fecnaccl').val();
                 var telefo = $('#telefocl').val();
+                var razonsoc = $('#razoncl').val();
 
                 //ubicacion
                 var iddist = $('#discl').val();
@@ -1186,8 +1220,8 @@ function enviarCliente() {
                         dni: dni,
                         appaterno: appaterno,
                         apmaterno: apmaterno,
-                        pnombre: pnombre,
-                        snombre: snombre,
+                        nombres: nombres,
+                        razons: razonsoc,
                         fecnac: fecnac,
                         telefo: telefo,
                         iddist: iddist,

@@ -16,7 +16,10 @@ class CreateTipoDocsTable extends Migration
         Schema::create('tipo_doc', function (Blueprint $table) {
             $table->collate = 'latin1_spanish_ci';
             $table->bigIncrements('tdId');
-            $table->string('tdDesc');
+            $table->string('tdDescLarga');
+            $table->string('tdDescCorta');
+            $table->string('tdTipo');
+            $table->integer('tdLongitud');
             $table->integer('tdUsuReg');
             $table->timestamp('tdFecCrea')->default(DB::raw('now()'));
             $table->dateTime('tdFecActualiza')->nullable();
