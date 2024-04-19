@@ -13,7 +13,7 @@ class CreateCompraProductosTable extends Migration
      */
     public function up()
     {
-       /* Schema::create('compra_producto', function (Blueprint $table) {
+        Schema::create('compra_producto', function (Blueprint $table) {
             $table->collate = 'latin1_spanish_ci';
             $table->bigIncrements('cpId');
             $table->unsignedBigInteger('idC');
@@ -28,7 +28,7 @@ class CreateCompraProductosTable extends Migration
         Schema::table('compra_producto', function ($table) {
             $table->foreign('idC')->references('cId')->on('compra');
             $table->foreign('idP')->references('pId')->on('producto');
-        });*/
+        });
     }
 
     /**

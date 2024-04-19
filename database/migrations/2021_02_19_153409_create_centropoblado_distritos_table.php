@@ -17,7 +17,7 @@ class CreateCentropobladoDistritosTable extends Migration
             $table->collate = 'latin1_spanish_ci';
             $table->bigIncrements('cPDId');
             $table->unsignedBigInteger('idCentroPoblado');
-            $table->unsignedBigInteger('idDistrito');
+            $table->unsignedBigInteger('idDt');
             $table->integer('cPDUsuReg');
             $table->timestamp('cPDFecCrea')->default(DB::raw('now()'));
             $table->integer('cPDEst')->default(1);
@@ -25,7 +25,7 @@ class CreateCentropobladoDistritosTable extends Migration
         Schema::table('centropoblado_distrito',function (Blueprint $table)
         {
             $table->foreign('idCentroPoblado')->references('idCentroPoblado')->on('centropoblado');
-            $table->foreign('idDistrito')->references('idDistrito')->on('distrito');
+            $table->foreign('idDt')->references('dtId')->on('distrito');
         });
     }
 

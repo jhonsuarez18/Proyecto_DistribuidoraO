@@ -17,10 +17,9 @@ class Persona extends Migration
             $table->collate = 'latin1_spanish_ci';
             $table->bigIncrements('peId')->unique();
             $table->unsignedBigInteger('idUser')->nullable();
-            $table->unsignedBigInteger('idDistrito');
+            $table->unsignedBigInteger('idDt');
             $table->unsignedBigInteger('cPDId')->nullable();
-            $table->string('pePNombre')->nullable();
-            $table->string('peSNombre')->nullable();
+            $table->string('peNombres')->nullable();
             $table->string('peAPPaterno')->nullable();
             $table->string('peAPMaterno')->nullable();
             $table->string('peTelefono')->nullable();
@@ -37,7 +36,7 @@ class Persona extends Migration
         }
         );
         Schema::table('persona', function ($table) {
-            $table->foreign('idDistrito')->references('idDistrito')->on('distrito');
+            $table->foreign('idDt')->references('dtId')->on('distrito');
             $table->foreign('idTD')->references('tdId')->on('tipo_doc');
             $table->foreign('idUser')->references('id')->on('users');
             $table->foreign('cPDId')->references('cPDId')->on('centropoblado_distrito');

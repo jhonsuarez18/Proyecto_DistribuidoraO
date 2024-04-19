@@ -29,7 +29,7 @@ function getTipoDoc() {
             success: function (data) {
                 var htmla = '';
                 for (var i = 0; i < data.length; i++) {
-                    htmla = '<option value="' + data[i]['tdId'] + '">' + data[i]['tdDesc'] + '</option>';
+                    htmla = '<option value="' + data[i]['tdId'] + '">' + data[i]['tdDescCorta'] + '</option>';
                     html = html + htmla;
                 }
                 select.append(html);
@@ -391,6 +391,16 @@ $('#tipdoccl').on('change', function () {
         validarCaja('tipdoccl', 'validtipodoccl', '', 1)
     }
 
+    if(parseInt(this.value)===1){
+        blo_desblo_campos(false,true)
+    }else{
+        if(parseInt(this.value)===3){
+            blo_desblo_campos(true,false)
+        }
+    }
+    $('#dnicl').focus();
+
+
 });
 
 function validarDni() {
@@ -638,9 +648,6 @@ $('#addcliente').on('click',function(){
     provincia('provacte',1,0);
     camposUserAdd();
     $('#tipdoccl').focus();
-});
-$('#tipdoc').on('click',function(){
-    $('#dni').focus();
 });
 /*function abrilModal(id, nombre) {
     window.event.preventDefault();
@@ -1015,20 +1022,6 @@ $('#deparu').on('change', function () {
         $('#provu').focus();
     }
 });
-$('#tipdoccl').on('change', function () {
-    console.log(this.value);
-    if(parseInt(this.value)===1 || parseInt(this.value)===3 ){
-        blo_desblo_campos(false,true)
-        console.log(false);
-    }else{
-        if(parseInt(this.value)===2){
-            blo_desblo_campos(true,false)
-            console.log(true);
-        }
-    }
-    $('#dnicl').focus();
-    //$('#hidnombres').prop("hidden",true);
-});
  function blo_desblo_campos($bool1,$bool){
      $('#hidnombres').prop("hidden",$bool1);
      $('#hidappaterno').prop("hidden",$bool1);
@@ -1141,44 +1134,72 @@ function validDniClient() {
                 },
 
             });*/
-        var tipdoc = $('#tipdoccl').val();
-        var dni = $('#dnicl').val();
-         var url = "/mantenimiento/getapiclient/"+ tipdoc+"/" + dni;
-         var text;
-         $.ajax(
-             {
-                 type: "GET",
-                 url: url,
-                 cache: false,
-                 dataType: 'json',
-                 data: '_token = <?php echo csrf_token() ?>',
-                 success: function (data) {
-                     if (data['error'] === 0) {
-                         var client = data['apicliente'];
-                         //var person = data['person'];
-                         console.log(client);
-                         if(tipdoc==='1'){
-                            $('#nombrescl').val(client['nombres']);
-                            $('#appaternocl').val(client['apellidoPaterno']);
-                            $('#apmaternocl').val(client['apellidoMaterno']);
-                         }else{
-                             if(tipdoc==='2'){
-                                 $('#razonscl').val(client['razonSocial']);
-                             }
-                         }
-                        //console.log(client['nombres']);
+            var tipdoc = $('#tipdoccl').val();
+            var dni = $('#dnicl').val();
+            var url = "/mantenimiento/getapiclient/"+ tipdoc+"/" + dni;
+            var text;
+            $.ajax(
+                {
+                    type: "GET",
+                    url: url,
+                    cache: false,
+                    dataType: 'json',
+                    data: '_token = <?php echo csrf_token() ?>',
+                    success: function (data) {
+                        if (data['error'] === 0) {
+                            var client = data['apicliente'];
+                            //var person = data['person'];
+                            console.log(client);
+                            if(tipdoc==='1'){
+                                if(client['apellidoPaterno']===""){
+                                    operacionErrorApi();
+                                    habi_deshabi_campos(false);
+                                    $('#appaternocl').focus()
+                                }else{
+                                    habi_deshabi_campos(true);
+                                    $('#nombrescl').val(client['nombres']);
+                                    $('#appaternocl').val(client['apellidoPaterno']);
+                                    $('#apmaternocl').val(client['apellidoMaterno']);
+                                }
+
+                            }else{
+                                if(tipdoc==='3'){
+                                    if(client['razonSocial']===""){
+                                        operacionErrorApi();
+                                        habi_deshabi_campos(false);
+                                        $('#razonscl').focus()
+                                    }else{
+                                        habi_deshabi_campos(true);
+                                        $('#razonscl').val(client['razonSocial']);
+                                        text = ' Ruc correcto';
+                                        validarCaja('razonscl', 'valrazonscl', text, 1);
+                                    }
+                                    if(client['message']==="ruc no valido"){
+                                        var inicio=client['message'];
+                                        text = inicio + ' Ingrese uno correcto';
+                                        validarCaja('razonscl', 'valrazonscl', text, 0);
+                                    }
+                                }
+                            }
+                            //console.log(client['nombres']);
 
 
-                         //desbloquear();
-                     } else {
+                            //desbloquear();
+                        } else {
 
-                     }
-                 },beforeSend: function(){
-                     //bloquear();
-                 },
+                        }
+                    },beforeSend: function(){
+                        //bloquear();
+                    },
 
-             });
+                });
             }
+}
+function habi_deshabi_campos($bool){
+    $('#apmaternocl').prop('disabled',$bool);
+    $('#appaternocl').prop('disabled',$bool);
+    $('#nombrescl').prop('disabled',$bool);
+    $('#razonscl').prop('disabled',$bool);
 }
 function enviarCliente() {
     if(validarFormulario()===0){

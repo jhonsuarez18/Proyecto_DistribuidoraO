@@ -122,7 +122,7 @@ class ClienteController extends Controller
 
                     $person->idUser = null;
                     $person->dtId = $request->iddist;
-                    $person->peNombres = $request->nombres;
+                    $person->peNombres = $request->razons;
                     $person->peNumeroDoc = $request->dni;
                     $person->peTipoDoc = $request->tipdoc;
                     $person->peDireccion = $request->dir;
@@ -354,7 +354,7 @@ class ClienteController extends Controller
                 ),
             ));
         }else{
-            if($tipdoc==="2"){
+            if($tipdoc==="3"){
                 // Buscar ruc sunat
                 curl_setopt_array($curl, array(
                     CURLOPT_URL => 'https://api.apis.net.pe/v2/sunat/ruc?numero=' . $ndoc,

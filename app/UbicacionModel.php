@@ -20,7 +20,7 @@ class UbicacionModel extends Model
 
     public static function obtenerDistrito($idProv)
     {
-        $query = DB::table('distrito as d')->select('d.idDistrito', 'd.descripcion')
+        $query = DB::table('distrito as d')->select('d.dtId', 'd.descripcion')
             ->where('idProvincia', '=', $idProv)
             ->get();
         return $query;

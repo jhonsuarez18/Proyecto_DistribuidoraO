@@ -13,7 +13,7 @@ class CreateTipoClientesTable extends Migration
      */
     public function up()
     {
-        /*Schema::create('tipo_clientes', function (Blueprint $table) {
+        Schema::create('tipo_clientes', function (Blueprint $table) {
             $table->collate = 'latin1_spanish_ci';
             $table->bigIncrements('tclId');
             $table->string('tclDesc');
@@ -21,7 +21,7 @@ class CreateTipoClientesTable extends Migration
             $table->timestamp('tclFecCrea')->default(DB::raw('now()'));
             $table->dateTime('tclFecActualiza')->nullable();
             $table->integer('tclEst')->default(1);
-        });*/
+        });
     }
 
     /**

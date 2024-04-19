@@ -18,11 +18,11 @@ class Cliente extends Model
                 'cl.clEst','pe.peTelefono','ds.codigo as coddist','dis.codigo',
                 DB::raw('LPAD(cl.clId,"5",0) as codcli'),
                 DB::raw("DATE_FORMAT(cl.clFecCrea,'%d-%m-%Y') as clFecCrea"),
-                DB::raw('concat(pe.peAPPaterno," ",pe.peAPMaterno,", ",pe.pePNombre," ",ifnull(pe.peSNombre,"")) as person'))
-            ->join('persona as pe','pe.peId','=','cl.idPersona')
+                DB::raw('concat(pe.peAPPaterno," ",pe.peAPMaterno,", ",pe.peNombres) as person'))
+            ->join('persona as pe','pe.peId','=','cl.idPe')
             ->leftjoin('centropoblado_distrito as cpd', 'cpd.cPDId', '=', 'pe.cPDId')
-            ->leftjoin('distrito as ds', 'ds.idDistrito', '=', 'cpd.idDistrito')
-            ->leftjoin('distrito as dis', 'dis.idDistrito', '=', 'pe.idDistrito')
+            ->leftjoin('distrito as ds', 'ds.dtId', '=', 'cpd.idDt')
+            ->leftjoin('distrito as dis', 'dis.dtId', '=', 'pe.idDt')
             ->orderBy('cl.clFecCrea','desc')
             ->get();
 

@@ -377,6 +377,17 @@ function operacionSubsanar() {
         timer: 3000
     });
 }
+function operacionErrorApi() {
+    Swal.fire({
+        position: 'top-end',
+        icon: 'warning',
+        type: 'warning',
+        title: 'atencion!',
+        text: 'El servidor tiene problemas, por favor, ingrese de forma manual..',
+        showConfirmButton: false,
+        timer: 3000
+    });
+}
 
 function errorFunc(text) {
     Swal.fire({
@@ -546,11 +557,11 @@ function distrito(id, idprov, iddist) {
                     arreglo = data['dis'];
                     var htmla = '';
                     for (var i = 0; i < arreglo.length; i++) {
-                        if (parseInt(arreglo[i]['idDistrito']) === parseInt(iddist)) {
-                            htmla = '<option value="' + arreglo[i]['idDistrito'] + '" selected>' + arreglo[i]['descripcion'] + '</option>';
+                        if (parseInt(arreglo[i]['dtId']) === parseInt(iddist)) {
+                            htmla = '<option value="' + arreglo[i]['dtId'] + '" selected>' + arreglo[i]['descripcion'] + '</option>';
                             html = html + htmla;
                         } else {
-                            htmla = '<option value="' + arreglo[i]['idDistrito'] + '">' + arreglo[i]['descripcion'] + '</option>';
+                            htmla = '<option value="' + arreglo[i]['dtId'] + '">' + arreglo[i]['descripcion'] + '</option>';
                             html = html + htmla;
                         }
                     }
@@ -583,30 +594,31 @@ function validarDniExpres(buton, dnii, tipdocc, val) {
         }
     } else {
         if (tipdoc === '2') {
-            expres = /^[0-9]{11}$/;
+            expres = /^[0-9]{12}$/;
             if (expres.test(dni)) {
                 validarCaja(dnii, val, 'correcto', 1);
                 $('#' + buton).prop('disabled', false);
             } else {
                 cont++;
-                text = 'Ruc incorrecto, vuelva a ingresar el Ruc';
+                text = 'Carnet de estranjeria incorrecto, vuelva a ingresar el carnet';
                 validarCaja(dnii, val, text, 0);
                 $('#' + buton).prop('disabled', true);
             }
         }else{
             if (tipdoc === '3') {
-                expres = /^[0-9]{12}$/;
+                expres = /^[0-9]{11}$/;
                 if (expres.test(dni)) {
                     validarCaja(dnii, val, 'correcto', 1);
                     $('#' + buton).prop('disabled', false);
                 } else {
                     cont++;
-                    text = 'Carnet de estranjeria incorrecto, vuelva a ingresar el carnet';
+                    text = 'Ruc incorrecto, vuelva a ingresar el Ruc';
                     validarCaja(dnii, val, text, 0);
                     $('#' + buton).prop('disabled', true);
                 }
             }
         }
+
     }
     return cont;
 }

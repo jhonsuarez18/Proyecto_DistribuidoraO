@@ -81,6 +81,7 @@
                                 <small>Dato obligatorio</small>)
                             </legend>
                             <hr>
+
                             <div class="col-xl-12 col-sm-12 col-xs-12 row ">
                                 <input type="text" id="idperson"hidden/>
                                 <div class="col-xl-4 col-sm-4 col-xs-4">
