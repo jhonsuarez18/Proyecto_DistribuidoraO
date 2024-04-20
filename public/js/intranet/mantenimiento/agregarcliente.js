@@ -470,35 +470,49 @@ function validarFormulario() {
         validarCaja('dnicl', 'validDnicl', text, 0);
     }
 
+    if($('#tipdoccl').val()===1){
+        if ($('#appaternocl').val() === '') {
+            cont++;
+            text = inicio + ' ingrese apellido paterno';
+            validarCaja('appaternocl', 'valappaternocl', text, 0);
+        }
+        else {
+            text = 'Apellido paterno correcto';
+            validarCaja('appaternocl', 'valappaternocl', text, 1);
+        }
+        if ($('#apmaternocl').val() === '') {
+            cont++;
+            text = inicio + ' ingrese apellido materno';
+            validarCaja('apmaternocl', 'valapmaternocl', text, 0);
+        }
+        else {
+            text = 'Apellido materno correcto';
+            validarCaja('apmaternocl', 'valapmaternocl', text, 1);
+        }
+        if ($('#nombrescl').val() === '') {
+            cont++;
+            text = inicio + 'Ingrese nombre';
+            validarCaja('nombrescl', 'valnombrescl', text, 0);
+        }
+        else {
+            text = 'Nombre correcto';
+            validarCaja('pnombrecl', 'valpnombrecl', text, 1);
+        }
+    }else{
+        if($('#tipdoccl').val()===3){
+            if ($('#razonscl').val() === '') {
+                cont++;
+                text = inicio + ' ingrese Razon Social';
+                validarCaja('razonscl', 'valrazonscl', text, 0);
+            }
+            else {
+                text = 'Razon Social correcto';
+                validarCaja('razonscl', 'valrazonscl', text, 1);
+            }
+        }
+    }
 
-    if ($('#appaternocl').val() === '') {
-        cont++;
-        text = inicio + ' ingrese apellido paterno';
-        validarCaja('appaternocl', 'valappaternocl', text, 0);
-    }
-    else {
 
-        text = 'Apellido paterno correcto';
-        validarCaja('appaternocl', 'valappaternocl', text, 1);
-    }
-    if ($('#apmaternocl').val() === '') {
-        cont++;
-        text = inicio + ' ingrese apellido materno';
-        validarCaja('apmaternocl', 'valapmaternocl', text, 0);
-    }
-    else {
-        text = 'Apellido materno correcto';
-        validarCaja('apmaternocl', 'valapmaternocl', text, 1);
-    }
-    if ($('#nombrescl').val() === '') {
-        cont++;
-        text = inicio + 'Ingrese nombre';
-        validarCaja('nombrescl', 'valnombrescl', text, 0);
-    }
-    else {
-        text = 'Nombre correcto';
-        validarCaja('pnombrecl', 'valpnombrecl', text, 1);
-    }
 
     if ($('#deparcl').val() !== '0') {
 
@@ -1151,8 +1165,8 @@ function validDniClient() {
                             //var person = data['person'];
                             console.log(client);
                             if(tipdoc==='1'){
-                                if(client['apellidoPaterno']===""){
-                                    operacionErrorApi();
+                                if(client===null){
+                                    operacionErrorApi("");
                                     habi_deshabi_campos(false);
                                     $('#appaternocl').focus()
                                 }else{
@@ -1161,18 +1175,21 @@ function validDniClient() {
                                     $('#appaternocl').val(client['apellidoPaterno']);
                                     $('#apmaternocl').val(client['apellidoMaterno']);
                                 }
-
+                                if(client['message']==="not found"){
+                                    var message=client['message'];
+                                    operacionErrorApi(message);
+                                    habi_deshabi_campos(false);
+                                    $('#appaternocl').focus()
+                                }
                             }else{
                                 if(tipdoc==='3'){
                                     if(client['razonSocial']===""){
-                                        operacionErrorApi();
+                                        operacionErrorApi(client['razonSocial']);
                                         habi_deshabi_campos(false);
                                         $('#razonscl').focus()
                                     }else{
                                         habi_deshabi_campos(true);
                                         $('#razonscl').val(client['razonSocial']);
-                                        text = ' Ruc correcto';
-                                        validarCaja('razonscl', 'valrazonscl', text, 1);
                                     }
                                     if(client['message']==="ruc no valido"){
                                         var inicio=client['message'];

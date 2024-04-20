@@ -377,15 +377,15 @@ function operacionSubsanar() {
         timer: 3000
     });
 }
-function operacionErrorApi() {
+function operacionErrorApi($message) {
     Swal.fire({
         position: 'top-end',
         icon: 'warning',
         type: 'warning',
         title: 'atencion!',
-        text: 'El servidor tiene problemas, por favor, ingrese de forma manual..',
+        text: $message+' El servidor tiene problemas, por favor, ingrese de forma manual..',
         showConfirmButton: false,
-        timer: 3000
+        timer: 6000
     });
 }
 
