@@ -14,15 +14,16 @@ class Cliente extends Model
     public static function getClientes()
     {
         return $query=DB::table('cliente as cl')
-            ->select('cl.clId','pe.peNumeroDoc',
+            ->select('cl.clId','pe.peNumeroDoc','td.tdDescCorta',
                 'cl.clEst','pe.peTelefono','ds.codigo as coddist','dis.codigo',
                 DB::raw('LPAD(cl.clId,"5",0) as codcli'),
                 DB::raw("DATE_FORMAT(cl.clFecCrea,'%d-%m-%Y') as clFecCrea"),
-                DB::raw('concat(pe.peAPPaterno," ",pe.peAPMaterno,", ",pe.peNombres) as person'))
+                DB::raw('concat(IFNULL(pe.peAPPaterno,"")," ",IFNULL(pe.peAPMaterno,"")," ",pe.peNombres) as person'))
             ->join('persona as pe','pe.peId','=','cl.idPe')
             ->leftjoin('centropoblado_distrito as cpd', 'cpd.cPDId', '=', 'pe.cPDId')
             ->leftjoin('distrito as ds', 'ds.dtId', '=', 'cpd.idDt')
             ->leftjoin('distrito as dis', 'dis.dtId', '=', 'pe.idDt')
+            ->leftjoin('tipo_doc as td', 'td.tdId', '=', 'pe.idTD')
             ->orderBy('cl.clFecCrea','desc')
             ->get();
 
@@ -30,9 +31,9 @@ class Cliente extends Model
     public static function getClienteDni($dni)
     {
         return DB::table('persona as pe')->select('*',
-            DB::raw('TIMESTAMPDIFF(year,pe.fecNac, now() ) as edad'))
-            ->join('cliente as cl', 'pe.idPersona', '=', 'cl.idPersona')
-            ->where('pe.numeroDoc', '=',$dni)
+            DB::raw('TIMESTAMPDIFF(year,pe.peFecNac, now() ) as edad'))
+            ->join('cliente as cl', 'pe.peId', '=', 'cl.idPe')
+            ->where('pe.peNumeroDoc', '=',$dni)
             ->where('cl.clEst', '=',1)
             ->first();
     }

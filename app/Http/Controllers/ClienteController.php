@@ -73,7 +73,7 @@ class ClienteController extends Controller
                             $person->peFecCreacion = UtilController::fecha();
                             $person->peTelefono = $request->telefo;
                             $person->save();
-                            $idpersona= $person->idPersona;
+                            $idpersona= $person->peId;
 
                             $clien = new Cliente();
                             $clien->idPe =$idpersona;
@@ -85,7 +85,7 @@ class ClienteController extends Controller
 
                             $person->idUser = null;
                             $person->idDt = $request->iddist;
-                            $person->peNombres = $request->snombre;
+                            $person->peNombres = $request->nombres;
                             $person->peAPPaterno = $request->appaterno;
                             $person->peAPMaterno = $request->apmaterno;
                             $person->peNumeroDoc = $request->dni;
@@ -99,7 +99,7 @@ class ClienteController extends Controller
                             $person->peFecCreacion = UtilController::fecha();
                             $person->peTelefono = $request->telefo;
                             $person->save();
-                            $idpersona= $person->idPersona;
+                            $idpersona= $person->peId;
 
                             $clien = new Cliente();
                             $clien->idPe =$idpersona;
@@ -125,9 +125,8 @@ class ClienteController extends Controller
                     $person->idTD = $request->tipdoc;
                     $person->peDireccion = $request->dir;
                     $person->peReferencia = $request->referencia;
-                    $person->peFecNac =date('Y-m-d', strtotime($request->fecNac));
                     $person->peFecActualiza = UtilController::fecha();
-                    $person->peFsuActuali = Auth::user()->id;
+                    $person->peUsuActuali = Auth::user()->id;
                     $person->peUsuReg = Auth::user()->id;
                     $person->peFecCreacion = UtilController::fecha();
                     $person->peTelefono = $request->telefo;
@@ -195,29 +194,28 @@ class ClienteController extends Controller
 
                     $person->idUser = null;
                     if($request->idcp!=='0'){
-                        $person->idDistrito = null;
+                        $person->idDt = null;
                         $person->cPDId = $idcpd;
                     }else{
-                        $person->idDistrito = $request->iddist;
+                        $person->idDt = $request->iddist;
                     }
-                    $person->pNombre = $request->pnombre;
-                    $person->sNombre = $request->snombre;
-                    $person->apPaterno = $request->appaterno;
-                    $person->apMaterno = $request->apmaterno;
-                    $person->numeroDoc = $request->dni;
-                    $person->tipoDoc = $request->tipdoc;
-                    $person->direccion = $request->dir;
-                    $person->referencia = $request->referencia;
-                    $person->fecNac = date('Y-m-d', strtotime($request->fecnac));
-                    $person->fecActualiza = UtilController::fecha();;
-                    $person->usuActuali = Auth::user()->id;
-                    $person->usuReg = Auth::user()->id;
-                    $person->fecCreacion = UtilController::fecha();
-                    $person->telefono = $request->telefo;
+                    $person->peNombres = $request->nombres;
+                    $person->peAPPaterno = $request->appaterno;
+                    $person->peAPMaterno = $request->apmaterno;
+                    $person->peNumeroDoc = $request->dni;
+                    $person->idTD = $request->tipdoc;
+                    $person->peDireccion = $request->dir;
+                    $person->peReferencia = $request->referencia;
+                    $person->peFecNac = date('Y-m-d', strtotime($request->fecnac));
+                    $person->peFecActualiza = UtilController::fecha();;
+                    $person->peUsuActuali = Auth::user()->id;
+                    $person->peUsuReg = Auth::user()->id;
+                    $person->peFecCreacion = UtilController::fecha();
+                    $person->peTelefono = $request->telefo;
                     $person->save();
 
                     $clien=Cliente::findOrfail($request->idclient);
-                    $clien->idPersona =$request->idperson;
+                    $clien->idPe =$request->idperson;
                     $clien->clUsuReg = Auth::user()->id;
                     $clien->clFecActualiza = UtilController::fecha();
                     $clien->save();
@@ -229,7 +227,7 @@ class ClienteController extends Controller
                         if(count($centropd)==0){
                             $centpd = new CentropobladoDistrito();
                             $centpd->idCentroPoblado = $request->idcp;
-                            $centpd->idDistrito =$request->iddist;
+                            $centpd->idDt =$request->iddist;
                             $centpd->cPDUsuReg = Auth::user()->id;
                             $centpd->cPDFecCrea = UtilController::fecha();
                             $centpd->save();
@@ -246,25 +244,24 @@ class ClienteController extends Controller
                     if($request->idcp!=='0'){
                         $person->cPDId = $idcpd;
                     }else{
-                        $person->idDistrito = $request->iddist;
+                        $person->idDt = $request->iddist;
                         $person->cPDId = null;
                     }
-                    $person->pNombre = $request->pnombre;
-                    $person->sNombre = $request->snombre;
-                    $person->apPaterno = $request->appaterno;
-                    $person->apMaterno = $request->apmaterno;
-                    $person->numeroDoc = $request->dni;
-                    $person->tipoDoc = $request->tipdoc;
-                    $person->direccion = $request->dir;
-                    $person->fecNac = date('Y-m-d', strtotime($request->fecnac));
-                    $person->fecActualiza = UtilController::fecha();;
-                    $person->usuActuali = Auth::user()->id;
-                    $person->usuReg = Auth::user()->id;
-                    $person->telefono = $request->telefo;
+                    $person->peNombres = $request->nombres;
+                    $person->peAPPaterno = $request->appaterno;
+                    $person->peAPMaterno = $request->apmaterno;
+                    $person->peNumeroDoc = $request->dni;
+                    $person->idTD = $request->tipdoc;
+                    $person->peDireccion = $request->dir;
+                    $person->peFecNac = date('Y-m-d', strtotime($request->fecnac));
+                    $person->peFecActualiza = UtilController::fecha();;
+                    $person->peUsuActuali = Auth::user()->id;
+                    $person->peUsuReg = Auth::user()->id;
+                    $person->peTelefono = $request->telefo;
                     $person->save();
 
                     $clien=Cliente::findOrfail($request->idclient);
-                    $clien->idPersona =$request->idpers;
+                    $clien->idPe =$request->idpers;
                     $clien->clUsuReg = Auth::user()->id;
                     $clien->clFecActualiza = UtilController::fecha();
                     $clien->save();

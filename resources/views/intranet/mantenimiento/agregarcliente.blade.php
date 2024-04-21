@@ -99,7 +99,7 @@
                                         <req>*</req>
                                     </label>
                                     <input id="dnicl" type="number" class="form-control form-control-sm" autocomplete="off"
-                                           onchange="validDniClient()" disabled/>
+                                           onchange="validDniClientEdit()" disabled/>
                                     <div class="hide " id="validDnicl"></div>
                                 </div>
                                 <div class="col-xl-4 col-sm-4 col-xs-4" id="hidappaterno">
@@ -184,13 +184,6 @@
                                     </select>
                                     <div class="hide " id="valdiscl"></div>
                                 </div>
-                                <div class="col-xl-4 col-sm-4 col-xs-4">
-                                    <input id="idcentp" value="0" type="text" hidden>
-                                    <label for="centocl">CENTRO POBLADO
-                                    </label>
-                                    <input id="centocl" class="form-control form-control-sm" type="text" disabled>
-                                    <div class="hide " id="valcentocl"></div>
-                                </div>
                                 <div class="col-xl-6 col-sm-6 col-xs-6">
                                     <label for="dircl">DIRECCION
                                     </label>
@@ -241,16 +234,19 @@
                                     CLIENTE
                                 </th>
                                 <th>
-                                    DNI
+                                    DOC. ID.
                                 </th>
                                 <th>
-                                    COD DIST
+                                    COD. DIST
                                 </th>
                                 <th>
                                     TELEFONO
                                 </th>
                                 <th>
-                                    FECHA
+                                    TIP. DOC
+                                </th>
+                                <th>
+                                    FEC. REG
                                 </th>
                                 <th>
                                     ESTADO
@@ -293,12 +289,9 @@
                                         <req>*</req>
                                     </label>
                                     <select class="form-control form-control-sm" id="tipdoccledit">
-                                        <option selected value="0">SELECCIONE</option>
-                                        <option value="1">DNI</option>
-                                        <option value="2">CARNET EXTRANJERIA</option>
-                                        <option value="3">OTROS</option>
+
                                     </select>
-                                    <div id="validtipodoccledit"></div>
+                                    <div id="valtipodoccledit"></div>
                                 </div>
 
                                 <div class="col-xl-4 col-sm-4 col-xs-4">
@@ -306,42 +299,44 @@
                                         <req>*</req>
                                     </label>
                                     <input id="dnicledit" type="number" class="form-control form-control-sm" autocomplete="off"
-                                           onchange="validDniClient()" disabled/>
-                                    <div class="hide " id="validDnicledit"></div>
+                                           onchange="validDniClientEdit()" disabled/>
+                                    <div class="hide " id="valdnicledit"></div>
                                 </div>
-                                <div class="col-xl-4 col-sm-4 col-xs-4">
+                                <div class="col-xl-4 col-sm-4 col-xs-4" id="hidappaternoedit">
                                     <label for="appaternocledit">APPATERNO
                                         <req>*</req>
                                     </label>
                                     <input id="appaternocledit" type="text" class="form-control form-control-sm" autocomplete="off"
-                                           onkeyup="javascript:this.value=this.value.toUpperCase();"/>
+                                           disabled onkeyup="javascript:this.value=this.value.toUpperCase();"/>
                                     <div class="hide " id="valappaternocledit"></div>
                                 </div>
-                                <div class="col-xl-4 col-sm-4 col-xs-4">
+                                <div class="col-xl-4 col-sm-4 col-xs-4"  id="hidapmaternoedit">
                                     <label for="apmaternocledit">APMATERNO
                                         <req>*</req>
                                     </label>
                                     <input id="apmaternocledit" type="text" class="form-control form-control-sm" autocomplete="off"
-                                           onkeyup="javascript:this.value=this.value.toUpperCase();"/>
+                                           disabled onkeyup="javascript:this.value=this.value.toUpperCase();"/>
                                     <div class="hide " id="valapmaternocledit"></div>
                                 </div>
-                                <div class="col-xl-4 col-sm-4 col-xs-4">
-                                    <label for="pnombrecledit">PNOMBRE
+                                <div class="col-xl-4 col-sm-4 col-xs-4"  id="hidnombresedit">
+                                    <label for="nombrescledit">NOMBRES
                                         <req>*</req>
                                     </label>
-                                    <input id="pnombrecledit" type="text" class="form-control form-control-sm" autocomplete="off"
-                                           onkeyup="javascript:this.value=this.value.toUpperCase();"/>
-                                    <div class="hide " id="valpnombrecledit"></div>
+                                    <input id="nombrescledit" type="text" class="form-control form-control-sm" autocomplete="off"
+                                           disabled  onkeyup="javascript:this.value=this.value.toUpperCase();"/>
+                                    <div class="hide " id="valnombrescledit"></div>
                                 </div>
-                                <div class="col-xl-4 col-sm-4 col-xs-4">
-                                    <label for="snombrecledit">SNOMBRE</label>
-                                    <input id="snombrecledit" type="text" class="form-control form-control-sm" autocomplete="off"
-                                           onkeyup="javascript:this.value=this.value.toUpperCase();"/>
-                                    <div class="hide " id="valsnombrecledit"></div>
-                                </div>
-                                <div class="col-xl-4 col-sm-4 col-xs-4">
-                                    <label for="fecnaccledit">FECNAC
+                                <div class="col-xl-4 col-sm-4 col-xs-4" hidden="true" id="hidrazonsedit">
+                                    <label for="razonscledit">RAZON SOCIAL
                                         <req>*</req>
+                                    </label>
+                                    <input id="razonscledit" type="text" class="form-control form-control-sm" autocomplete="off"
+                                           disabled onkeyup="javascript:this.value=this.value.toUpperCase();"/>
+                                    <div class="hide " id="valrazonscledit"></div>
+                                </div>
+                                <div class="col-xl-4 col-sm-4 col-xs-4" id="hidfecnacedit">
+                                    <label for="fecnaccledit">FECNAC
+                                        <req></req>
                                     </label>
                                     <input type="text" class="form-control form-control-sm" id="fecnaccledit" autocomplete="off">
                                     <div class="hide " id="valfecnaccledit"></div>
@@ -350,14 +345,14 @@
                                     <label for="telefocledit">TELEFONO
                                     </label>
                                     <input id="telefocledit" type="number" class="form-control form-control-sm"
-                                           onchange="validCelular('telefocledit','valtelefocledit','enviarclient')"
+                                           onchange="validCelular('telefocledit','valtelefocledit','enviarclientedit')"
                                            autocomplete="off"/>
                                     <div class="" id="valtelefocledit"></div>
                                 </div>
                                 <hr>
 
                             </div>
-                            <legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse py-3">DATOS UBICACION DNI
+                            <legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse py-3">DATOS UBICACION
 
                             </legend>
                             <hr>
@@ -388,13 +383,6 @@
                                         <option selected value="0">SELECCIONE</option>
                                     </select>
                                     <div class="hide " id="valdiscledit"></div>
-                                </div>
-                                <div class="col-xl-4 col-sm-4 col-xs-4">
-                                    <input id="idcentpedit" value="0" type="text" hidden>
-                                    <label for="centocledit">CENTRO POBLADO
-                                    </label>
-                                    <input id="centocledit" class="form-control form-control-sm" type="text" disabled>
-                                    <div class="hide " id="valcentocledit"></div>
                                 </div>
                                 <div class="col-xl-6 col-sm-6 col-xs-6">
                                     <label for="dircledit">DIRECCION
