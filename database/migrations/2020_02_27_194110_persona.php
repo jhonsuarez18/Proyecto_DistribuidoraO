@@ -28,8 +28,8 @@ class Persona extends Migration
             $table->string('peDireccion')->nullable();
             $table->string('peReferencia')->nullable();
             $table->date('peFecNac')->nullable();
-            $table->dateTime('peFecActualiza');
-            $table->integer('peUsuActuali');
+            $table->dateTime('peFecActualiza')->nullable();
+            $table->integer('peUsuActuali')->nullable();
             $table->integer('peUsuReg');
             $table->timestamp('peFecCreacion');
             $table->integer('peEstado')->default(1);

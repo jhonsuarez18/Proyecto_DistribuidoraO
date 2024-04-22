@@ -18,12 +18,12 @@ class Venta extends Model
             ->select('vp.vpId as vpCod','vp.vpCant','vp.vpPrecioV',
                 DB::raw('LPAD(v.vId,"5",0) as codvent'),
                 DB::raw("concat(m.mDesc,'  ',tp.tpDesc,'  ',ps.psDesc) AS product"),
-                DB::raw('concat(pe.apPaterno," ",pe.apMaterno," ",pe.pNombre," ",ifnull(pe.sNombre,"")) as cliente'),
+                DB::raw('concat(ifnull(pe.peAPPaterno,"")," ",ifnull(pe.peAPMaterno,"")," ",ifnull(pe.peNombres,"")) as cliente'),
                 DB::raw("vp.vpCant*vp.vpPrecioV AS total"),
                 DB::raw('date(v.vFecCrea) as vFecCrea'), 'vp.vpEst')
             ->leftjoin('venta as v', 'v.vId', '=', 'vp.idV')
             ->leftjoin('cliente as cl', 'cl.clId', '=', 'v.idCl')
-            ->leftjoin('persona as pe', 'pe.idPersona', '=', 'cl.idPersona')
+            ->leftjoin('persona as pe', 'pe.peId', '=', 'cl.idPe')
             ->leftjoin('producto as p', 'p.pId', '=', 'vp.idP')
             ->leftjoin('tip_producto as tp', 'tp.tpId', '=', 'p.idTp')
             ->leftjoin('marca as m', 'm.mId', '=', 'p.idM')

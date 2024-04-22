@@ -99,7 +99,7 @@
                                         <req>*</req>
                                     </label>
                                     <input id="dnicl" type="number" class="form-control form-control-sm" autocomplete="off"
-                                           onchange="validDniClientEdit()" disabled/>
+                                           onchange="validDniClient()" disabled/>
                                     <div class="hide " id="validDnicl"></div>
                                 </div>
                                 <div class="col-xl-4 col-sm-4 col-xs-4" id="hidappaterno">

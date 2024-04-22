@@ -40,10 +40,10 @@ class Cliente extends Model
     public static function obtenerCliente($term)
     {
         $query = DB::table('cliente as cl')->select('cl.clId',
-            DB::raw('concat(pe.numeroDoc,"-",pe.apPaterno," ",pe.apMaterno,", ",pe.pNombre," ",ifnull(pe.sNombre,"")) as person'))
-            ->join('persona as pe','pe.idPersona','=','cl.idPersona')
-            ->Where(DB::raw('concat(pe.numeroDoc,"-",pe.apPaterno," ",pe.apMaterno,", ",pe.pNombre," ",ifnull(pe.sNombre,""))'), 'LIKE', "%$term%")
-            ->Where('estado', '=', 1)
+            DB::raw('concat(ifnull(pe.peNumeroDoc,""),"-",ifnull(pe.peAPPaterno,"")," ",ifnull(pe.peAPMaterno,"")," ",ifnull(pe.peNombres,"")) as person'))
+            ->join('persona as pe','pe.peId','=','cl.idPe')
+            ->Where(DB::raw('concat(ifnull(pe.peNumeroDoc,""),"-",ifnull(pe.peAPPaterno,"")," ",ifnull(pe.peAPMaterno,"")," ",ifnull(pe.peNombres,""))'), 'LIKE', "%$term%")
+            ->Where('cl.clEst', '=', 1)
             ->limit(10000)
             ->get();
         return $query;

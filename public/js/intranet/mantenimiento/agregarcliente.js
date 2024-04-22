@@ -155,6 +155,7 @@ $('#deparcl').on('change', function () {
     }
     else {
         $('#provcl').prop('disabled', false);
+        $('#discl').prop('disabled', true);
         provvalid.removeClass('valid-feedback');
         prov.removeClass('is-valid');
         prov.removeClass('is-invalid');
@@ -179,9 +180,6 @@ $('#deparcledit').on('change', function () {
         $('#provcledit').focus();
     }
 });
-/*$('#enviar').on('click', function () {
-    enviar();
-});*/
 
 $('#provcl').on('change', function () {
     distrito('discl',this.value, 0);
@@ -317,21 +315,6 @@ $('#discledit').on('change', function () {
         $('#estate').focus();
     }
 });
-/*function generarUsuario() {
-
-    var pnombre = $('#pnombre').val();
-    var appaterno = $('#appaterno').val();
-    var apmaterno = $('#apmaterno').val();
-    $('#nombrecu').val(pnombre.substr(0, 1) + appaterno + apmaterno.substr(0, 1));
-}*/
-/*function generarUsuarioEdit() {
-
-    var pnombre = $('#pnombreedit').val();
-    var appaterno = $('#appaternoedit').val();
-    var apmaterno = $('#apmaternoedit').val();
-    $('#nombrecuedit').val(pnombre.substr(0, 1) + appaterno + apmaterno.substr(0, 1));
-}*/
-
 
 function eliminar(id) {
     window.event.preventDefault();
@@ -607,45 +590,49 @@ function validarFormularioEdit() {
     else {
         cont++;
         text = inicio + ' ingrese un numero de documento';
-        validarCaja('dnicledit', 'validDnicledit', text, 0);
+        validarCaja('dnicledit', 'valdnicledit', text, 0);
     }
-    if ($('#appaternocledit').val() === '') {
-        cont++;
-        text = inicio + ' ingrese apellido paterno';
-        validarCaja('appaternocledit', 'valappaternocledit', text, 0);
-    }
-    else {
-        text = 'Apellido paterno correcto';
-        validarCaja('appaternocledit', 'valappaternocledit', text, 1);
-    }
-    if ($('#apmaternoedit').val() === '') {
-        cont++;
-        text = inicio + ' ingrese apellido materno';
-        validarCaja('apmaternoedit', 'valapmaternoedit', text, 0);
-    }
-    else {
-        text = 'Apellido materno correcto';
-        validarCaja('apmaternocledit', 'valapmaternocledit', text, 1);
-    }
-    if ($('#pnombrecledit').val() === '') {
-        cont++;
-        text = inicio + ' ingrese primer nombre';
-        validarCaja('pnombrecledit', 'valpnombrecledit', text, 0);
-    }
-    else {
-        text = 'Primer nombre correcto';
-        validarCaja('pnombrecledit', 'valpnombrecledit', text, 1);
-    }
+    if($('#tipdoccledit').val()===1){
+        if ($('#appaternocledit').val() === '') {
+            cont++;
+            text = inicio + ' ingrese apellido paterno';
+            validarCaja('appaternocledit', 'valappaternocledit', text, 0);
+        }
+        else {
+            text = 'Apellido paterno correcto';
+            validarCaja('appaternocledit', 'valappaternocledit', text, 1);
+        }
+        if ($('#apmaternoedit').val() === '') {
+            cont++;
+            text = inicio + ' ingrese apellido materno';
+            validarCaja('apmaternoedit', 'valapmaternoedit', text, 0);
+        }
+        else {
+            text = 'Apellido materno correcto';
+            validarCaja('apmaternocledit', 'valapmaternocledit', text, 1);
+        }
+        if ($('#nombrescledit').val() === '') {
+            cont++;
+            text = inicio + ' ingrese nombres';
+            validarCaja('pnombrecledit', 'valpnombrecledit', text, 0);
+        }
+        else {
+            text = 'Nombre correcto';
+            validarCaja('pnombrecledit', 'valpnombrecledit', text, 1);
+        }
+    }else{
+        if($('#tipdoccledit').val()===3){
+            if ($('#razonscledit').val() === '') {
+                cont++;
+                text = inicio + ' ingrese razon social';
+                validarCaja('razonscledit', 'valrazonscledit', text, 0);
+            }
+            else {
+                text = 'Razon Social correcto';
+                validarCaja('razonscledit', 'valrazonscledit', text, 1);
+            }
+        }
 
-    if ($('#fecnaccledit').val() === '') {
-        cont++;
-        text = inicio + ' ingrese fecha de nacimiento';
-        validarCaja('fecnaccledit', 'valfecnaccledit', text, 0);
-    }
-    else {
-
-        text = 'Fecha de nacimiento correcta';
-        validarCaja('fecnaccledit', 'valfecnaccledit', text, 1);
     }
 
     if ($('#deparcledit').val() !== '0') {
@@ -679,16 +666,6 @@ function validarFormularioEdit() {
 
     }
 
-    if ($('#dircledit').val() === '') {
-        cont++;
-        text = inicio + ' ingrese direccion';
-        validarCaja('dircledit', 'valdircledit', text, 0);
-    }
-    else {
-        text = 'Direccion correcta';
-        validarCaja('dircledit', 'valdircledit', text, 1);
-    }
-
     return cont;
 }
 $('#addcliente').on('click',function(){
@@ -701,12 +678,6 @@ $('#addcliente').on('click',function(){
     camposUserAdd();
     $('#tipdoccl').focus();
 });
-/*function abrilModal(id, nombre) {
-    window.event.preventDefault();
-    $('#modal-dialog').modal('show');
-    $('#nombcom').val(nombre);
-    llenarPermisos(id);
-}*/
 
 
 /*function llenarPermisos(id) {
@@ -893,7 +864,6 @@ function tablaClientes(){
 function abrilModalEdClien(dni) {
     window.event.preventDefault();
     $('#modal_dialog_edit_cliente').modal('show');
-    //TipoSeguroEdit(0);
     $('#fecnaccledit').datepicker({
         format: 'dd-mm-yyyy',
         todayHighlight: true,
@@ -920,15 +890,17 @@ function obtenerEditarCliente(dni) {
                     if (client!==null || person!==null  ) {
                         $('#tipdoccledit').prop("disabled", true);
                         getTipoDoc('tipdoccledit',person['tipoDoc']);
-                        $('#idpersonedit').val(person['idPe']);
+                        $('#idpersonedit').val(person['peId']);
                         $('#idclientedit').val(client['clId']);
+                        console.log(person['peId'],client['clId'])
                         $('#tipdoccledit').val(person['tipoDoc']);
                         $('#dnicledit').val(person['peNumeroDoc']).prop("disabled",true);
                         if(person['tipoDoc']===1){
                             blo_desblo_campos()
                             $('#appaternocledit').val(person['peAPPaterno']);
                             $('#apmaternocledit').val(person['peAPMaterno']);
-                            $('#pnombrecledit').val(person['peNombres']);
+                            $('#nombrescledit').val(person['peNombres']);
+                            $('#telefocledit').val(person['peTelefono']);
                             blo_desblo_camposEdit(false,true)
                         }else{
                             if($('#tipdoccledit').val(person['tipoDoc']===3)){
@@ -1018,7 +990,7 @@ function eliminarCliente(idcli){
     $('#modal_dialog_edit_Usuario').modal('show');
     getEditUser(idus);
 }*/
-function getEditUser(idus) {
+/*function getEditUser(idus) {
     var url = "/getEditUs/" + idus;
     $.ajax(
         {
@@ -1061,7 +1033,7 @@ function getEditUser(idus) {
             }
 
         });
-}
+}*/
 $('#deparu').on('change', function () {
     provincia('provu', this.value);
     var prov = $('#deparu');
@@ -1117,8 +1089,8 @@ $('#disu').on('change', function () {
 function validDniClient() {
     event.preventDefault();
     if(validarDniExpres('enviarclient','dnicl','tipdoccl','validDnicl')===0){
-        /*var dni = $('#dnicl').val();
-        var url = "/referencia/getPacDni/" + dni;
+        var dni = $('#dnicl').val();
+        var url = "/mantenimiento/getClienDni/" + dni;
         var text;
         $.ajax(
             {
@@ -1129,25 +1101,30 @@ function validDniClient() {
                 data: '_token = <?php echo csrf_token() ?>',
                 success: function (data) {
                     if (data['error'] === 0) {
-                        var usuario = data['usuario'];
+                        var cliente = data['cliente'];
+                        console.log(cliente);
                         var person = data['person'];
-                        if (usuario!==null || person!==null  ) {
-                            if(usuario!==null){
+                        if (cliente!==null || person!==null  ) {
+                            if(cliente!==null){
                                 $('#tipdoccl').prop("disabled", true);
-                                $('#dnicl').val(person['numeroDoc'])
-                                $('#appaternocl').val(person['apPaterno'])
-                                $('#apmaternocl').val(person['apMaterno'])
-                                $('#pnombrecl').val(person['pNombre'])
-                                $('#snombrecl').val(person['sNombre'])
-                                $('#fecnaccl').val(person['fecNac'])
-                                $('#telefocl').val(person['telefono'])
-                                $('#dircl').val(person['direccion'])
-                                $('#centocl').val(usuario['cenpo'])
+                                $('#dnicl').val(cliente['peNumeroDoc'])
+                                if(cliente['idTD']===1){
+                                    $('#appaternocl').val(cliente['peAPPaterno'])
+                                    $('#apmaternocl').val(cliente['peAPMaterno'])
+                                    $('#nombrescl').val(cliente['peNombres'])
+                                }else{
+                                    if(cliente['idTD']===3){
+                                        console.log('hola razon social')
+                                        $('#razonscl').val(cliente['peNombres'])
+                                    }
+                                }
+                                $('#fecnaccl').val(cliente['peFecNac'])
+                                $('#telefocl').val(cliente['peTelefono'])
+                                $('#dircl').val(cliente['peDireccion'])
 
-
-                                departamento('deparcl',usuario['departamentoid']);
-                                provincia('provcl',usuario['departamentoid'],usuario['provinciaid']);
-                                distrito('discl',usuario['provinciaid'],usuario['distritoid']);
+                                departamento('deparcl',person['depa']);
+                                provincia('provcl',person['depa'],person['provin']);
+                                distrito('discl',person['provin'],person['dist']);
 
 
                                 desbloquear();
@@ -1159,34 +1136,32 @@ function validDniClient() {
                                     showConfirmButton: false,
                                     timer: 3000
                                 });
-                                $('#enviaruser').prop("disabled", true);
+                                $('#enviarclient').prop("disabled", true);
                                 sit=3;
                             }else{
-                                $('#idperson').val(person['idPersona']);
+                                console.log('el id de  la persona es: '+person['peId']);
+                                $('#idperson').val(person['peId']);
                                 $('#tipdoccl').prop("disabled", true);
-                                $('#dnicl').val(person['numeroDoc']).prop("disabled", true);
-                                $('#appaternocl').val(person['apPaterno']).prop("disabled", true);
-                                $('#apmaternocl').val(person['apMaterno']).prop("disabled", true);
-                                $('#pnombrecl').val(person['pNombre']).prop("disabled", true);
-                                $('#snombrecl').val(person['sNombre']).prop("disabled", true);
-                                $('#fecnaccl').val(person['fecNac']).prop("disabled", true);
-                                $('#telefocl').val(person['telefono']).prop("disabled", true);
-                                $('#dircl').val(person['direccion']).prop("disabled", true);
-                                $('#centocl').val(person['centrop']).prop("disabled", true);
-                                departamento('deparcl',person['departamentoid']);
-                                provincia('provcl',person['departamentoid'],person['provinciaid']);
-                                distrito('discl',person['provinciaid'],person['distritoid']);
+                                $('#dnicl').val(person['peNumeroDoc']).prop("disabled", true);
+                                $('#appaternocl').val(person['peAPPaterno']).prop("disabled", true);
+                                $('#apmaternocl').val(person['peAPMaterno']).prop("disabled", true);
+                                $('#nombrescl').val(person['peNombres']).prop("disabled", true);
+                                $('#fecnaccl').val(person['peFecNac']).prop("disabled", true);
+                                $('#telefocl').val(person['peTelefono']).prop("disabled", true);
+                                $('#dircl').val(person['peDireccion']).prop("disabled", true);
+                                departamento('deparcl',person['depa']);
+                                provincia('provcl',person['depa'],person['provin']);
+                                distrito('discl',person['provin'],person['dist']);
                                 $('#deparcl').prop('disabled',true);
                                 var pnombre = $('#pnombrecl').val();
                                 var appaterno = $('#appaternocl').val();
                                 var apmaterno = $('#apmaternocl').val();
-
                                 sit=2;
                             }
 
                         }else{
-                            $('#appaternocl').focus();
-                            limpiarCaja(camposadd);
+                            api_consulta_doc();
+                            //limpiarCaja(camposadd);
                             sit=1;
                         }
                         //desbloquear();
@@ -1197,70 +1172,73 @@ function validDniClient() {
                     //bloquear();
                 },
 
-            });*/
-            var tipdoc = $('#tipdoccl').val();
-            var dni = $('#dnicl').val();
-            var url = "/mantenimiento/getapiclient/"+ tipdoc+"/" + dni;
-            var text;
-            $.ajax(
-                {
-                    type: "GET",
-                    url: url,
-                    cache: false,
-                    dataType: 'json',
-                    data: '_token = <?php echo csrf_token() ?>',
-                    success: function (data) {
-                        if (data['error'] === 0) {
-                            var client = data['apicliente'];
-                            //var person = data['person'];
-                            console.log(client);
-                            if(tipdoc==='1'){
-                                if(client===null){
-                                    operacionErrorApi("");
-                                    habi_deshabi_campos(false);
-                                    $('#appaternocl').focus()
-                                }else{
-                                    habi_deshabi_campos(true);
-                                    $('#nombrescl').val(client['nombres']);
-                                    $('#appaternocl').val(client['apellidoPaterno']);
-                                    $('#apmaternocl').val(client['apellidoMaterno']);
-                                }
-                                if(client['message']==="not found"){
-                                    var message=client['message'];
-                                    operacionErrorApi(message);
-                                    habi_deshabi_campos(false);
-                                    $('#appaternocl').focus()
-                                }
-                            }else{
-                                if(tipdoc==='3'){
-                                    if(client['razonSocial']===""){
-                                        operacionErrorApi(client['razonSocial']);
-                                        habi_deshabi_campos(false);
-                                        $('#razonscl').focus()
-                                    }else{
-                                        habi_deshabi_campos(true);
-                                        $('#razonscl').val(client['razonSocial']);
-                                    }
-                                    if(client['message']==="ruc no valido"){
-                                        var inicio=client['message'];
-                                        text = inicio + ' Ingrese uno correcto';
-                                        validarCaja('razonscl', 'valrazonscl', text, 0);
-                                    }
-                                }
-                            }
-                            //console.log(client['nombres']);
+            });
 
-
-                            //desbloquear();
-                        } else {
-
-                        }
-                    },beforeSend: function(){
-                        //bloquear();
-                    },
-
-                });
             }
+}
+function api_consulta_doc(){
+    var tipdoc = $('#tipdoccl').val();
+    var dni = $('#dnicl').val();
+    var url = "/mantenimiento/getapiclient/"+ tipdoc+"/" + dni;
+    var text;
+    $.ajax(
+        {
+            type: "GET",
+            url: url,
+            cache: false,
+            dataType: 'json',
+            data: '_token = <?php echo csrf_token() ?>',
+            success: function (data) {
+                if (data['error'] === 0) {
+                    var client = data['apicliente'];
+                    //var person = data['person'];
+                    console.log(client);
+                    if(tipdoc==='1'){
+                        if(client===null){
+                            operacionErrorApi("");
+                            habi_deshabi_campos(false);
+                            $('#appaternocl').focus()
+                        }else{
+                            habi_deshabi_campos(true);
+                            $('#nombrescl').val(client['nombres']);
+                            $('#appaternocl').val(client['apellidoPaterno']);
+                            $('#apmaternocl').val(client['apellidoMaterno']);
+                        }
+                        if(client['message']==="not found"){
+                            var message=client['message'];
+                            operacionErrorApi(message);
+                            habi_deshabi_campos(false);
+                            $('#appaternocl').focus()
+                        }
+                    }else{
+                        if(tipdoc==='3'){
+                            if(client['razonSocial']===""){
+                                operacionErrorApi(client['razonSocial']);
+                                habi_deshabi_campos(false);
+                                $('#razonscl').focus()
+                            }else{
+                                habi_deshabi_campos(true);
+                                $('#razonscl').val(client['razonSocial']);
+                            }
+                            if(client['message']==="ruc no valido"){
+                                var inicio=client['message'];
+                                text = inicio + ' Ingrese uno correcto';
+                                validarCaja('razonscl', 'valrazonscl', text, 0);
+                            }
+                        }
+                    }
+                    //console.log(client['nombres']);
+
+
+                    //desbloquear();
+                } else {
+
+                }
+            },beforeSend: function(){
+                //bloquear();
+            },
+
+        });
 }
 function validDniClientEdit() {
     event.preventDefault();
@@ -1284,10 +1262,10 @@ function validDniClientEdit() {
                         if(tipdoc==='1'){
                             if(client===null){
                                 operacionErrorApi("");
-                                habi_deshabi_campos(false);
+                                habi_deshabi_campos_edit(false);
                                 $('#appaternocledit').focus()
                             }else{
-                                habi_deshabi_campos(true);
+                                habi_deshabi_campos_edit(true);
                                 $('#nombrescledit').val(client['nombres']);
                                 $('#appaternocledit').val(client['apellidoPaterno']);
                                 $('#apmaternocledit').val(client['apellidoMaterno']);
@@ -1295,17 +1273,17 @@ function validDniClientEdit() {
                             if(client['message']==="not found"){
                                 var message=client['message'];
                                 operacionErrorApi(message);
-                                habi_deshabi_campos(false);
+                                habi_deshabi_campos_edit(false);
                                 $('#appaternocledit').focus()
                             }
                         }else{
                             if(tipdoc==='3'){
                                 if(client['razonSocial']===""){
                                     operacionErrorApi(client['razonSocial']);
-                                    habi_deshabi_campos(false);
+                                    habi_deshabi_campos_edit(false);
                                     $('#razonscledit').focus()
                                 }else{
-                                    habi_deshabi_campos(true);
+                                    habi_deshabi_campos_edit(true);
                                     $('#razonscledit').val(client['razonSocial']);
                                 }
                                 if(client['message']==="ruc no valido"){
@@ -1334,6 +1312,12 @@ function habi_deshabi_campos($bool){
     $('#appaternocl').prop('disabled',$bool);
     $('#nombrescl').prop('disabled',$bool);
     $('#razonscl').prop('disabled',$bool);
+}
+function habi_deshabi_campos_edit($bool){
+    $('#apmaternocledit').prop('disabled',$bool);
+    $('#appaternocledit').prop('disabled',$bool);
+    $('#nombrescledit').prop('disabled',$bool);
+    $('#razonscledit').prop('disabled',$bool);
 }
 function enviarCliente() {
     if(validarFormulario()===0){
@@ -1459,16 +1443,15 @@ function enviarClienteEdit() {
 
                 var appaterno = $('#appaternocledit').val();
                 var apmaterno = $('#apmaternocledit').val();
-                var pnombre = $('#pnombrecledit').val();
-                var snombre = $('#snombrecledit').val();
+                var nombres = $('#nombrescledit').val();
                 var fecnac = $('#fecnaccledit').val();
                 var telefo = $('#telefocledit').val();
+                var razons = $('#razonscledit').val();
 
                 //ubicacion
                 var iddist = $('#discledit').val();
 
                 var dir = $('#dircledit').val();
-                var idcenpo = $('#idcentpedit').val();
 
                 $.ajax({
                     url: '/mantenimiento/updatecliente',
@@ -1481,14 +1464,13 @@ function enviarClienteEdit() {
                         dni: dni,
                         appaterno: appaterno,
                         apmaterno: apmaterno,
-                        pnombre: pnombre,
-                        snombre: snombre,
+                        nombres: nombres,
+                        razons:razons,
                         fecnac: fecnac,
                         telefo: telefo,
                         iddist: iddist,
                         dir: dir,
                         sit: sit,
-                        idcp: idcenpo,
                     },
                     dataType: 'JSON',
                     success:
