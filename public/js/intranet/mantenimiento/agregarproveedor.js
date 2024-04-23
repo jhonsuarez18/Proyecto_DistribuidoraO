@@ -4,9 +4,98 @@ $(document).ready(function () {
 });
 function valRuc() {
     event.preventDefault();
-    if(validarDniExpres('enviar','ruc','tipdoc','valruc')===0){
+    if(validarDniExpres('enviarprov','ruc','tipdoc','valruc')===0){
+        var ruc = $('#ruc').val();
+        var url = "/mantenimiento/getProveeRuc/" + ruc;
+        var text;
+        $.ajax(
+            {
+                type: "GET",
+                url: url,
+                cache: false,
+                dataType: 'json',
+                data: '_token = <?php echo csrf_token() ?>',
+                success: function (data) {
+                    if (data['error'] === 0) {
+                        var proveedor = data['proveedor'];
+                            if(proveedor!==null){
+                                //$('#tipdoccl').prop("disabled", true);
+                                $('#razons').val(proveedor['pvRazonS'])
+                                $('#telefono').val(cliente['pvTelefono'])
+                                $('#direccion').val(cliente['pvDireccion'])
+
+                                departamento('deparpro',person['idDepartamento']);
+                                provincia('provpro',person['idDepartamento'],person['idProvincia']);
+                                distrito('dispro',person['idProvincia'],person['dtId']);
+
+
+                                desbloquear();
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'warning',
+                                    type: 'warning',
+                                    title: 'El proveedor ya esta registrado',
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                });
+                                $('#enviarprov').prop("disabled", true);
+                                sit=3;
+                            }else{
+                                api_consulta_doc();
+                                //limpiarCaja(camposadd);
+                                sit=1;
+                            }
+                        //desbloquear();
+                    } else {
+
+                    }
+                },beforeSend: function(){
+                    //bloquear();
+                },
+
+            });
 
     }
+}
+function api_consulta_doc(){
+    var tipdoc = $('#tipdoc').val();
+    var ruc = $('#ruc').val();
+    var url = "/mantenimiento/getapiclient/"+ tipdoc+"/" + ruc;
+    var text;
+    $.ajax(
+        {
+            type: "GET",
+            url: url,
+            cache: false,
+            dataType: 'json',
+            data: '_token = <?php echo csrf_token() ?>',
+            success: function (data) {
+                if (data['error'] === 0) {
+                    var proveedor = data['apicliente'];
+                        if(tipdoc==='3'){
+                            if(proveedor['razonSocial']===""){
+                                operacionErrorApi(proveedor['razonSocial']);
+                                //habi_deshabi_campos(false);
+                                $('#razons').focus()
+                            }else{
+                                //habi_deshabi_campos(true);
+                                $('#razons').val(proveedor['razonSocial']);
+                                $('#telefono').focus();
+                            }
+                            if(proveedor['message']==="ruc no valido"){
+                                var inicio=proveedor['message'];
+                                text = inicio + ' Ingrese uno correcto';
+                                validarCaja('razons', 'valrazons', text, 0);
+                            }
+                        }
+                } else {
+
+                }
+            },beforeSend: function(){
+                //bloquear();
+            },
+
+        });
 }
 $("#addproveedor").on('click', function () {
     window.event.preventDefault();

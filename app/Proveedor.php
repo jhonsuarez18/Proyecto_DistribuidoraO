@@ -37,4 +37,15 @@ class Proveedor extends Model
             ->where('pv.pvId', $idprod)
             ->orderBy('pv.pvId', 'asc')->first();
     }
+    public static function getProveedorRuc($ruc)
+    {
+        return DB::table('proveedor as  pv')
+            ->select('pv.pvId as pvCod', 'pv.pvRazonS','pv.pvRuc',
+                'dis.dtId','prov.idProvincia','dep.idDepartamento','pv.pvTelefono' ,'pv.pvDireccion'  ,'pv.pvEst')
+            ->leftjoin('distrito as dis', 'dis.dtId', '=', 'pv.IdDt')
+            ->leftjoin('provincia as prov', 'prov.idProvincia', '=', 'dis.idProvincia')
+            ->leftjoin('departamento as dep', 'dep.idDepartamento', '=', 'prov.idDepartamento')
+            ->where('pv.pvRuc', $ruc)
+            ->orderBy('pv.pvId', 'asc')->first();
+    }
 }

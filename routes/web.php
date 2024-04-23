@@ -782,7 +782,8 @@ Route::group(array('prefix' => 'mantenimiento', 'middleware' => 'auth'), functio
     Route::get('/editproveedor', 'ProveedorController@update');//Agregado 14-09-2023
     Route::get('/obtenerproveedor', 'ProveedorController@obtenerProveedor');//Agregado 14-09-2023
     Route::get('/obtenerproveedoreditar/{id}', 'ProveedorController@obtenerProveedorEditar');//Agregado 14-09-2023
-    Route::get('/deleteproveedor/{id}', 'ProveedorController@destroy');//Agregado 14-09-2023
+    Route::get('/deleteproveedor/{id}', 'ProveedorController@destroy');
+    Route::get('/getProveeRuc/{ruc}', 'ProveedorController@getProveedorRuc');
 
     //CLIENTE
     Route::get('/getcliente', 'ProveedorController@getProveedor');//Agregado 14-09-2023

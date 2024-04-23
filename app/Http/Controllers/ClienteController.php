@@ -44,7 +44,7 @@ class ClienteController extends Controller
                                 $person->peAPPaterno = $request->appaterno;
                                 $person->peAPMaterno = $request->apmaterno;
                                 $person->peNombres = $request->nombres;
-                                $person->peFecNac = $request->fecnac;
+                                $person->peFecNac = date('Y-m-d', strtotime($request->fecnac));
 
                             }else{
                                 if($request->tipdoc==3){

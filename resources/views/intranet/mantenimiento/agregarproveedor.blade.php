@@ -98,7 +98,7 @@
                                             <req>*</req>
                                         </label>
                                         <input id="razons" type="text" class="form-control form-control-sm" autocomplete="off"
-                                               onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                               disabled onkeyup="javascript:this.value=this.value.toUpperCase();"
                                         />
                                         <div class="hide " id="valrazons"></div>
                                     </div>
@@ -162,7 +162,7 @@
                                 <hr>
                                 <a href="javascript:;" class="btn btn-danger" data-dismiss="modal"><i
                                         class="fas fa-lg fa-fw m-r-10 fa-times"></i>Cancelar</a>
-                                <button id="enviar" class="btn btn-success " title="click para agregar proveedor
+                                <button id="enviarprov" class="btn btn-success " title="click para agregar proveedor
                     " onclick="enviar()"><i class="fas fa-lg fa-fw m-r-10 fa-save"></i>Guardar
                                 </button>
                             </div>

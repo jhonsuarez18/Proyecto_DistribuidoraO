@@ -118,4 +118,15 @@ class ProveedorController extends Controller
         $result = Proveedor::getProveedorAct();
         return response()->json(array('error' => 0, 'result' => $result));
     }
+    function getProveedorRuc($ruc)
+    {
+
+        try {
+            $provee= Proveedor::getProveedorRuc($ruc);
+            return response()->json(array('error' => 0,'proveedor'=>$provee));
+        } catch (\Exception $e) {
+            SErrorController::saveerror($e->getMessage(),"Proveedor","getProveedorRuc");
+            return response()->json(array('error' => $e->getMessage()));
+        }
+    }
 }
