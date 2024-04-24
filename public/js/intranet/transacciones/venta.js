@@ -124,6 +124,9 @@ $("#benefise").on('change', function () {
 function addcliente(){
     redirect('/mantenimiento/cliente');
 }
+function addproducto(){
+    redirect('/mantenimiento/producto');
+}
 /*function valCliDni() {
     var dni = $('#idcl').val();
      if(dni==0){

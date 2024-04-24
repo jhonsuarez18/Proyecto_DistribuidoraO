@@ -35,7 +35,7 @@
 <br>
 <br>
 <div id="response">
-
+    <input id="idvi" value="{{$vi}}" hidden>
     <!-- final cabecera -->
 
     <!-- begin panel -->
@@ -76,7 +76,7 @@
                         <div class="modal-body">
                             <div class="col-xl-12 col-sm-12 col-xs-12 row ">
 
-                                <div class="col-xl-4 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="tipproducto"> TIPO PRODUCTO
                                             <req>*</req>
@@ -87,7 +87,7 @@
                                         <div class="hide " id="validtipproducto"></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="marca">MARCA
                                             <req>*</req>
@@ -98,7 +98,7 @@
                                         <div class="hide " id="validmarca"></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="present">PRESENTACION
                                             <req>*</req>
@@ -109,7 +109,7 @@
                                         <div class="hide " id="validpresent"></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="conteni"> CONTENIDO
                                             <req>*</req>
@@ -126,7 +126,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-xl-4 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="precioc">PRECIO C
                                             <req>*</req>
@@ -137,7 +137,7 @@
                                         <div class="hide " id="validprecioc"></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="preciov">PRECIO V
                                             <req>*</req>
@@ -148,7 +148,7 @@
                                         <div class="hide " id="validpreciov"></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-3 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="stock">STOCK
                                             <req>*</req>
@@ -268,7 +268,7 @@
                         <div class="modal-body">
                             <input id="idproducto" hidden>
                             <div class="row ">
-                                <div class="col-xl-4 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="editipproducto"> TIPO PRODUCTO
                                             <req>*</req>
@@ -279,7 +279,7 @@
                                         <div class="hide " id="valideditipproducto"></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="edimarca">MARCA
                                             <req>*</req>
@@ -290,7 +290,7 @@
                                         <div class="hide " id="validedimarca"></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="edipresent">PRESENTACION
                                             <req>*</req>
@@ -301,7 +301,7 @@
                                         <div class="hide " id="validedipresent"></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="ediconteni"> CONTENIDO
                                             <req>*</req>
@@ -317,7 +317,7 @@
                                         <div class="hide " id="validediconteni"></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="ediprecioc">PRECIO C
                                             <req>*</req>
@@ -328,7 +328,7 @@
                                         <div class="hide " id="validediprecioc"></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="edipreciov">PRECIO V
                                             <req>*</req>
@@ -339,7 +339,7 @@
                                         <div class="hide " id="validedipreciov"></div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 ">
+                                <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
                                         <label for="edistock">STOCK
                                             <req>*</req>

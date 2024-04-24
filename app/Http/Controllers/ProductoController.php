@@ -16,7 +16,13 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $vi = 1;
+            return view('intranet.mantenimiento.agregarproducto')->with(array('vi' => $vi));
+        } catch (\Exception $e) {
+            SErrorController::saveerror($e->getMessage(), "ProductoController", "index");
+            return response(array('error' => $e->getMessage()));
+        }
     }
 
     /**

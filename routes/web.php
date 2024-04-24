@@ -744,7 +744,8 @@ Route::group(array('prefix' => 'mantenimiento', 'middleware' => 'auth'), functio
         return view('intranet.mantenimiento.agregarproveedor')->with(array('vi' => $vi));
     });
     Route::get('/agregarproducto', function () {
-        return view('intranet.mantenimiento.agregarproducto');
+        $vi=0;
+        return view('intranet.mantenimiento.agregarproducto')->with(array('vi' => $vi));
     });
     Route::get('/agregarcliente', function () {
         $vi=0;
@@ -775,7 +776,8 @@ Route::group(array('prefix' => 'mantenimiento', 'middleware' => 'auth'), functio
     Route::get('/obtenerproducto', 'ProductoController@obtenerProducto');//Agregado 14-09-2023
     Route::get('/obtenerproductoeditar/{id}', 'ProductoController@edit');//Agregado 14-09-2023
     //Route::get('/obtenerproductoeditar/{id}', 'ProductoController@obtenerProductoEditar');//Agregado 14-09-2023
-    Route::get('/deleteproducto/{id}', 'ProductoController@destroy');//Agregado 14-09-2023
+    Route::get('/deleteproducto/{id}', 'ProductoController@destroy');
+    Route::get('/producto', 'ProductoController@index');
 
     //PROVEEDOR
     Route::get('/getproveedor', 'ProveedorController@getProveedor');//Agregado 14-09-2023

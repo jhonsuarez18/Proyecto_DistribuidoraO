@@ -1,5 +1,16 @@
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 $(document).ready(function () {
+    $('.modal-backdrop').remove();
+    if(parseInt($('#idvi').val())===1){
+        $('#modal-dialog_add_producto').modal({show: true, backdrop:'static', keyboard: false});
+        //camposadd=[];
+        //camposUserAdd();
+        //limpiarCaja(camposadd);
+        getTipProducto();
+        getMarca();
+        getPresentacion();
+        $('#tipproducto').focus();
+    }
 tablaProducto();
 });
 
