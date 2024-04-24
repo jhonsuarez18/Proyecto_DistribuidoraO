@@ -35,7 +35,7 @@
 <br>
 <br>
 <div id="response">
-
+    <input id="idvi" value="{{$vi}}" hidden>
     <!-- final cabecera -->
 
     <!-- begin panel -->
@@ -77,17 +77,25 @@
                             <legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse py-3">DATOS COMPRA
 
                             </legend>
-                            <hr>
                             <div class="col-xl-12 col-sm-12 col-xs-12 row ">
-
                                 <div class="col-xl-4 col-sm-4 col-xs-4">
                                     <div class="form-group-lg">
-                                        <label for="proveedor"> PROVEEDOR
-                                            <req>*</req>
-                                        </label>
-                                        <select class="form-control form-control-sm" id="proveedor">
+                                            <label for="proveedor"> PROVEEDOR
+                                                <req>*</req>
+                                            </label>
+                                        <div class="input-group m-b-10">
+                                            <select class="form-control form-control-sm" id="proveedor">
 
-                                        </select>
+                                            </select>
+                                            <div class="input-group-append">
+                                                <button type="button" class="btn btn-primary btn-sm"  onclick="addproveedor()">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building-fill-add" viewBox="0 0 16 16">
+                                                        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0"></path>
+                                                        <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7.256A4.5 4.5 0 0 0 12.5 8a4.5 4.5 0 0 0-3.59 1.787A.5.5 0 0 0 9 9.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .39-.187A4.5 4.5 0 0 0 8.027 12H6.5a.5.5 0 0 0-.5.5V16H3a1 1 0 0 1-1-1zm2 1.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m3 0v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm2.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"></path>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
                                         <div class="hide " id="valproveedor"></div>
                                     </div>
                                 </div>

@@ -1,6 +1,11 @@
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 $(document).ready(function () {
     tablaCompra();
+    if(parseInt($('#idvi').val())===1){
+        $('#modal-dialog_add_compra').modal({show: true, backdrop:'static', keyboard: false});
+        getProveedor();
+        getProducto();
+    }
 });
 var tab = [];
 $("#addcompra").on('click', function () {
@@ -198,6 +203,9 @@ function quitar( idp) {
     }
     tab.splice(ubi, 1);
     tabdetcomp();
+}
+function addproveedor() {
+    redirect('/mantenimiento/proveedor');
 }
 function enviar() {
     if (validarFormulario() === 0) {

@@ -21,7 +21,13 @@ class CompraController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $vi=1;
+            return view('intranet.transacciones.compra')->with(array('vi' => $vi));
+        } catch (\Exception $e) {
+            SErrorController::saveerror($e->getMessage(), "CompraController", "index");
+            return response(array('error' => $e->getMessage()));
+        }
     }
 
     /**

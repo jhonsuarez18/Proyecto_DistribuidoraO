@@ -464,10 +464,9 @@ function tablaProducto(){
                             if (parseInt(row.pStock) >= 80)
                                 return '<span class="text-green-transparent-6">' + row.pStock + '</span>' ;
                             else {
-                                    if((parseInt(row.pStock) >= '50') && (parseInt(row.pStock)<= '80'))
-                                        return '<span class="text-yellow-50">' + row.pStock + '</span>';
+                                    if((parseInt(row.pStock) >= 50) && (parseInt(row.pStock)<= 80))
+                                        return '<span class="text-yellow-transparent-6">' + row.pStock + '</span>';
                                     else{
-
                                         return '<span class="text-danger">' + row.pStock + '</span>';
                                 }
 

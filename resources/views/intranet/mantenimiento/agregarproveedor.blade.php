@@ -35,7 +35,7 @@
 <br>
 <br>
 <div id="response">
-
+    <input id="idvi" value="{{$vi}}" hidden>
     <!-- final cabecera -->
 
     <!-- begin panel -->
@@ -67,7 +67,7 @@
 
         <div class="col-xl-12 ">
             <div class="modal fade" id="modal-dialog_add_proveedor">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title ">AGREGAR PROVEEDOR</h4>
@@ -163,7 +163,7 @@
                                 <a href="javascript:;" class="btn btn-danger" data-dismiss="modal"><i
                                         class="fas fa-lg fa-fw m-r-10 fa-times"></i>Cancelar</a>
                                 <button id="enviarprov" class="btn btn-success " title="click para agregar proveedor
-                    " onclick="enviar()"><i class="fas fa-lg fa-fw m-r-10 fa-save"></i>Guardar
+                    " onclick="enviarProv()"><i class="fas fa-lg fa-fw m-r-10 fa-save"></i>Guardar
                                 </button>
                             </div>
                         </div>
@@ -318,8 +318,8 @@
                                     <hr>
                                     <a href="javascript:;" class="btn btn-danger" data-dismiss="modal"><i
                                             class="fas fa-lg fa-fw m-r-10 fa-times"></i>Cancelar</a>
-                                    <button id="enviared" class="btn btn-success " title="click para editar proveedor
-                                " onclick="enviarEditProv()"><i class="fas fa-lg fa-fw m-r-10 fa-save"></i>Editar
+                                    <button id="enviarprovedit" class="btn btn-success " title="click para editar proveedor
+                                " onclick="enviarProvEdit()"><i class="fas fa-lg fa-fw m-r-10 fa-save"></i>Editar
                                     </button>
                                 </div>
                         </div>

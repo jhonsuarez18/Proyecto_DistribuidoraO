@@ -11,6 +11,7 @@ $(document).ready(function () {
         datePickers();
         departamento('deparcl',0);
         provincia('provacte',1,0);
+        getTipoDoc('tipdoccl',0);
         $('#tipdoccl').focus();
     }
     tablaClientes();

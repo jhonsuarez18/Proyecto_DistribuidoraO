@@ -121,7 +121,10 @@ $("#benefise").on('change', function () {
         //$('#dniben').val(0);
     }
 });
-function valCliDni() {
+function addcliente(){
+    redirect('/mantenimiento/cliente');
+}
+/*function valCliDni() {
     var dni = $('#idcl').val();
      if(dni==0){
          Swal.fire({
@@ -140,7 +143,7 @@ function valCliDni() {
          });
      }
 
-}
+}*/
 function getProducto() {
     var url = "/mantenimiento/getproducto";
 

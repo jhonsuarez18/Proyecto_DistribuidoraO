@@ -1,5 +1,18 @@
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 $(document).ready(function () {
+    $('.modal-backdrop').remove();
+    console.log(parseInt($('#idvi').val()));
+    if(parseInt($('#idvi').val())===1){
+        console.log('hola estas viniendo desde compras')
+        $('#modal-dialog_add_proveedor').modal({show: true, backdrop:'static', keyboard: false});
+        //camposadd=[];
+        //camposUserAdd();
+        //limpiarCaja(camposadd);
+        //datePickers();
+        departamento('deparpro',0);
+        provincia('provpro',1,0);
+        $('#ruc').focus();
+    }
     tablaProveedor();
 });
 function valRuc() {
@@ -18,15 +31,16 @@ function valRuc() {
                 success: function (data) {
                     if (data['error'] === 0) {
                         var proveedor = data['proveedor'];
+                        console.log(proveedor);
                             if(proveedor!==null){
                                 //$('#tipdoccl').prop("disabled", true);
                                 $('#razons').val(proveedor['pvRazonS'])
-                                $('#telefono').val(cliente['pvTelefono'])
-                                $('#direccion').val(cliente['pvDireccion'])
+                                $('#telefono').val(proveedor['pvTelefono'])
+                                $('#direccion').val(proveedor['pvDireccion'])
 
-                                departamento('deparpro',person['idDepartamento']);
-                                provincia('provpro',person['idDepartamento'],person['idProvincia']);
-                                distrito('dispro',person['idProvincia'],person['dtId']);
+                                departamento('deparpro',proveedor['idDepartamento']);
+                                provincia('provpro',proveedor['idDepartamento'],proveedor['idProvincia']);
+                                distrito('dispro',proveedor['idProvincia'],proveedor['dtId']);
 
 
                                 desbloquear();
@@ -224,13 +238,13 @@ function llenarEditar(idprov) {
             data: '_token = <?php echo csrf_token() ?>',
             success: function (data) {
                 $('#idproveedor').val(data['result']['pvCod']);
-                $('#rucedit').val(data['result']['pvRuc']);
-                $('#razonsedit').val(data['result']['pvRazonS']);
+                $('#rucedit').val(data['result']['pvRuc']).focus();
+                $('#razonsedit').val(data['result']['pvRazonS']).prop('disabled',true);
                 $('#telefonoedit').val(data['result']['pvTelefono']);
                 $('#direccionedit').val(data['result']['pvDireccion']);
                 departamento('deparproedit',data['result']['idDepartamento']);
                 provincia('provproedit',data['result']['idDepartamento'],data['result']['idProvincia']);
-                distrito('disproedit',data['result']['idProvincia'],data['result']['idDistrito']);
+                distrito('disproedit',data['result']['idProvincia'],data['result']['dtId']);
             }, beforeSend: function () {
 
             },
@@ -238,7 +252,7 @@ function llenarEditar(idprov) {
         });
 
 }
-function enviar() {
+function enviarProv() {
     if (validarFormulario() === 0) {
         Swal.fire({
             title: 'Esta seguro(a)?',
@@ -280,6 +294,14 @@ function enviar() {
                                     showConfirmButton: false,
                                     timer: 3000
                                 });
+                                if(parseInt($('#idvi').val())===1){
+                                    redirect('/transacciones/compras');
+                                }else{
+                                    limpiarCaja(camposadd);
+                                    closeModal('modal_dialog_add_proveedor')
+                                    tablaProveedor();
+                                    iniciarcampos();
+                                }
                                 location.reload();
                             } else {
                                 Swal.fire({
@@ -296,7 +318,7 @@ function enviar() {
                         }
                     ,
                     beforeSend: function () {
-                        $('#enviar').prop("disabled", true);
+                        $('#enviarprov').prop("disabled", true);
                     }
                 });
 
@@ -307,7 +329,7 @@ function enviar() {
     }
 }
 
-function enviarEditProv() {
+function enviarProvEdit() {
     Swal.fire({
         title: 'Esta seguro(a)?',
         text: 'Se editara el registro',
@@ -370,7 +392,7 @@ function enviarEditProv() {
 
                 ,
                 beforeSend: function () {
-                    $('#enviared').prop("disabled", true);
+                    $('#enviarprovedit').prop("disabled", true);
                 }
             });
 

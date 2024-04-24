@@ -17,7 +17,13 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $vi = 1;
+            return view('intranet.mantenimiento.agregarproveedor')->with(array('vi' => $vi));
+        } catch (\Exception $e) {
+            SErrorController::saveerror($e->getMessage(), "ProveedorController", "index");
+            return response(array('error' => $e->getMessage()));
+        }
     }
 
     /**
@@ -31,7 +37,7 @@ class ProveedorController extends Controller
         try {
             DB::transaction(function () use ($request) {
                 $prov= New Proveedor();
-                $prov->dtId = $request->distrito;
+                $prov->idDt = $request->distrito;
                 $prov->pvRuc = $request->ruc;
                 $prov->pvRazonS = $request->razons;
                 $prov->pvTelefono = $request->telefono;
@@ -70,7 +76,7 @@ class ProveedorController extends Controller
         try {
             DB::transaction(function () use ($request) {
                 $prov = Proveedor::findOrFail($request->idprov);
-                $prov->dtId = $request->distrito;
+                $prov->idDt = $request->distrito;
                 $prov->pvRuc = $request->ruc;
                 $prov->pvRazonS = $request->razons;
                 $prov->pvTelefono = $request->telefono;

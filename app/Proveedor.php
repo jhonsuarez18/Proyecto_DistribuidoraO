@@ -30,8 +30,8 @@ class Proveedor extends Model
     {
         return DB::table('proveedor as  pv')
             ->select('pv.pvId as pvCod', 'pv.pvRazonS','pv.pvRuc',
-                'dis.idDistrito','prov.idProvincia','dep.idDepartamento','pv.pvTelefono' ,'pv.pvDireccion'  ,'pv.pvEst')
-            ->leftjoin('distrito as dis', 'dis.idDistrito', '=', 'pv.dtId')
+                'dis.dtId','prov.idProvincia','dep.idDepartamento','pv.pvTelefono' ,'pv.pvDireccion'  ,'pv.pvEst')
+            ->leftjoin('distrito as dis', 'dis.dtId', '=', 'pv.idDt')
             ->leftjoin('provincia as prov', 'prov.idProvincia', '=', 'dis.idProvincia')
             ->leftjoin('departamento as dep', 'dep.idDepartamento', '=', 'prov.idDepartamento')
             ->where('pv.pvId', $idprod)
@@ -42,7 +42,7 @@ class Proveedor extends Model
         return DB::table('proveedor as  pv')
             ->select('pv.pvId as pvCod', 'pv.pvRazonS','pv.pvRuc',
                 'dis.dtId','prov.idProvincia','dep.idDepartamento','pv.pvTelefono' ,'pv.pvDireccion'  ,'pv.pvEst')
-            ->leftjoin('distrito as dis', 'dis.dtId', '=', 'pv.IdDt')
+            ->leftjoin('distrito as dis', 'dis.dtId', '=', 'pv.idDt')
             ->leftjoin('provincia as prov', 'prov.idProvincia', '=', 'dis.idProvincia')
             ->leftjoin('departamento as dep', 'dep.idDepartamento', '=', 'prov.idDepartamento')
             ->where('pv.pvRuc', $ruc)
