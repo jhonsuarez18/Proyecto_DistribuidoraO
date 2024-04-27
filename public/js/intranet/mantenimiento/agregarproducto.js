@@ -277,7 +277,7 @@ function presentacionEdit(id) {
 
         });
 }
-function enviar() {
+function enviarProd() {
     if (validarFormulario() === 0) {
         Swal.fire({
             title: 'Esta seguro(a)?',
@@ -324,7 +324,14 @@ function enviar() {
                                     showConfirmButton: false,
                                     timer: 3000
                                 });
-                                location.reload();
+                                if(parseInt($('#idvi').val())===1){
+                                    redirect('/transacciones/compras');
+                                }else{
+                                    limpiarCaja(camposadd);
+                                    closeModal('modal_dialog_add_producto')
+                                    tablaProducto();
+                                    //iniciarcampos();
+                                }
                             } else {
                                 Swal.fire({
                                     position: 'top-end',
@@ -565,13 +572,13 @@ function valNumMeta() {
                     }
                     else {
                         validarCaja('nummeta', 'validnummeta', 'Nro de meta correcto', 1);
-                        $('#enviar').prop("disabled", false);
+                        $('#enviarprod').prop("disabled", false);
                         $('#nummeta').val(val);
                     }
                 }
 
             }, beforeSend() {
-                $('#enviar').prop("disabled", true);
+                $('#enviarprod').prop("disabled", true);
             }
 
         });

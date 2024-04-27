@@ -207,6 +207,9 @@ function quitar( idp) {
 function addproveedor() {
     redirect('/mantenimiento/proveedor');
 }
+function addproducto(){
+    redirect('/mantenimiento/producto');
+}
 function enviar() {
     if (validarFormulario() === 0) {
         Swal.fire({

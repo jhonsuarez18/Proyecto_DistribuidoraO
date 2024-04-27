@@ -16,33 +16,7 @@ $(document).ready(function () {
     }
     tablaClientes();
 });
-function getTipoDoc(id,idtipdoc) {
-    var url = "/mantenimiento/gettipodoc";
-    var select = $('#'+id).html('');
-    var html = '<option value="0" selected="">SELECCIONE</option>';
-    $.ajax(
-        {
-            type: "GET",
-            url: url,
-            cache: false,
-            dataType: 'json',
-            data: '_token = <?php echo csrf_token() ?>',
-            success: function (data) {
-                var htmla = '';
-                for (var i = 0; i < data.length; i++) {
-                    if (parseInt(data[i]['tdId']) === parseInt(idtipdoc)) {
-                        htmla = '<option value="' + data[i]['tdId'] + '" selected>' + data[i]['tdDescCorta'] + '</option>';
-                        html = html + htmla;
-                    } else {
-                        htmla = '<option value="' + data[i]['tdId'] + '">' + data[i]['tdDescCorta'] + '</option>';
-                        html = html + htmla;
-                    }
-                }
-                select.append(html);
-            }
 
-        });
-}
 var datePickers = function () {
 
     $('#fecnaccl').datepicker({
@@ -1517,7 +1491,7 @@ function enviarClienteEdit() {
         operacionSubsanar();
     }
 }
-function enviarEditUser() {
+/*function enviarEditUser() {
     if($('#centoedit').val()===''){
         $('#idcentpedit').val('0');
     }
@@ -1625,4 +1599,4 @@ function enviarEditUser() {
     }else{
         operacionSubsanar();
     }
-}
+}*/

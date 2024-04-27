@@ -7,7 +7,6 @@ use App\Persona;
 use App\role_user;
 use App\User;
 use App\Usuario;
-use App\CentropobladoDistrito;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use vakata\database\Exception;
@@ -91,9 +90,9 @@ class UsuarioController extends Controller
 
     public function insertarUsuario(Request $request)
     {
-       //dd($request);
         try {
            DB::transaction(function () use ($request) {
+               //dd($request);
                 $usuario = new Usuario();
                 $usuario->name = $request->nombre;
                 $usuario->email = $request->correo;
@@ -107,45 +106,26 @@ class UsuarioController extends Controller
                if($request->sit==='1'){
                    $persona = new Persona();
                    $persona->idUser = $idus;
-                   $persona->telefono = $request->telefo;
-                    if ($request->idcp !=='0') {
-                        dd($request->idcp);
-                        $centropd = CentroPobladoDistritoController::getExistcPD($request->iddis, $request->idcp);
-                        if (count($centropd) === 0) {
-                            $centpd = new CentropobladoDistrito();
-                            $centpd->idCentroPoblado = $request->idcp;
-                            $centpd->idDistrito = $request->iddis;
-                            $centpd->cPDUsuReg = Auth::user()->id;
-                            $centpd->cPDFecCrea = UtilController::fecha();
-                            $centpd->save();
-                            $idcpd = $centpd->cPDId;
-                        } else {
-                            foreach ($centropd as $cpd) {
-                                $idcpd = $cpd->cPDId;
-                            }
-                        }
-                        $persona->cPDId = $idcpd;
-                    }else{
-                        $persona->idDistrito = $request->iddis;
-                    }
-                   $persona->pNombre = $request->pnombre;
-                   $persona->sNombre = $request->snombre;
-                   $persona->apPaterno = $request->appaterno;
-                   $persona->apMaterno = $request->apmaterno;
-                   $persona->numeroDoc = $request->dni;
-                   $persona->tipoDoc = $request->tipdoc;
-                   $persona->direccion = $request->dir;
-                   $persona->fecNac = date('Y-m-d', strtotime($request->fecnac));
-                   $persona->usuReg = Auth::user()->id;
-                   $persona->fecActualiza = UtilController::fecha();
-                   $persona->usuActuali = Auth::user()->id;
-                   $persona->fecCreacion = UtilController::fecha();
+                   $persona->peTelefono = $request->telefo;
+
+                   $persona->idDt = $request->iddis;
+                   $persona->peNombres = $request->nombres;
+                   $persona->peAPPaterno = $request->appaterno;
+                   $persona->peAPMaterno = $request->apmaterno;
+                   $persona->peNumeroDoc = $request->dni;
+                   $persona->idTD = $request->tipdoc;
+                   $persona->peDireccion = $request->dir;
+                   $persona->peFecNac = date('Y-m-d', strtotime($request->fecnac));
+                   $persona->peUsuReg = Auth::user()->id;
+                   $persona->peFecActualiza = UtilController::fecha();
+                   $persona->peUsuActuali = Auth::user()->id;
+                   $persona->peFecCreacion = UtilController::fecha();
                    $persona->save();
                 }else{
                    $persona = Persona::findOrFail($request->idpers);
                     $persona->idUser = $idus;
-                    $persona->fecActualiza = UtilController::fecha();
-                    $persona->usuActuali = Auth::user()->id;
+                    $persona->peFecActualiza = UtilController::fecha();
+                    $persona->peUsuActuali = Auth::user()->id;
                     $persona->save();
                 }
                 $rol_usuario = new role_user();
@@ -197,40 +177,20 @@ class UsuarioController extends Controller
 
                 $persona = Persona::findOrFail($request->idpers);
                 $persona->idUser = $request->iduser;
-                $persona->telefono = $request->telefo;
+                $persona->peTelefono = $request->telefo;
 
-                if ($request->idcp !== '0') {
-                    $centropd = CentroPobladoDistritoController::getExistcPD($request->iddis, $request->idcp);
+                $persona->idDt = $request->iddis;
+                $persona->cPDId = null;
 
-                    if (count($centropd) === 0) {
-                        $centpd = new CentropobladoDistrito();
-                        $centpd->idCentroPoblado = $request->idcp;
-                        $centpd->idDistrito = $request->iddis;
-                        $centpd->cPDUsuReg = Auth::user()->id;
-                        $centpd->cPDFecCrea = UtilController::fecha();
-                        $centpd->save();
-                        $idcpd = $centpd->cPDId;
-                    } else {
-                        foreach ($centropd as $cpd) {
-                            $idcpd = $cpd->cPDId;
-                        }
-                    }
-                    $persona->cPDId = $idcpd;
-                    $persona->idDistrito = null;
-                }else{
-                    $persona->idDistrito = $request->iddis;
-                    $persona->cPDId = null;
-                }
-                $persona->pNombre = $request->pnombre;
-                $persona->sNombre = $request->snombre;
-                $persona->apPaterno = $request->appaterno;
-                $persona->apMaterno = $request->apmaterno;
-                $persona->numeroDoc = $request->dni;
-                $persona->tipoDoc = $request->tipdoc;
-                $persona->direccion = $request->dir;
-                $persona->fecNac = date('Y-m-d', strtotime($request->fecnac));
-                $persona->fecActualiza = UtilController::fecha();
-                $persona->usuActuali = Auth::user()->id;
+                $persona->peNombres = $request->nombres;
+                $persona->peAPPaterno = $request->appaterno;
+                $persona->peAPMaterno = $request->apmaterno;
+                $persona->peNumeroDoc = $request->dni;
+                $persona->idTD = $request->tipdoc;
+                $persona->peDireccion = $request->dir;
+                $persona->peFecNac = date('Y-m-d', strtotime($request->fecnac));
+                $persona->peFecActualiza = UtilController::fecha();
+                $persona->peUsuActuali = Auth::user()->id;
                 $persona->save();
 
                 $rol_usuario = role_user::findOrFail($request->idrolus);
@@ -347,5 +307,18 @@ class UsuarioController extends Controller
     {
         $term = $request->input('term');
         return Usuario::obtenerUsuarioTermino($term);
+    }
+    function getUsuarioDni($dni)
+    {
+
+        try {
+            $usuario= Usuario::getUsuarioDni($dni);
+            $person = Persona::buscarPersonaDni($dni);
+            //dd($person);
+            return response()->json(array('error' => 0,'person'=>$person,'usuario'=>$usuario));
+        } catch (\Exception $e) {
+            SErrorController::saveerror($e->getMessage(),"Cliente","getClienteDni");
+            return response()->json(array('error' => $e->getMessage()));
+        }
     }
 }

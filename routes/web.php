@@ -93,6 +93,7 @@ Route::get('/deleteError/{id}', 'SErrorController@destroy');
 Route::get('/comentario/{cod}/{fecha}', 'IndicadoresSisController@obtenerComentarios');
 
 Route::get('/usuarios', 'UsuarioController@reportarUsuario');
+Route::get('/getUserDni/{id}', 'UsuarioController@getUsuarioDni');
 Route::get('/registrarusuarios', 'UsuarioController@registrar');
 Route::get('/rolesUsuario', 'UsuarioController@obtenerRoles');
 Route::get('/insertarusuario', 'UsuarioController@insertarUsuario');

@@ -124,9 +124,6 @@ $("#benefise").on('change', function () {
 function addcliente(){
     redirect('/mantenimiento/cliente');
 }
-function addproducto(){
-    redirect('/mantenimiento/producto');
-}
 /*function valCliDni() {
     var dni = $('#idcl').val();
      if(dni==0){
@@ -415,8 +412,8 @@ function tablaVenta(){
             ],
             columnDefs: [
                 {"targets": 0, "width": "10%", "className": "text-center"},
-                {"targets": 1, "width": "15%", "className": "text-center"},
-                {"targets": 2, "width": "15%", "className": "text-center"},
+                {"targets": 1, "width": "15%", "className": "text-left"},
+                {"targets": 2, "width": "15%", "className": "text-left"},
                 {"targets": 3, "width": "5%", "className": "text-center"},
                 {"targets": 4, "width": "15%", "className": "text-center"},
                 {"targets": 5, "width": "15%", "className": "text-center"},

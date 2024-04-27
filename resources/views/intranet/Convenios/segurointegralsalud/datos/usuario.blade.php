@@ -147,13 +147,10 @@
                             <label for="tipdoc">TIPO DOCUMENTO
                                 <req>*</req>
                             </label>
-                            <select class="form-control form-control-sm" id="tipdoc">
-                                <option selected value="0">SELECCIONE</option>
-                                <option value="1">DNI</option>
-                                <option value="2">CARNET EXTRANJERIA</option>
-                                <option value="3">OTROS</option>
+                            <select class="form-control form-control-sm" id="tipdoc" disabled>
+
                             </select>
-                            <div id="validtipodoc"></div>
+                            <div id="valtipodoc"></div>
                         </div>
 
                         <div class="col-xl-4 col-sm-4 col-xs-4">
@@ -161,40 +158,34 @@
                                 <req>*</req>
                             </label>
                             <input id="dni" type="number" class="form-control form-control-sm" autocomplete="off"
-                                   onchange="validDniUser()" disabled/>
+                                   onchange="validDniUser()" />
                             <div class="hide " id="validDni"></div>
                         </div>
-                        <div class="col-xl-4 col-sm-4 col-xs-4">
+                        <div class="col-xl-4 col-sm-4 col-xs-4" id="hidappaternous">
                             <label for="appaterno">APPATERNO
                                 <req>*</req>
                             </label>
                             <input id="appaterno" type="text" class="form-control form-control-sm" autocomplete="off"
-                                   onchange="generarUsuario()" onkeyup="javascript:this.value=this.value.toUpperCase();"/>
+                                   onchange="generarUsuario()" disabled onkeyup="javascript:this.value=this.value.toUpperCase();"/>
                             <div class="hide " id="valappaterno"></div>
                         </div>
-                        <div class="col-xl-4 col-sm-4 col-xs-4">
+                        <div class="col-xl-4 col-sm-4 col-xs-4" id="hidapmaternous">
                             <label for="apmaterno">APMATERNO
                                 <req>*</req>
                             </label>
                             <input id="apmaterno" type="text" class="form-control form-control-sm" autocomplete="off"
-                                   onchange="generarUsuario()" onkeyup="javascript:this.value=this.value.toUpperCase();"/>
+                                   onchange="generarUsuario()" disabled onkeyup="javascript:this.value=this.value.toUpperCase();"/>
                             <div class="hide " id="valapmaterno"></div>
                         </div>
-                        <div class="col-xl-4 col-sm-4 col-xs-4">
-                            <label for="pnombre">PNOMBRE
+                        <div class="col-xl-4 col-sm-4 col-xs-4" id="hidnombresus">
+                            <label for="nombres">NOMBRES
                                 <req>*</req>
                             </label>
-                            <input id="pnombre" type="text" class="form-control form-control-sm" autocomplete="off"
-                                   onchange="generarUsuario()" onkeyup="javascript:this.value=this.value.toUpperCase();"/>
-                            <div class="hide " id="valpnombre"></div>
+                            <input id="nombres" type="text" class="form-control form-control-sm" autocomplete="off"
+                                   onchange="generarUsuario()" disabled onkeyup="javascript:this.value=this.value.toUpperCase();"/>
+                            <div class="hide " id="valnombres"></div>
                         </div>
-                        <div class="col-xl-4 col-sm-4 col-xs-4">
-                            <label for="snombre">SNOMBRE</label>
-                            <input id="snombre" type="text" class="form-control form-control-sm" autocomplete="off"
-                                   onchange="generarUsuario()" onkeyup="javascript:this.value=this.value.toUpperCase();"/>
-                            <div class="hide " id="valsnombre"></div>
-                        </div>
-                        <div class="col-xl-4 col-sm-4 col-xs-4">
+                        <div class="col-xl-4 col-sm-4 col-xs-4" id="hidfecnacus">
                             <label for="fecnac">FECNAC
                                 <req>*</req>
                             </label>
@@ -245,13 +236,6 @@
                             <div class="hide " id="valdis"></div>
                         </div>
                         <div class="col-xl-4 col-sm-4 col-xs-4">
-                            <input id="idcentp" value="0" type="text" hidden>
-                            <label for="cento">CENTRO POBLADO
-                            </label>
-                            <input id="cento" class="form-control form-control-sm" type="text" disabled>
-                            <div class="hide " id="valcento"></div>
-                        </div>
-                        <div class="col-xl-4 col-sm-4 col-xs-4">
                             <label for="dir">DIRECCION
                                 <req>*</req>
                             </label>
@@ -260,46 +244,6 @@
                             <div id="valdir"></div>
                         </div>
                     </div>
-                    <!--<legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse py-3">ESTABLECIMIENTO DONDE ATIENDE</legend>
-                    <hr>
-                    <div  class="col-xl-12 col-sm-12 col-xs-12 row ">
-                        <div class="col-xl-4 col-sm-4 col-xs-4">
-                            <label for="deparacte">DEPARTAMENTO
-                                <req>*</req>
-                            </label>
-                            <select class="form-control form-control-sm" id="deparacte" disabled>
-                                <option selected>AMAZONAS</option>
-                            </select>
-                            <div class="hide " id="valdepar"></div>
-                        </div>
-                        <div class="col-xl-4 col-sm-4 col-xs-4">
-                            <label for="provacte">PROVINCIA
-                                <req>*</req>
-                            </label>
-                            <select class="form-control form-control-sm" id="provacte">
-                                <option selected value="0">SELECCIONE</option>
-                            </select>
-                            <div class="hide " id="valprovacte"></div>
-                        </div>
-                        <div class="col-xl-4 col-sm-4 col-xs-4">
-                            <label for="disacte">DISTRITO
-                                <req>*</req>
-                            </label>
-                            <select class="form-control form-control-sm" id="disacte" disabled>
-                                <option selected value="0">SELECCIONE</option>
-                            </select>
-                            <div class="hide " id="valdisacte"></div>
-                        </div>
-                        <div class="col-xl-8 col-sm-8 col-xs-8">
-                            <label for="estate">ESTABLECIMIENTO
-                                <req>*</req>
-                            </label>
-                            <select id="estate" class="form-control" disabled>
-                                <option selected value="0">SELECCIONE</option>
-                            </select>
-                            <div id="valestate"></div>
-                        </div>
-                    </div>---->
                     <legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse py-3">DATOS USUARIO</legend>
                     <hr>
                     <div class="col-xl-12 col-sm-12 col-xs-12 row ">
@@ -372,10 +316,7 @@
                                     <req>*</req>
                                 </label>
                                 <select class="form-control" id="tipdocedit">
-                                    <option selected value="0">SELECCIONE</option>
-                                    <option value="1">DNI</option>
-                                    <option value="2">CARNET EXTRANJERIA</option>
-                                    <option value="3">OTROS</option>
+n>
                                 </select>
                                 <div class="hide " id="valtipodocedit"></div>
                             </div>
@@ -406,20 +347,13 @@
                                 <div class="hide " id="valapmaternoedit"></div>
                             </div>
                             <div class="col-xl-4 col-sm-4 col-xs-4">
-                                <label for="pnombreedit">PNOMBRE
+                                <label for="nombresedit">NOMBRES
                                     <req>*</req>
                                 </label>
-                                <input id="pnombreedit" type="text" class="form-control " autocomplete="off"
+                                <input id="nombresedit" type="text" class="form-control " autocomplete="off"
                                        onchange="generarUsuarioEdit()"
                                        onkeyup="javascript:this.value=this.value.toUpperCase();"/>
                                 <div class="hide " id="valpnombreedit"></div>
-                            </div>
-                            <div class="col-xl-4 col-sm-4 col-xs-4">
-                                <label for="snombreedit">SNOMBRE</label>
-                                <input id="snombreedit" type="text" class="form-control" autocomplete="off"
-                                       onchange="generarUsuarioEdit()"
-                                       onkeyup="javascript:this.value=this.value.toUpperCase();"/>
-                                <div class="hide " id="valsnombreedit"></div>
                             </div>
                             <div class="col-xl-4 col-sm-4 col-xs-4">
                                 <label for="fecnacedit">FECNAC
@@ -448,7 +382,7 @@
                                 </label>
                                 <select class="form-control" id="deparu">
                                 </select>
-                                <div class="hide " id="valdeparu"></div>
+                                <div class="hide " id="valdeparuedit"></div>
                             </div>
                             <div class="col-xl-4 col-sm-4 col-xs-4">
                                 <label for="provu">PROVINCIA
@@ -457,7 +391,7 @@
                                 <select class="form-control" id="provu">
                                     <option selected value="0">SELECCIONE</option>
                                 </select>
-                                <div class="hide " id="valprovu"></div>
+                                <div class="hide " id="valprovuedit"></div>
                             </div>
                             <div class="col-xl-4 col-sm-4 col-xs-4">
                                 <label for="disu">DISTRITO
@@ -466,14 +400,7 @@
                                 <select class="form-control" id="disu">
                                     <option selected value="0">SELECCIONE</option>
                                 </select>
-                                <div class="hide " id="valdisu"></div>
-                            </div>
-                            <div class="col-xl-4 col-sm-4 col-xs-4">
-                                <input id="idcentpedit" value="0" type="text" hidden>
-                                <label for="centoedit">CENTRO POBLADO
-                                </label>
-                                <input id="centoedit" class="form-control form-control-sm" type="text">
-                                <div class="hide " id="valcentoedit"></div>
+                                <div class="hide " id="valdisuedit"></div>
                             </div>
                             <div class="col-xl-4 col-sm-4 col-xs-4">
                                 <label for="diredit">DIRECCION
@@ -484,46 +411,6 @@
                                 <div id="valdiredit"></div>
                             </div>
                         </div>
-                        <!----<legend class="no-border f-w-700 p-b-0 m-t-0 m-b-20 f-s-16 text-inverse py-3">ESTABLECIMIENTO DONDE ATIENDE</legend>
-                        <hr>
-                        <div  class="col-xl-12 col-sm-12 col-xs-12 row ">
-                            <div class="col-xl-4 col-sm-4 col-xs-4">
-                                <label for="deparacteedit">DEPARTAMENTO
-                                    <req>*</req>
-                                </label>
-                                <select class="form-control form-control-sm" id="deparacteedit" disabled>
-                                    <option selected>AMAZONAS</option>
-                                </select>
-                                <div class="hide " id="valdeparacteedit"></div>
-                            </div>
-                            <div class="col-xl-4 col-sm-4 col-xs-4">
-                                <label for="provacteedit">PROVINCIA
-                                    <req>*</req>
-                                </label>
-                                <select class="form-control form-control-sm" id="provacteedit">
-                                    <option selected value="0">SELECCIONE</option>
-                                </select>
-                                <div class="hide " id="valprovacteedit"></div>
-                            </div>
-                            <div class="col-xl-4 col-sm-4 col-xs-4">
-                                <label for="disacteedit">DISTRITO
-                                    <req>*</req>
-                                </label>
-                                <select class="form-control form-control-sm" id="disacteedit">
-                                    <option selected value="0">SELECCIONE</option>
-                                </select>
-                                <div class="hide " id="valdisacteedit"></div>
-                            </div>
-                            <div class="col-xl-8 col-sm-8 col-xs-8">
-                                <label for="estateedit">ESTABLECIMIENTO
-                                    <req>*</req>
-                                </label>
-                                <select id="estateedit" class="form-control" disabled>
-                                    <option selected value="0">SELECCIONE</option>
-                                </select>
-                                <div id="valestateedit"></div>
-                            </div>
-                        </div>------>
                         <div class="col-xl-12 col-sm-12 col-xs-12 row ">
                             <input id="iduseredit" type="text" class="form-control" hidden/>
                             <input id="idrolusedit" type="text" class="form-control" hidden/>
@@ -573,7 +460,7 @@
 <!----------------------------------------------FIN DE MODAL DE EDITAR USUARIO--------------------------------------->
 <!-- #INICIO MODAL PERMISOS -->
 <div class="modal fade" id="modal-dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Permisos usuario</h4>

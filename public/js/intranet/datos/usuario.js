@@ -166,70 +166,6 @@ $('#dis').on('change', function () {
         $('#cento').focus();
     }
 });
-$('#cento').typeahead({
-    name: 'data',
-    displayKey: 'name',
-    source: function (query, process) {
-        $.ajax({
-            url: "/cepo",
-            type: 'GET',
-            data: 'query=' + query,
-            dataType: 'JSON',
-            async: 'false',
-            success: function (data) {
-                bondObjs = {};
-                bondNames = [];
-                $.each(data, function (i, item) {
-                    bondNames.push({
-                        id: item.idCentroPoblado,
-                        name: item.Descripcion,
-                    });
-                });
-                process(bondNames);
-            }
-
-        });
-    }
-    , updater: function (item) {
-        let idcentp = $('#idcentp');
-        idcentp.val('');
-        idcentp.val(item.id);
-        return item;
-    }
-
-});
-$('#centoedit').typeahead({
-    name: 'data',
-    displayKey: 'name',
-    source: function (query, process) {
-        $.ajax({
-            url: "/cepo",
-            type: 'GET',
-            data: 'query=' + query,
-            dataType: 'JSON',
-            async: 'false',
-            success: function (data) {
-                bondObjs = {};
-                bondNames = [];
-                $.each(data, function (i, item) {
-                    bondNames.push({
-                        id: item.idCentroPoblado,
-                        name: item.Descripcion,
-                    });
-                });
-                process(bondNames);
-            }
-
-        });
-    }
-    , updater: function (item) {
-        let idcentp = $('#idcentpedit');
-        idcentp.val('');
-        idcentp.val(item.id);
-        return item;
-    }
-
-});
 $('#provacte').on('change', function () {
     distrito('disacte',this.value, 0);
     var provacte = $('#provacte');
@@ -319,54 +255,19 @@ $('#estaciv').on('change', function () {
 });
 function generarUsuario() {
 
-    var pnombre = $('#pnombre').val();
+    var nombres = $('#nombres').val();
     var appaterno = $('#appaterno').val();
     var apmaterno = $('#apmaterno').val();
-    $('#nombrecu').val(pnombre.substr(0, 1) + appaterno + apmaterno.substr(0, 1));
+    $('#nombrecu').val(nombres.substr(0, 1) + appaterno + apmaterno.substr(0, 1));
 }
 function generarUsuarioEdit() {
 
-    var pnombre = $('#pnombreedit').val();
+    var nombres = $('#nombresedit').val();
     var appaterno = $('#appaternoedit').val();
     var apmaterno = $('#apmaternoedit').val();
-    $('#nombrecuedit').val(pnombre.substr(0, 1) + appaterno + apmaterno.substr(0, 1));
+    $('#nombrecuedit').val(nombres.substr(0, 1) + appaterno + apmaterno.substr(0, 1));
 }
 
-function eess(val,iddis,idest) {
-    //bloquear();
-    var url = "/ubiess/" + iddis;
-    var arreglo;
-    var select = $('#'+val).html('');
-    var html = '<option value="0" selected="">SELECCIONE</option>';
-    $.ajax(
-        {
-            type: "GET",
-            url: url,
-            cache: false,
-            dataType: 'json',
-            data: '_token = <?php echo csrf_token() ?>',
-            success: function (data) {
-                if (data['error'] === 0) {
-                    arreglo = data['eess'];
-                    var htmla = '';
-                    for (var i = 0; i < arreglo.length; i++) {
-                        if(parseInt(arreglo[i]['idEess'])===parseInt(idest)){
-                            htmla = '<option value="' + arreglo[i]['idEess'] + '"selected>' + arreglo[i]['descripcion'] + '</option>';
-                            html = html + htmla;
-                        }else{
-                            htmla = '<option value="' + arreglo[i]['idEess'] + '">' + arreglo[i]['descripcion'] + '</option>';
-                            html = html + htmla;
-                        }
-                    }
-                    select.append(html);
-                    //desbloquear();
-                } else {
-
-                }
-            }
-
-        });
-}
 
 function enviar() {
     var cant = validarFormulario();
@@ -504,8 +405,15 @@ function eliminar(id) {
         }
     })
 }
-
+function limpiar_campos(){
+    $('#appaterno').val("");
+    $('#apmaterno').val("");
+    $('#nombres').val("");
+    $('#telefo').val("");
+    $('#fecnac').val("");
+}
 $('#tipdoc').on('change', function () {
+    limpiar_campos();
     var dni = $('#dni');
     var tipdoc = $('#validDni');
     var tipodocval = $('#validtipodoc');
@@ -519,6 +427,7 @@ $('#tipdoc').on('change', function () {
         dni.val('');
         validarCaja('tipdoc', 'validtipodoc', '', 1)
     }
+    $('#dni').focus();
 
 });
 
@@ -644,14 +553,14 @@ function validarFormulario() {
         text = 'Apellido materno correcto';
         validarCaja('apmaterno', 'valapmaterno', text, 1);
     }
-    if ($('#pnombre').val() === '') {
+    if ($('#nombres').val() === '') {
         cont++;
-        text = inicio + ' ingrese primer nombre';
-        validarCaja('pnombre', 'valpnombre', text, 0);
+        text = inicio + ' ingrese nombre';
+        validarCaja('nombres', 'valpnombre', text, 0);
     }
     else {
-        text = 'Primer nombre correcto';
-        validarCaja('pnombre', 'valpnombre', text, 1);
+        text = 'Nombre correcto';
+        validarCaja('nombres', 'valpnombre', text, 1);
     }
 
     if ($('#fecnac').val() === '') {
@@ -697,18 +606,6 @@ function validarFormulario() {
         validarCaja('dis', 'valdis', text, 0);
 
     }
-
-    if ($('#dir').val() === '') {
-        cont++;
-        text = inicio + ' ingrese direccion';
-        validarCaja('dir', 'valdir', text, 0);
-    }
-    else {
-
-        text = 'Direccion correcta';
-        validarCaja('dir', 'valdir', text, 1);
-    }
-
 
     if ($('#provacte').val() !== '0') {
         text = '';
@@ -805,14 +702,14 @@ function validarFormularioEdit() {
         text = 'Apellido materno correcto';
         validarCaja('apmaternoedit', 'valapmaternoedit', text, 1);
     }
-    if ($('#pnombreedit').val() === '') {
+    if ($('#nombresedit').val() === '') {
         cont++;
-        text = inicio + ' ingrese primer nombre';
-        validarCaja('pnombreedit', 'valpnombreedit', text, 0);
+        text = inicio + ' ingrese nombre';
+        validarCaja('nombresedit', 'valpnombreedit', text, 0);
     }
     else {
-        text = 'Primer nombre correcto';
-        validarCaja('pnombreedit', 'valpnombreedit', text, 1);
+        text = 'Nombre correcto';
+        validarCaja('nombresedit', 'valpnombreedit', text, 1);
     }
 
     if ($('#fecnacedit').val() === '') {
@@ -826,15 +723,6 @@ function validarFormularioEdit() {
         validarCaja('fecnacedit', 'valfecnacedit', text, 1);
     }
 
-    /*if ($('#telefoedit').val() === '') {
-        cont++;
-        text = inicio + ' ingrese n° de telefono';
-        validarCaja('telefoedit', 'valtelefoedit', text, 0);
-    }
-    else {
-        text = 'N° de telefono correcto';
-        validarCaja('telefoedit', 'valtelefoedit', text, 1);
-    }*/
     if ($('#deparu').val() !== '0') {
         text = 'Departamento correcto';
         validarCaja('deparu', 'valdeparu', text, 1);
@@ -898,16 +786,7 @@ function validarFormularioEdit() {
         validarCaja('disacteedit', 'valdisacteedit', text, 0);
 
     }
-    if ($('#estateedit').val() !== '0') {
-        text = 'Establecimiento correcto';
-        validarCaja('estateedit', 'valestateedit', text, 1);
-    }
-    else {
-        cont++;
-        text = inicio + ' seleccione establecimiento';
-        validarCaja('estateedit', 'valestateedit', text, 0);
 
-    }
     if ($('#nombrecuedit').val() === '') {
         cont++;
         text = inicio + ' ingrese nombre de cuenta';
@@ -948,9 +827,8 @@ $('#addUsuario').on('click',function(){
     departamento('deparacte',1);
     provincia('provacte',1,0);
     camposUserAdd();
-});
-$('#tipdoc').on('click',function(){
-$('#dni').focus();
+    getTipoDoc('tipdoc',1);
+    $('#dni').focus();
 });
 function abrilModal(id, nombre) {
     window.event.preventDefault();
@@ -1163,35 +1041,30 @@ function getEditUser(idus) {
             data: '_token = <?php echo csrf_token() ?>',
             success: function (data) {
                 var user= data['user'];
-                $('#tipdocedit').val(user['tipoDoc']);
-                $('#dniedit').val(user['numeroDoc']);
-                $('#appaternoedit').val(user['apPaterno']);
-                $('#apmaternoedit').val(user['apMaterno']);
-                $('#pnombreedit').val(user['pNombre']);
-                $('#snombreedit').val(user['sNombre']);
-                $('#fecnacedit').val(user['fecNac']);
-                $('#telefoedit').val(user['telefono']);
-                $('#diredit').val(user['direccion']);
+                //$('#tipdocedit').val(user['tipoDoc']);
+                getTipoDoc('tipdocedit',user['idTD'])
+                $('#dniedit').val(user['peNumeroDoc']);
+                $('#appaternoedit').val(user['peAPPaterno']);
+                $('#apmaternoedit').val(user['peAPMaterno']);
+                $('#nombresedit').val(user['peNombres']);
+                $('#fecnacedit').val(user['peFecNac']);
+                $('#telefoedit').val(user['peTelefono']);
+                $('#diredit').val(user['peDireccion']);
                 $('#nombrecuedit').val(user['name']);
                 $('#emailcuedit').val(user['email']);
-                $('#idcentpedit').val(user['idCentroPoblado']);
-                $('#centoedit').val(user['cenpo']);
-
+                habi_deshabi_campos_edit(true);
+                $('#tipdocedit').prop('disabled',true);
                 //ids
                 $('#iduseredit').val(user['id']);
-                $('#idpersedit').val(user['idPersona']);
+                $('#idpersedit').val(user['peId']);
                 $('#idrolusedit').val(user['idrolus']);
 
                 llenarRol('rocuedit',user['role_id']);
 
-                departamento('deparu',user['departamentoid']);
-                provincia('provu',user['departamentoid'],user['provinciaid']);
-                distrito('disu',user['provinciaid'],user['distritoid']);
+                departamento('deparu',user['depar']);
+                provincia('provu',user['depar'],user['prov']);
+                distrito('disu',user['prov'],user['dist']);
 
-                departamento('deparacteedit',user['dep']);
-                provincia('provacteedit',user['dep'],user['provate']);
-                distrito('disacteedit',user['provate'],user['disate']);
-                eess('estateedit',user['disate'],user['estab']);
             }
 
         });
@@ -1231,14 +1104,29 @@ $('#provu').on('change', function () {
     }
 });
 $('#disu').on('change', function () {
-$('#centoedit').prop('disabled',false);
-$('#centoedit').focus();
+    $('#centoedit').prop('disabled',false);
+    $('#centoedit').focus();
 });
+function habi_deshabi_campos($bool){
+    $('#apmaterno').prop('disabled',$bool);
+    $('#appaterno').prop('disabled',$bool);
+    $('#nombres').prop('disabled',$bool);
+}
+function habi_deshabi_campos_edit($bool){
+    $('#apmaternoedit').prop('disabled',$bool);
+    $('#appaternoedit').prop('disabled',$bool);
+    $('#nombresedit').prop('disabled',$bool);
+    $('#tipdocedit').prop('disabled',$bool);
+    $('#dniedit').prop('disabled',$bool);
+}
 function validDniUser() {
     event.preventDefault();
     if(validarDniExpres('enviaruser','dni','tipdoc','validDni')===0){
+        var tipdoc = $('#tipdoc').val();
         var dni = $('#dni').val();
-        var url = "/referencia/getPacDni/" + dni;
+        var persona;
+        console.log('hola');
+        var url = "/getUserDni/" + dni;
         var text;
         $.ajax(
             {
@@ -1254,28 +1142,21 @@ function validDniUser() {
                         if (usuario!==null || person!==null  ) {
                             if(usuario!==null){
                                 $('#tipdoc').prop("disabled", true);
-                                $('#dni').val(person['numeroDoc'])
-                                $('#appaterno').val(person['apPaterno'])
-                                $('#apmaterno').val(person['apMaterno'])
-                                $('#pnombre').val(person['pNombre'])
-                                $('#snombre').val(person['sNombre'])
-                                $('#fecnac').val(person['fecNac'])
-                                $('#telefo').val(person['telefono'])
-                                $('#dir').val(person['direccion'])
-                                $('#cento').val(usuario['cenpo'])
+                                $('#dni').val(person['peNumeroDoc'])
+                                $('#appaterno').val(person['peAPPaterno'])
+                                $('#apmaterno').val(person['peAPMaterno'])
+                                $('#nombres').val(person['peNombres'])
+                                $('#fecnac').val(person['peFecNac'])
+                                $('#telefo').val(person['peTelefono'])
+                                $('#dir').val(person['peDireccion'])
                                 $('#nombrecu').val(usuario['name']).prop("disabled", true);
                                 $('#emailcu').val(usuario['email']).prop("disabled", true);
 
                                 llenarRol('rocu',usuario['role_id']);
 
-                                departamento('depar',usuario['departamentoid']);
-                                provincia('prov',usuario['departamentoid'],usuario['provinciaid']);
-                                distrito('dis',usuario['provinciaid'],usuario['distritoid']);
-
-                                departamento('deparacte',usuario['dep']);
-                                provincia('provacte',usuario['dep'],usuario['provate']);
-                                distrito('disacte',usuario['provate'],usuario['disate']);
-                                eess('estate',usuario['disate'],usuario['estab']);
+                                departamento('depar',usuario['idDepartamento']);
+                                provincia('prov',usuario['idDepartamento'],usuario['prov']);
+                                distrito('dis',usuario['prov'],usuario['dist']);
 
                                 desbloquear();
                                 Swal.fire({
@@ -1289,28 +1170,23 @@ function validDniUser() {
                                 $('#enviaruser').prop("disabled", true);
                                 sit=3;
                             }else{
-                                $('#idperson').val(person['idPersona']);
+                                $('#idperson').val(person['peId']);
                                 $('#tipdoc').prop("disabled", true);
-                                $('#dni').val(person['numeroDoc']).prop("disabled", true);
-                                $('#appaterno').val(person['apPaterno']).prop("disabled", true);
-                                $('#apmaterno').val(person['apMaterno']).prop("disabled", true);
-                                $('#pnombre').val(person['pNombre']).prop("disabled", true);
-                                $('#snombre').val(person['sNombre']).prop("disabled", true);
-                                $('#fecnac').val(person['fecNac']).prop("disabled", true);
-                                $('#telefo').val(person['telefono']).prop("disabled", true);
-                                $('#dir').val(person['direccion']).prop("disabled", true);
-                                $('#cento').val(person['centrop']).prop("disabled", true);
-                                $('#fecdiag').val(person['fecExamen']).prop("disabled", true);
-                                $('#fecsinini').val(person['fecSintIni']).prop("disabled", true);
-                                $('#ref').val(person['referencia']).prop("disabled", true);
-                                departamento('depar',person['departamentoid']);
-                                provincia('prov',person['departamentoid'],person['provinciaid']);
-                                distrito('dis',person['provinciaid'],person['distritoid']);
+                                $('#dni').val(person['peNumeroDoc']).prop("disabled", true);
+                                $('#appaterno').val(person['peAPPaterno']).prop("disabled", true);
+                                $('#apmaterno').val(person['peAPMaterno']).prop("disabled", true);
+                                $('#nombres').val(person['peNombres']).prop("disabled", true);
+                                $('#fecnac').val(person['peFecNac']).prop("disabled", true);
+                                $('#telefo').val(person['peTelefono']).prop("disabled", true);
+                                $('#dir').val(person['peDireccion']).prop("disabled", true);
+                                departamento('depar',person['depa']);
+                                provincia('prov',person['depa'],person['provin']);
+                                distrito('dis',person['provin'],person['dist']);
                                 $('#depar').prop('disabled',true);
-                                var pnombre = $('#pnombre').val();
+                                var nombres = $('#nombres').val();
                                 var appaterno = $('#appaterno').val();
                                 var apmaterno = $('#apmaterno').val();
-                                $('#nombrecu').val(pnombre.substr(0, 1) + appaterno + apmaterno.substr(0, 1));
+                                $('#nombrecu').val(nombres.substr(0, 1) + appaterno + apmaterno.substr(0, 1));
                                 $('#emailcu').prop('disabled',false).val('');
                                 $('#provacte').val(0).focus();
                                 $('#disacte').val(0);
@@ -1320,7 +1196,28 @@ function validDniUser() {
                             }
 
                         }else{
-                            $('#appaterno').focus();
+                            api_consulta_doc(tipdoc,dni).then(function(data) {
+                                var usr=data['apicliente'];
+                                if(usr===null){
+                                    operacionErrorApi("");
+                                    habi_deshabi_campos(false);
+                                    $('#appaterno').focus()
+                                }else{
+                                    $('#nombres').val(usr['nombres']);
+                                    $('#appaterno').val(usr['apellidoPaterno']);
+                                    $('#apmaterno').val(usr['apellidoMaterno']);
+                                    generarUsuario();
+                                }
+                                if(usr['message']==='not found'){
+                                    var message=persona['message'];
+                                    operacionErrorApi(message);
+                                    habi_deshabi_campos(false);
+                                    $('#appaterno').focus();
+                                }
+                                //console.log(usr); // Acciones con los datos obtenidos
+                            }).catch(function(error) {
+                                //console.error(error); // Manejo de errores
+                            });
                             limpiarCaja(camposadd);
                             $('#emailcu').prop('disabled',false);
                             sit=1;
@@ -1336,6 +1233,7 @@ function validDniUser() {
             });
     }
 }
+
 function enviarUser() {
     if(validarFormulario()===0){
         Swal.fire({
@@ -1355,8 +1253,7 @@ function enviarUser() {
 
                 var appaterno = $('#appaterno').val();
                 var apmaterno = $('#apmaterno').val();
-                var pnombre = $('#pnombre').val();
-                var snombre = $('#snombre').val();
+                var nombres = $('#nombres').val();
                 var fecnac = $('#fecnac').val();
                 var telefo = $('#telefo').val();
 
@@ -1364,8 +1261,6 @@ function enviarUser() {
                 var iddis = $('#dis').val();
 
                 var dir = $('#dir').val();
-                var idcenpo = $('#idcentp').val();
-                //var cenpo = $('#cenpo').val();
 
                 //var estate = 1;
                 var nombrecu = $('#nombrecu').val();
@@ -1381,16 +1276,12 @@ function enviarUser() {
                         dni: dni,
                         appaterno: appaterno,
                         apmaterno: apmaterno,
-                        pnombre: pnombre,
-                        snombre: snombre,
+                        nombres: nombres,
                         fecnac: fecnac,
                         telefo: telefo,
                         iddis: iddis,
                         dir: dir,
                         sit: sit,
-                        idcp: idcenpo,
-                        //cenpo: cenpo,
-                        //estate: estate,
                         nombre: nombrecu,
                         correo: correo,
                         rol: rol
@@ -1440,9 +1331,6 @@ function enviarUser() {
     }
 }
 function enviarEditUser() {
-    if($('#centoedit').val()===''){
-        $('#idcentpedit').val('0');
-    }
     if(validarFormularioEdit()===0){
         Swal.fire({
             title: 'Esta seguro(a)?',
@@ -1464,8 +1352,7 @@ function enviarEditUser() {
 
                 var appaterno = $('#appaternoedit').val();
                 var apmaterno = $('#apmaternoedit').val();
-                var pnombre = $('#pnombreedit').val();
-                var snombre = $('#snombreedit').val();
+                var nombres = $('#nombresedit').val();
                 var fecnac = $('#fecnacedit').val();
                 var telefo = $('#telefoedit').val();
 
@@ -1473,9 +1360,7 @@ function enviarEditUser() {
                 var iddis = $('#disu').val();
 
                 var dir = $('#diredit').val();
-                var cenpo = $('#idcentpedit').val();
 
-                var estate = $('#estateedit').val();
                 var nombrecu = $('#nombrecuedit').val();
                 var correo = $('#emailcuedit').val();
                 var rol = $('#rocuedit').val();
@@ -1492,14 +1377,11 @@ function enviarEditUser() {
                         dni: dni,
                         appaterno: appaterno,
                         apmaterno: apmaterno,
-                        pnombre: pnombre,
-                        snombre: snombre,
+                        nombres: nombres,
                         fecnac: fecnac,
                         telefo: telefo,
                         iddis: iddis,
                         dir: dir,
-                        idcp: cenpo,
-                        estate: estate,
                         nombre: nombrecu,
                         correo: correo,
                         rol: rol

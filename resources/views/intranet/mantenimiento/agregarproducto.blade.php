@@ -165,8 +165,8 @@
                                 <hr>
                                 <a href="javascript:;" class="btn btn-danger" data-dismiss="modal"><i
                                         class="fas fa-lg fa-fw m-r-10 fa-times"></i>Cancelar</a>
-                                <button id="enviar" class="btn btn-success " title="click para agregar producto
-                    " onclick="enviar()"><i class="fas fa-lg fa-fw m-r-10 fa-save"></i>Guardar
+                                <button id="enviarprod" class="btn btn-success " title="click para agregar producto
+                    " onclick="enviarProd()"><i class="fas fa-lg fa-fw m-r-10 fa-save"></i>Guardar
                                 </button>
                             </div>
                         </div>

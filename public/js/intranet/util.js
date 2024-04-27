@@ -354,7 +354,33 @@ function limpiarCajaV2(campos) {
     }
 
 }
+function getTipoDoc(id,idtipdoc) {
+    var url = "/mantenimiento/gettipodoc";
+    var select = $('#'+id).html('');
+    var html = '<option value="0" selected="">SELECCIONE</option>';
+    $.ajax(
+        {
+            type: "GET",
+            url: url,
+            cache: false,
+            dataType: 'json',
+            data: '_token = <?php echo csrf_token() ?>',
+            success: function (data) {
+                var htmla = '';
+                for (var i = 0; i < data.length; i++) {
+                    if (parseInt(data[i]['tdId']) === parseInt(idtipdoc)) {
+                        htmla = '<option value="' + data[i]['tdId'] + '" selected>' + data[i]['tdDescCorta'] + '</option>';
+                        html = html + htmla;
+                    } else {
+                        htmla = '<option value="' + data[i]['tdId'] + '">' + data[i]['tdDescCorta'] + '</option>';
+                        html = html + htmla;
+                    }
+                }
+                select.append(html);
+            }
 
+        });
+}
 function operacionExitosa() {
     Swal.fire({
         position: 'top-end',
@@ -501,7 +527,31 @@ function departamento(id, iddepar) {
 
         });
 }
+function api_consulta_doc(tipdoc,doc){
+    var usr;
+    var url = "/mantenimiento/getapiclient/"+ tipdoc+"/" + doc;
+    var text;
+    return new Promise( function(resolve,reject){
+        $.ajax(
+            {
+                type: "GET",
+                url: url,
+                cache: false,
+                dataType: 'json',
+                data: '_token = <?php echo csrf_token() ?>',
+                success: function (data) {
+                    if (data['error'] === 0) {
+                        resolve(data);
+                    } else {
 
+                    }
+                },
+                error: function(error) {
+                    reject(error); // Rechaza la promesa con el error
+                }
+            });
+    });
+}
 function provincia(id, iddep, idprov) {
    // bloquear();
     var url = "/ubiprov/" + iddep;

@@ -13,7 +13,7 @@ class Usuario extends Model
     public $timestamps = false;
     public static function reportarUsuarios()
     {
-        $query = DB::table('users as u')->select('u.id', DB::raw('concat(p.apPaterno," ",p.apMaterno," ",p.pNombre," ",ifnull(p.sNombre,"")) as nombre'), 'u.name',
+        $query = DB::table('users as u')->select('u.id', DB::raw('concat(p.peAPPaterno," ",p.peAPMaterno," ",p.peNombres) as nombre'), 'u.name',
             'u.email', 'r.description', 'u.estado', 'u.imagen')
             ->join('persona as p', 'p.idUser', '=', 'u.id')
             ->join('role_user as ru', 'u.id', '=', 'ru.user_id')
@@ -45,33 +45,13 @@ class Usuario extends Model
     {
 
         $query = DB::table('users as u')
-            ->select('p.numeroDoc','p.tipoDoc','p.apPaterno', 'p.apMaterno','p.pNombre','p.sNombre',
-                'p.fecNac','p.telefono','p.direccion','u.email','u.name','u.id','ru.role_id','ru.id as idrolus',
-                'p.idPersona','cpd.idCentroPoblado',
-                DB::raw('case
-                        when p.idDistrito is null then dt.idDistrito
-                        when p.cPDId is null then d.idDistrito
-                        end distritoid
-                        '),
-                DB::raw('case
-                        when p.cPDId is null then pr.idProvincia
-                        when p.idDistrito is null then pc.idProvincia
-                        end provinciaid
-                        '),
-                DB::raw('case
-                        when p.cPDId is null then pr.idDepartamento
-                        when p.idDistrito is null then pc.idDepartamento
-                        end departamentoid
-                        '),
-                'd.descripcion as dist','pr.descripcion as prov','cp.Descripcion as cenpo')
+            ->select('p.peNumeroDoc','p.idTD','p.peAPPaterno', 'p.peAPMaterno','p.peNombres',
+                'p.peFecNac','p.peTelefono','p.peDireccion','u.email','u.name','u.id','ru.role_id','ru.id as idrolus',
+                'p.peId', 'd.dtId as dist','pr.idProvincia as prov','pr.idDepartamento as depar')
             ->leftjoin('persona as p', 'u.id', '=', 'p.idUser')
-            ->leftjoin('centropoblado_distrito as cpd', 'cpd.cPDId', '=', 'p.cPDId')
-            ->leftjoin('centropoblado as cp', 'cp.idCentroPoblado', '=', 'cpd.idCentroPoblado')
-            ->leftjoin('distrito as dt', 'dt.idDistrito', '=', 'cpd.idDistrito')
-            ->leftjoin('provincia as pc', 'pc.idProvincia', '=', 'dt.idProvincia')
             ->join('role_user as ru', 'u.id', '=', 'ru.user_id')
             ->join('roles as r', 'r.id', '=', 'ru.role_id')
-            ->leftjoin('distrito as d', 'p.idDistrito', '=', 'd.idDistrito')
+            ->leftjoin('distrito as d', 'p.idDt', '=', 'd.dtId')
             ->leftjoin('provincia as pr', 'pr.idProvincia', '=', 'd.idProvincia')
             ->where('u.id', '=', $id)
             ->first();
@@ -82,35 +62,15 @@ class Usuario extends Model
     {
 
         $query = DB::table('users as u')
-            ->select('p.numeroDoc','p.tipoDoc','p.apPaterno', 'p.apMaterno','p.pNombre','p.sNombre',
-                'p.fecNac','p.telefono','p.direccion','u.email','u.name','u.id','ru.role_id','ru.id as idrolus',
-                'p.idPersona',
-                DB::raw('case
-                        when p.idDistrito is null then dt.idDistrito
-                        when p.cPDId is null then d.idDistrito
-                        end distritoid
-                        '),
-                DB::raw('case
-                        when p.cPDId is null then pr.idProvincia
-                        when p.idDistrito is null then pc.idProvincia
-                        end provinciaid
-                        '),
-                DB::raw('case
-                        when p.cPDId is null then pr.idDepartamento
-                        when p.idDistrito is null then pc.idDepartamento
-                        end departamentoid
-                        '),
-                'd.descripcion as dist','pr.descripcion as prov','cp.Descripcion as cenpo')
+            ->select('p.peNumeroDoc','p.idTD','p.peAPPaterno', 'p.peAPMaterno','p.peNombres',
+                'p.peFecNac','p.peTelefono','p.peDireccion','u.email','u.name','u.id','ru.role_id','ru.id as idrolus',
+                'p.peId', 'd.dtId as dist','pr.idProvincia as prov','pr.idDepartamento')
             ->leftjoin('persona as p', 'u.id', '=', 'p.idUser')
-            ->leftjoin('centropoblado_distrito as cpd', 'cpd.cPDId', '=', 'p.cPDId')
-            ->leftjoin('centropoblado as cp', 'cp.idCentroPoblado', '=', 'cpd.idCentroPoblado')
-            ->leftjoin('distrito as dt', 'dt.idDistrito', '=', 'cpd.idDistrito')
-            ->leftjoin('provincia as pc', 'pc.idProvincia', '=', 'dt.idProvincia')
             ->join('role_user as ru', 'u.id', '=', 'ru.user_id')
             ->join('roles as r', 'r.id', '=', 'ru.role_id')
-            ->leftjoin('distrito as d', 'p.idDistrito', '=', 'd.idDistrito')
+            ->leftjoin('distrito as d', 'p.idDt', '=', 'd.dtId')
             ->leftjoin('provincia as pr', 'pr.idProvincia', '=', 'd.idProvincia')
-            ->where('p.numeroDoc', '=', $dni)
+            ->where('p.peNumeroDoc', '=', $dni)
             ->first();
         return $query;
 
