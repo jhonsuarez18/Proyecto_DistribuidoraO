@@ -79,7 +79,7 @@ class User extends Authenticatable
         $query = DB::table('users as u')
             ->select(DB::raw('count(*) as cant'))->
             join('persona as p', 'p.idUser', '=', 'u.id')
-            ->where('p.numeroDoc', '=', $dni)
+            ->where('p.peNumeroDoc', '=', $dni)
             ->get();
         return $query;
     }
