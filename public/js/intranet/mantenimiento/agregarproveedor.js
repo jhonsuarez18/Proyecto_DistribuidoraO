@@ -296,8 +296,8 @@ function enviarProv() {
                                 if(parseInt($('#idvi').val())===1){
                                     redirect('/transacciones/compras');
                                 }else{
-                                    limpiarCaja(camposadd);
-                                    closeModal('modal_dialog_add_proveedor')
+                                    //limpiarCaja(camposadd);
+                                    closeModal('modal-dialog_add_proveedor')
                                     tablaProveedor();
                                     iniciarcampos();
                                 }

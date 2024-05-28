@@ -116,7 +116,7 @@
                                         </label>
                                         <div class="input-group m-b-10">
                                             <input id="conteni" type="number" class="form-control form-control-sm" autocomplete="off"
-                                                   onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                                    onkeyup="javascript:this.value=this.value.toUpperCase();"
                                             />
                                             <input id="unidm" type="text" class="form-control form-control-sm" autocomplete="off"
                                                    disabled onkeyup="javascript:this.value=this.value.toUpperCase();"
@@ -132,7 +132,7 @@
                                             <req>*</req>
                                         </label>
                                         <input id="precioc" type="number" class="form-control form-control-sm" autocomplete="off"
-                                               onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                                onkeyup="javascript:this.value=this.value.toUpperCase();"
                                         />
                                         <div class="hide " id="validprecioc"></div>
                                     </div>
@@ -143,7 +143,7 @@
                                             <req>*</req>
                                         </label>
                                         <input id="preciov" type="number" class="form-control form-control-sm" autocomplete="off"
-                                               onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                                onkeyup="javascript:this.value=this.value.toUpperCase();"
                                         />
                                         <div class="hide " id="validpreciov"></div>
                                     </div>
@@ -154,7 +154,7 @@
                                             <req>*</req>
                                         </label>
                                         <input id="stock" value="0" type="number" class="form-control form-control-sm" autocomplete="off"
-                                               onchange="valNumMeta()" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                                onkeyup="javascript:this.value=this.value.toUpperCase();"
                                         />
                                         <div class="hide " id="validstock"></div>
                                     </div>
