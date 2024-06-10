@@ -225,7 +225,7 @@
         </div>
         <div class="col-xl-12 ">
             <div class="modal fade" id="modal-dialog-edit_proveedor">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">EDITAR PROVEEDOR</h4>

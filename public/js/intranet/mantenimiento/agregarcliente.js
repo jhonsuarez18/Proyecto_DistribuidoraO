@@ -807,7 +807,13 @@ function tablaClientes(){
 
                 }
             },
-            {data: 'peTelefono', name: 'peTelefono'},
+            {
+                data: function (row) {
+                    return row.peTelefono === null ? '<span class="text-black-50">--------</span>' :  '<span class="text-black-50">' + row.peTelefono+ '</span>';
+
+                }
+            },
+            //{data: 'peTelefono', name: 'peTelefono'},
             {data: 'tdDescCorta', name: 'tdDescCorta'},
             {data: 'clFecCrea', name: 'clFecCrea'},
             {

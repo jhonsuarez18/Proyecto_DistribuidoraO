@@ -25,13 +25,16 @@
 <script src="../assets/plugins/datatables.net/js/vfs_fonts.js"></script>
 <script src="../assets/plugins/datatables.net/js/buttons.html5.min.js"></script>
 <script src="../assets/plugins/datatables.net/js/buttons.print.min.js"></script>
-<meta name="csrf-token" content="{{ csrf_token() }}"/>
+<meta name="csrf-token" content="{{ csrf_token()}}"/>
 <style>
     req {
         color: red;
     }
 
 </style>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.js">
+</script>
 <br>
 <br>
 <div id="response">
@@ -421,6 +424,7 @@
 <script>
     $.getScript('../assets/plugins/sweetalert/dist/sweetalert.min.js').done(function () {
         $.when(
+            $.getScript('../assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js'),
             $.getScript('../js/intranet/util.js'),
             $.getScript('../js/intranet/mantenimiento/agregarcliente.js'),
             $.Deferred(function (deferred) {

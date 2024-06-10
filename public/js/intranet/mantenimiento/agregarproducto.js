@@ -278,7 +278,6 @@ function presentacionEdit(id) {
         });
 }
 function enviarProd() {
-    console.log('hola');
     if (validarFormulario() === 0) {
         Swal.fire({
             title: 'Esta seguro(a)?',
@@ -326,10 +325,8 @@ function enviarProd() {
                                     timer: 3000
                                 });
                                 if(parseInt($('#idvi').val())===1){
-                                    console.log('hola desde compras');
                                     redirect('/transacciones/compras');
                                 }else{
-                                    console.log('hola desde producto')
                                     //limpiarCaja(camposadd);
                                     closeModal('modal-dialog_add_producto')
                                     tablaProducto();

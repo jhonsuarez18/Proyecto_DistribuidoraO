@@ -2,7 +2,6 @@ var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 $(document).ready(function () {
     $('.modal-backdrop').remove();
     if(parseInt($('#idvi').val())===1){
-        console.log('hola estas viniendo desde compras')
         $('#modal-dialog_add_proveedor').modal({show: true, backdrop:'static', keyboard: false});
         //camposadd=[];
         //camposUserAdd();
@@ -30,7 +29,6 @@ function valRuc() {
                 success: function (data) {
                     if (data['error'] === 0) {
                         var proveedor = data['proveedor'];
-                        console.log(proveedor);
                             if(proveedor!==null){
                                 //$('#tipdoccl').prop("disabled", true);
                                 $('#razons').val(proveedor['pvRazonS'])
@@ -299,9 +297,9 @@ function enviarProv() {
                                     //limpiarCaja(camposadd);
                                     closeModal('modal-dialog_add_proveedor')
                                     tablaProveedor();
-                                    iniciarcampos();
+                                    //iniciarcampos();
                                 }
-                                location.reload();
+                                //location.reload();
                             } else {
                                 Swal.fire({
                                     position: 'top-end',
@@ -420,7 +418,7 @@ function tablaProveedor(){
         ],
             columnDefs: [
                 {"targets": 0, "width": "2%", "className": "text-center"},
-                {"targets": 1, "width": "4%", "className": "text-center"},
+                {"targets": 1, "width": "4%", "className": "text-left"},
                 {"targets": 2, "width": "4%", "className": "text-center"},
                 {"targets": 3, "width": "4%", "className": "text-center"},
                 {"targets": 4, "width": "4%", "className": "text-center"},
@@ -430,8 +428,20 @@ function tablaProveedor(){
             columns: [
                 {data: 'pvRuc', name: 'pvRuc'},
                 {data: 'pvRazonS', name: 'pvRazonS'},
-                {data: 'pvTelefono', name: 'pvTelefono'},
-                {data: 'pvDireccion', name: 'pvDireccion'},
+                //{data: 'pvTelefono', name: 'pvTelefono'},
+                //{data: 'pvDireccion', name: 'pvDireccion'},
+                {
+                    data: function (row) {
+                        return row.pvTelefono === null ? '<span class="text-black-50">--------</span>' :  '<span class="text-black-50">' + row.pvTelefono+ '</span>';
+
+                    }
+                },
+                {
+                    data: function (row) {
+                        return row.pvDireccion === null ? '<span class="text-black-50">--------</span>' :  '<span class="text-black-50">' + row.pvDireccion+ '</span>';
+
+                    }
+                },
                 {
                     data: function (row) {
                         return parseInt(row.pvEst) === 0 ? '<span class="text-danger">ELIMINADO</span>' : '<span class="text-success">ACTIVO</span>'
